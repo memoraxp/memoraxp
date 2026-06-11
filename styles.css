@@ -1239,8 +1239,7 @@ h3 {
   padding: clamp(20px, 2.6vw, 28px);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
-  background: rgba(10, 9, 15, 0.58);
-  backdrop-filter: blur(8px);
+  background: rgba(10, 9, 15, 0.82);
   text-align: center;
 }
 
@@ -1255,17 +1254,145 @@ h3 {
 .biplano-actions {
   display: grid;
   width: min(100%, 430px);
-  gap: 10px;
+  gap: 0;
   margin: 8px auto 0;
   padding-top: 12px;
+  text-align: left;
 }
 
-.biplano-actions .login-button {
+.biplano-expandable {
   width: 100%;
-  min-height: 52px;
-  white-space: normal;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.biplano-expandable:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.biplano-menu-toggle {
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border: 0;
+  border-radius: 0;
+  padding: 14px 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.84);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 850;
   line-height: 1.18;
-  text-align: center;
+  text-align: left;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+  transition: color 160ms ease;
+}
+
+.biplano-menu-toggle:hover,
+.biplano-menu-toggle:focus-visible,
+.biplano-menu-toggle[aria-expanded="true"] {
+  color: var(--white);
+}
+
+.biplano-menu-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.46);
+  outline-offset: 4px;
+}
+
+.biplano-menu-toggle span:first-child {
+  min-width: 0;
+}
+
+.biplano-menu-arrow {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  margin-right: 3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.biplano-menu-toggle[aria-expanded="true"] .biplano-menu-arrow {
+  transform: rotate(225deg);
+}
+
+.biplano-menu-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.94rem;
+  line-height: 1.45;
+  opacity: 0;
+  overflow: hidden;
+  transition: grid-template-rows 260ms ease, opacity 200ms ease, visibility 260ms ease;
+  visibility: hidden;
+}
+
+.biplano-menu-toggle[aria-expanded="true"] + .biplano-menu-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+}
+
+.biplano-menu-panel > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.biplano-menu-panel > :last-child {
+  margin-bottom: 0;
+}
+
+.biplano-menu-content {
+  display: grid;
+  gap: 12px;
+  padding: 2px 0 16px;
+}
+
+.biplano-menu-content h4,
+.biplano-menu-content h5,
+.biplano-menu-content p {
+  margin: 0;
+}
+
+.biplano-menu-content h4 {
+  color: var(--white);
+  font-size: 1rem;
+  line-height: 1.24;
+}
+
+.biplano-menu-content h5 {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.92rem;
+  line-height: 1.24;
+}
+
+.biplano-menu-content p {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.biplano-interview strong {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.biplano-interview-note {
+  margin-top: 10px;
+  font-weight: 750;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .biplano-menu-panel,
+  .biplano-menu-arrow {
+    transition: none;
+  }
 }
 
 .biplano-coaster p {
