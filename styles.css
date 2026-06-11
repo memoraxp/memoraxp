@@ -1193,6 +1193,16 @@ h3 {
   white-space: normal;
 }
 
+.biplano-title-image-wrap {
+  width: min(100%, 860px);
+}
+
+.biplano-title-image {
+  width: min(100%, 720px);
+  margin: 0 auto;
+  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.28));
+}
+
 .biplano-album-copy {
   display: grid;
   max-width: 790px;
@@ -1378,12 +1388,172 @@ h3 {
   line-height: 1.55;
 }
 
+.biplano-profile {
+  gap: 13px;
+}
+
+.biplano-profile-photo {
+  width: min(100%, 178px);
+  aspect-ratio: 1;
+  justify-self: center;
+  margin-bottom: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+}
+
+.biplano-profile-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .biplano-spotify-embed {
   display: block;
   width: 100%;
   max-width: 100%;
   border: 0;
   border-radius: 12px;
+}
+
+.biplano-radio-player {
+  gap: 14px;
+}
+
+.biplano-radio-now {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.biplano-radio-now span,
+.biplano-radio-now small,
+.biplano-radio-time {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.biplano-radio-now span {
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.biplano-radio-now strong {
+  color: var(--white);
+  font-size: 1.08rem;
+  line-height: 1.2;
+}
+
+.biplano-radio-now small {
+  font-size: 0.82rem;
+}
+
+.biplano-radio-controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.biplano-radio-control,
+.biplano-radio-tracklist button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.86);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 800;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.biplano-radio-control {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  padding: 10px;
+}
+
+.biplano-radio-icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.biplano-radio-icon-play,
+.biplano-radio-control[data-radio-action="prev"] .biplano-radio-icon,
+.biplano-radio-control[data-radio-action="next"] .biplano-radio-icon {
+  fill: currentColor;
+}
+
+.biplano-radio-icon-pause,
+.biplano-radio-play.is-playing .biplano-radio-icon-play {
+  display: none;
+}
+
+.biplano-radio-play.is-playing .biplano-radio-icon-pause {
+  display: block;
+}
+
+.biplano-radio-control:hover,
+.biplano-radio-control:focus-visible,
+.biplano-radio-control.is-active,
+.biplano-radio-tracklist button:hover,
+.biplano-radio-tracklist button:focus-visible,
+.biplano-radio-tracklist button.is-current {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--white);
+  outline: none;
+}
+
+.biplano-radio-play {
+  background: rgba(228, 28, 62, 0.32);
+}
+
+.biplano-radio-progress {
+  display: grid;
+  gap: 6px;
+}
+
+.biplano-radio-progress input {
+  width: 100%;
+  accent-color: var(--brand);
+}
+
+.biplano-radio-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.biplano-radio-tracklist {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.biplano-radio-tracklist button {
+  width: 100%;
+  min-height: 38px;
+  padding: 9px 12px;
+  text-align: left;
 }
 
 .biplano-interview strong {
@@ -1451,5 +1621,9 @@ h3 {
 
   .biplano-resource {
     min-height: 0;
+  }
+
+  .biplano-radio-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
