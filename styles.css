@@ -1379,6 +1379,7 @@ h3 {
 }
 
 .biplano-spotify-embed {
+  display: block;
   width: 100%;
   max-width: 100%;
   border: 0;

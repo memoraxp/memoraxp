@@ -466,6 +466,14 @@
         panel.style.maxHeight = "0px";
       };
 
+      document.querySelectorAll(".biplano-menu-panel").forEach((panel) => {
+        panel.addEventListener("transitionend", (event) => {
+          if (event.propertyName === "max-height" && panel.classList.contains("is-open")) {
+            panel.style.maxHeight = "none";
+          }
+        });
+      });
+
       document.querySelectorAll(".biplano-menu-toggle").forEach((toggle) => {
         toggle.addEventListener("click", () => {
           const panel = document.getElementById(toggle.getAttribute("aria-controls"));
@@ -483,9 +491,19 @@
         });
       });
 
+      document.querySelectorAll(".biplano-menu-panel iframe").forEach((frame) => {
+        frame.addEventListener("load", () => {
+          const panel = frame.closest(".biplano-menu-panel");
+
+          if (panel?.classList.contains("is-open") && panel.style.maxHeight !== "none") {
+            panel.style.maxHeight = `${panel.scrollHeight}px`;
+          }
+        });
+      });
+
       window.addEventListener("resize", () => {
         document.querySelectorAll(".biplano-menu-panel.is-open").forEach((panel) => {
-          panel.style.maxHeight = `${panel.scrollHeight}px`;
+          panel.style.maxHeight = "none";
         });
       });
     </script>
