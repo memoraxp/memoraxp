@@ -638,6 +638,10 @@ h3 {
   padding-bottom: 54px;
 }
 
+.edition-mobile-nav {
+  display: none;
+}
+
 .edition-track {
   display: grid;
 }
@@ -1078,17 +1082,96 @@ h3 {
   }
 
   .edition-carousel {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
     padding-inline: 0;
     padding-bottom: 0;
+  }
+
+  .edition-mobile-nav {
+    position: sticky;
+    top: 72px;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    margin: 0 0 22px;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 12px;
+    background: rgba(23, 20, 25, 0.76);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(16px);
+  }
+
+  .edition-mobile-option {
+    display: inline-flex;
+    min-width: 0;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.78);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1.12;
+    text-align: center;
+    text-transform: uppercase;
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+
+  .edition-mobile-option span {
+    flex: none;
+    color: var(--honey);
+    font-size: 0.68rem;
+  }
+
+  .edition-mobile-option.is-active {
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink);
+  }
+
+  .edition-mobile-option.is-active span {
+    color: var(--brand-dark);
+  }
+
+  .edition-mobile-option:focus-visible {
+    outline: 2px solid rgba(255, 177, 27, 0.92);
+    outline-offset: 2px;
+  }
+
+  .edition-mobile-option:hover {
+    transform: translateY(-1px);
+  }
+
+  .edition-track {
+    overflow: hidden;
+  }
+
+  .edition-slide {
+    padding-inline: 0;
   }
 
   .edition-carousel-controls {
     position: static;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 28px;
+    justify-content: space-between;
+    gap: 8px;
+    width: min(100%, 210px);
+    margin: 24px auto 0;
+    padding: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(23, 20, 25, 0.54);
     pointer-events: auto;
   }
 
@@ -1096,6 +1179,25 @@ h3 {
   .edition-counter {
     position: static;
     transform: none;
+  }
+
+  .edition-arrow {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .edition-arrow span {
+    margin-top: -2px;
+    font-size: 2rem;
+  }
+
+  .edition-counter {
+    min-width: auto;
+    border: 0;
+    padding: 0;
+    background: transparent;
   }
 
   .edition-arrow:hover,

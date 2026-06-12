@@ -254,6 +254,16 @@
       <section class="xp-band editions-band" id="edicoes" aria-label="Edições Memora Music" data-active-edition="toninho">
         <div class="section-inner editions-shell">
           <div class="edition-carousel" data-edition-carousel>
+            <div class="edition-mobile-nav" aria-label="Escolher edicao">
+              <button class="edition-mobile-option is-active" type="button" aria-pressed="true" data-edition-jump>
+                <span>01</span>
+                Toninho Borbo
+              </button>
+              <button class="edition-mobile-option" type="button" aria-pressed="false" data-edition-jump>
+                <span>02</span>
+                Fourkaos
+              </button>
+            </div>
             <div class="edition-track" data-edition-track>
               <article class="edition-slide is-active" data-edition-slide="toninho" aria-labelledby="toninho-title" aria-hidden="false">
                 <div class="xp-layout">
@@ -347,6 +357,7 @@
         const slides = Array.from(carousel.querySelectorAll("[data-edition-slide]"));
         const previousButton = carousel.querySelector("[data-edition-prev]");
         const nextButton = carousel.querySelector("[data-edition-next]");
+        const jumpButtons = Array.from(carousel.querySelectorAll("[data-edition-jump]"));
         const currentIndicator = carousel.querySelector("[data-edition-current]");
         const totalIndicator = carousel.querySelector("[data-edition-total]");
         let activeIndex = 0;
@@ -384,6 +395,12 @@
             slide.setAttribute("aria-hidden", String(!isActive));
             slide.toggleAttribute("inert", !isActive);
           });
+
+          jumpButtons.forEach((button, index) => {
+            const isActive = index === nextIndex;
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-pressed", String(isActive));
+          });
         };
 
         const setActiveSlide = (nextIndex, direction = "next") => {
@@ -414,6 +431,12 @@
 
         previousButton?.addEventListener("click", () => setActiveSlide(activeIndex - 1, "previous"));
         nextButton?.addEventListener("click", () => setActiveSlide(activeIndex + 1, "next"));
+        jumpButtons.forEach((button, index) => {
+          button.addEventListener("click", () => {
+            const direction = index >= activeIndex ? "next" : "previous";
+            setActiveSlide(index, direction);
+          });
+        });
 
         carousel.addEventListener("keydown", (event) => {
           if (event.key === "ArrowLeft") {
