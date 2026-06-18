@@ -117,14 +117,17 @@
     return value && value !== "demo" ? value : "";
   };
 
-  const profileFromSearch = (search = window.location.search) => {
+  const profileFromSearch = (search = window.location.search, fallback = demoProfile) => {
     const params = new URLSearchParams(search);
+    const instagram_id = params.get("instagram_id") || params.get("id");
+
+    if (!instagram_id && !fallback) return null;
 
     return {
-      instagram_id: params.get("instagram_id") || params.get("id") || demoProfile.instagram_id,
-      instagram_username: params.get("instagram_username") || params.get("username") || demoProfile.instagram_username,
-      display_name: params.get("display_name") || params.get("name") || demoProfile.display_name,
-      avatar_url: params.get("avatar_url") || demoProfile.avatar_url,
+      instagram_id: instagram_id || fallback.instagram_id,
+      instagram_username: params.get("instagram_username") || params.get("username") || fallback.instagram_username,
+      display_name: params.get("display_name") || params.get("name") || fallback.display_name,
+      avatar_url: params.get("avatar_url") || fallback.avatar_url,
     };
   };
 
@@ -231,28 +234,55 @@
     };
   };
 
-  const loginWithInstagram = (options = {}) => {
+  const getPendingNextUrl = () => localStorage.getItem(PENDING_NEXT_KEY) || window.location.href.split("#")[0];
+
+  const getAuthPageUrl = (nextUrl = getPendingNextUrl(), tokenCode = localStorage.getItem(PENDING_TOKEN_KEY)) => {
+    const target = new URL(siteUrl("auth/instagram/"));
+    if (nextUrl) target.searchParams.set("next", nextUrl);
+    if (tokenCode) target.searchParams.set("token_code", tokenCode);
+    return target.href;
+  };
+
+  const startInstagramOAuth = (options = {}) => {
     const pendingToken = options.tokenCode || localStorage.getItem(PENDING_TOKEN_KEY);
-    const nextUrl = options.next || localStorage.getItem(PENDING_NEXT_KEY) || window.location.href;
+    const nextUrl = options.next || getPendingNextUrl();
     const oauthStartUrl = getOAuthStartUrl();
 
-    if (oauthStartUrl) {
-      setPendingActivation(pendingToken, nextUrl);
-      const target = new URL(oauthStartUrl, window.location.href);
-      target.searchParams.set("next", nextUrl);
-      if (pendingToken) target.searchParams.set("token_code", pendingToken);
-      window.location.assign(target.href);
-      return { status: "redirecting" };
+    setPendingActivation(pendingToken, nextUrl);
+
+    if (!oauthStartUrl) {
+      return { status: "missing_oauth_config" };
     }
 
-    const user = createOrUpdateUser(options.profile || profileFromSearch());
-    const activation = pendingToken ? activateToken(pendingToken) : null;
+    const target = new URL(oauthStartUrl, window.location.href);
+    target.searchParams.set("next", nextUrl);
+    if (pendingToken) target.searchParams.set("token_code", pendingToken);
+    window.location.assign(target.href);
+    return { status: "redirecting" };
+  };
 
-    if (options.redirect) {
-      window.location.assign(nextUrl);
+  const goToInstagramAuth = (options = {}) => {
+    const pendingToken = options.tokenCode || localStorage.getItem(PENDING_TOKEN_KEY);
+    const nextUrl = options.next || getPendingNextUrl();
+    setPendingActivation(pendingToken, nextUrl);
+    window.location.assign(getAuthPageUrl(nextUrl, pendingToken));
+    return { status: "auth_screen" };
+  };
+
+  const loginWithInstagram = (options = {}) => {
+    if (options.profile) {
+      const user = createOrUpdateUser(options.profile);
+      const pendingToken = options.tokenCode || localStorage.getItem(PENDING_TOKEN_KEY);
+      const activation = pendingToken ? activateToken(pendingToken) : null;
+
+      if (options.redirect) {
+        window.location.assign(options.next || getPendingNextUrl());
+      }
+
+      return { status: "logged_in", user, activation };
     }
 
-    return { status: "logged_in", user, activation };
+    return goToInstagramAuth(options);
   };
 
   const renderAccessShell = (container, content) => {
@@ -302,7 +332,7 @@
             <div><dt>Token</dt><dd>${escapeHtml(token.token_number)}</dd></div>
           </dl>
           <div class="memora-access-actions">
-            <button class="primary-button" type="button" data-memora-login data-memora-token="${escapeHtml(token.token_code)}">Login com Instagram</button>
+            <button class="primary-button" type="button" data-memora-login data-memora-token="${escapeHtml(token.token_code)}" data-memora-next="${escapeHtml(window.location.href)}">Login com Instagram</button>
           </div>
         `
       );
@@ -379,13 +409,67 @@
     if (main) renderAccessShell(main, deniedContent(access.edition));
   };
 
+  const renderInstagramAuthPage = (container) => {
+    const params = new URLSearchParams(window.location.search);
+    const tokenCode = params.get("token_code") || localStorage.getItem(PENDING_TOKEN_KEY);
+    const nextUrl = params.get("next") || getPendingNextUrl();
+    const oauthStartUrl = getOAuthStartUrl();
+
+    setPendingActivation(tokenCode, nextUrl);
+
+    renderAccessShell(
+      container,
+      `
+        <p class="eyebrow">Login Instagram</p>
+        <h1>Conectar Memora ID</h1>
+        <p>Entre com Instagram para criar ou atualizar seu user Memora e vincular tokens físicos ao seu perfil.</p>
+        <dl class="memora-access-meta">
+          <div><dt>Memora ID</dt><dd>users.id</dd></div>
+          <div><dt>Login</dt><dd>Instagram</dd></div>
+          <div><dt>Token</dt><dd>${escapeHtml(tokenCode ? tokenCode.split("-")[0] : "pendente")}</dd></div>
+        </dl>
+        <p class="memora-access-note" data-memora-auth-message>
+          ${
+            oauthStartUrl
+              ? "Você será encaminhado para a autenticação segura do Instagram."
+              : "OAuth Instagram ainda não configurado: defina o endpoint backend em memora-instagram-oauth-start para ativar login real em produção."
+          }
+        </p>
+        <div class="memora-access-actions">
+          <button class="primary-button" type="button" data-memora-start-oauth>Entrar com Instagram</button>
+          <button class="secondary-button" type="button" data-memora-demo-login>Usar login de teste</button>
+        </div>
+      `
+    );
+
+    bindAuthStartButtons(container);
+    bindDemoLoginButtons(container);
+  };
+
   const renderAuthCallback = (container) => {
     const params = new URLSearchParams(window.location.search);
     const storedNextUrl = localStorage.getItem(PENDING_NEXT_KEY);
-    const user = createOrUpdateUser(profileFromSearch());
+    const profile = profileFromSearch(window.location.search, null);
     const tokenCode = params.get("token_code") || localStorage.getItem(PENDING_TOKEN_KEY);
-    const activation = tokenCode ? activateToken(tokenCode) : null;
     const nextUrl = params.get("next") || storedNextUrl || siteUrl("index.html#edicoes");
+
+    if (!profile) {
+      renderAccessShell(
+        container,
+        `
+          <p class="eyebrow">Callback Instagram</p>
+          <h1>Dados pendentes</h1>
+          <p>O retorno chegou sem os dados do Instagram. O backend precisa trocar o código OAuth pelo perfil e redirecionar para cá com instagram_id, instagram_username, display_name e avatar_url.</p>
+          <div class="memora-access-actions">
+            <a class="primary-button" href="${getAuthPageUrl(nextUrl, tokenCode)}">Voltar ao login</a>
+          </div>
+        `
+      );
+      return;
+    }
+
+    const user = createOrUpdateUser(profile);
+    const activation = tokenCode ? activateToken(tokenCode) : null;
 
     renderAccessShell(
       container,
@@ -399,6 +483,40 @@
     window.setTimeout(() => window.location.assign(nextUrl), 800);
   };
 
+  function bindAuthStartButtons(scope = document) {
+    scope.querySelectorAll("[data-memora-start-oauth]").forEach((button) => {
+      if (button.dataset.memoraStartOauthBound === "true") return;
+      button.dataset.memoraStartOauthBound = "true";
+      button.addEventListener("click", () => {
+        const result = startInstagramOAuth();
+        if (result.status !== "missing_oauth_config") return;
+
+        const message = scope.querySelector("[data-memora-auth-message]");
+        if (message) {
+          message.textContent = "Ainda falta conectar o backend OAuth da Meta. Em GitHub Pages puro não dá para trocar o code do Instagram por access token com segurança.";
+        }
+      });
+    });
+  }
+
+  function bindDemoLoginButtons(scope = document) {
+    scope.querySelectorAll("[data-memora-demo-login]").forEach((button) => {
+      if (button.dataset.memoraDemoLoginBound === "true") return;
+      button.dataset.memoraDemoLoginBound = "true";
+      button.addEventListener("click", () => {
+        const tokenCode = localStorage.getItem(PENDING_TOKEN_KEY);
+        const nextUrl = getPendingNextUrl();
+        const target = new URL(siteUrl("auth/instagram/callback/"));
+        target.searchParams.set("next", nextUrl);
+        target.searchParams.set("instagram_id", demoProfile.instagram_id);
+        target.searchParams.set("instagram_username", demoProfile.instagram_username);
+        target.searchParams.set("display_name", demoProfile.display_name);
+        if (tokenCode) target.searchParams.set("token_code", tokenCode);
+        window.location.assign(target.href);
+      });
+    });
+  }
+
   function bindLoginButtons(scope = document) {
     scope.querySelectorAll("[data-memora-login]").forEach((button) => {
       if (button.dataset.memoraLoginBound === "true") return;
@@ -408,15 +526,7 @@
 
         const tokenCode = button.dataset.memoraToken || localStorage.getItem(PENDING_TOKEN_KEY);
         const nextUrl = button.dataset.memoraNext || localStorage.getItem(PENDING_NEXT_KEY) || window.location.href.split("#")[0];
-        if (tokenCode) setPendingActivation(tokenCode, nextUrl);
-
-        loginWithInstagram({ tokenCode, next: nextUrl, redirect: false });
-        updateLoginLabels();
-        renderCurrentRoute();
-
-        if (window.location.hash === "#login") {
-          history.replaceState(null, "", siteUrl("index.html#top"));
-        }
+        goToInstagramAuth({ tokenCode, next: nextUrl });
       });
     });
   }
@@ -432,6 +542,7 @@
   };
 
   const renderCurrentRoute = () => {
+    document.querySelectorAll("[data-memora-auth-start]").forEach(renderInstagramAuthPage);
     document.querySelectorAll("[data-memora-activation]").forEach(renderActivationPage);
     document.querySelectorAll("[data-memora-edition-gate]").forEach(renderEditionGate);
     document.querySelectorAll("[data-memora-auth-callback]").forEach(renderAuthCallback);
@@ -455,5 +566,6 @@
     loginWithInstagram,
     saveState,
     siteUrl,
+    startInstagramOAuth,
   };
 })();
