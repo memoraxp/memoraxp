@@ -1,0 +1,134 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memora ID | Minha Colmeia</title>
+    <meta name="description" content="Área interna mockada do colecionador Memora, com Colmeia, tokens, Difusora, updates e recursos centrais.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/memora-id.css">
+  </head>
+  <body class="memora-id-page">
+    <header class="site-header memora-id-header" aria-label="Navegação do Memora ID">
+      <a class="brand" href="index.html#top" aria-label="Memora"><img src="assets/pdf-img-000.png" alt="Memora"></a>
+      <nav class="nav-links" aria-label="Seções do Memora ID">
+        <a href="#colmeia">Colmeia</a>
+        <a href="#difusora">Difusora</a>
+        <a href="#updates">Updates</a>
+      </nav>
+      <div class="header-actions">
+        <a class="header-cta" href="index.html#edicoes">Edições</a>
+        <a class="header-cta login-cta" href="index.html#login">Login</a>
+      </div>
+    </header>
+
+    <div class="memora-id-profile-dock" data-profile-dock>
+      <aside class="memora-id-profile-menu" id="memora-id-profile-menu" data-profile-menu hidden>
+        <div class="section-inner memora-id-profile-menu-inner">
+          <div class="memora-id-profile">
+            <div class="memora-id-avatar-wrap"><img data-profile-avatar src="assets/avatar.png" alt="Avatar do colecionador Arthur"></div>
+            <div>
+              <p class="eyebrow">Memora ID</p>
+              <h2 data-profile-name>Arthur</h2>
+              <p class="memora-id-handle" data-profile-handle>@arthur.memora</p>
+              <p class="memora-id-contact" data-profile-contact><span>Instagram @arthurmina</span><span>WhatsApp: (83) 999139300</span></p>
+              <p class="memora-id-role" data-profile-role>Colecionador de experiências desde 29 de Janeiro de 2026</p>
+              <label class="memora-id-contact-share">
+                <span>Tornar minhas informações de contato visíveis para outros colecionadores</span>
+                <input type="checkbox" role="switch" name="share-contact-info" aria-label="Tornar minhas informações de contato visíveis para outros colecionadores">
+                <span class="memora-id-toggle" aria-hidden="true"></span>
+              </label>
+            </div>
+          </div>
+          <dl class="memora-id-stats" aria-label="Métricas do perfil" data-profile-stats></dl>
+        </div>
+      </aside>
+      <div class="memora-id-profile-trigger-wrap">
+        <button class="header-cta memora-id-profile-trigger" type="button" data-profile-toggle aria-expanded="false" aria-controls="memora-id-profile-menu">Perfil</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="memora-id-hero" aria-labelledby="memora-id-title">
+        <div class="section-inner memora-id-hero-inner">
+          <h1 class="memora-id-sr-only" id="memora-id-title">Memora ID</h1>
+        </div>
+      </section>
+
+      <section class="memora-id-shell" id="colmeia" aria-labelledby="hive-id-title">
+        <div class="section-inner">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">minha coleção</p>
+            <h2 id="hive-id-title">Colmeia</h2>
+          </div>
+          <div class="memora-id-hive-layout">
+            <div class="memora-id-hive-stage" aria-label="Favos da Colmeia Memora">
+              <div class="memora-id-hive-viewport" data-hive-viewport>
+                <div class="memora-id-hive-track" data-token-grid>
+                  <a class="memora-id-honeycomb-cell is-active" href="edicao-aura.html" data-token-index="0" aria-label="Abrir edição #1 - Aura" aria-current="true">
+                    <img src="assets/MC1.png" alt="MC1">
+                  </a>
+                  <a class="memora-id-honeycomb-cell" href="edicao-distance-and-belief.html" data-token-index="1" aria-label="Abrir edição #2 - Distance And Belief">
+                    <img src="assets/MC2.png" alt="MC2">
+                  </a>
+                  <a class="memora-id-honeycomb-cell" href="edicao-fourkaos.html" data-token-index="2" aria-label="Abrir edição #3 - Fourkaos">
+                    <img src="assets/MC3.png" alt="MC3">
+                  </a>
+                  <a class="memora-id-honeycomb-cell" href="edicao-toninho-borbo-biplano.html" data-token-index="3" aria-label="Abrir edição #4 - Toninho Borbo | Biplano">
+                    <img src="assets/MC4.png" alt="MC4">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="memora-id-hive-controls">
+              <button class="memora-id-icon-button" type="button" data-token-prev aria-label="Favo anterior"><span aria-hidden="true">&lsaquo;</span></button>
+              <span data-token-counter>1 / 4</span>
+              <button class="memora-id-icon-button" type="button" data-token-next aria-label="Proximo favo"><span aria-hidden="true">&rsaquo;</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="memora-id-band memora-id-feed-band" id="difusora" aria-labelledby="difusora-title">
+        <div class="section-inner memora-id-two-column">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">sinal aberto</p>
+            <h2 id="difusora-title">Difusora</h2>
+            <p>Um feed editorial simples para novidades do ecossistema Memora e comunicados de realizadores.</p>
+          </div>
+          <div class="memora-id-feed" data-difusora-feed></div>
+        </div>
+      </section>
+
+      <section class="memora-id-shell" id="updates" aria-labelledby="updates-title">
+        <div class="section-inner memora-id-two-column memora-id-updates-layout">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">jornada pessoal</p>
+            <h2 id="updates-title">Updates</h2>
+            <p>Atualizações mockadas da experiência do colecionador, separadas do feed público.</p>
+          </div>
+          <ol class="memora-id-timeline" data-updates-list></ol>
+        </div>
+      </section>
+
+   
+
+    </main>
+
+    <div class="memora-id-modal" data-mock-modal hidden>
+      <div class="memora-id-modal-backdrop" data-modal-close></div>
+      <div class="memora-id-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="mock-modal-title">
+        <button class="memora-id-modal-close" type="button" data-modal-close>Fechar</button>
+        <p class="eyebrow">Memora ID</p>
+        <h2 id="mock-modal-title" data-modal-title>Recurso</h2>
+        <p data-modal-body></p>
+      </div>
+    </div>
+
+    <script src="assets/memora-id.js"></script>
+    <script src="assets/snap-scroll.js"></script>
+  </body>
+</html>
