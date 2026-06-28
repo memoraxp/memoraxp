@@ -362,7 +362,9 @@
     document.querySelector("[data-token-prev]")?.addEventListener("click", () => setActiveToken(state.activeTokenIndex - 1));
     document.querySelector("[data-token-next]")?.addEventListener("click", () => setActiveToken(state.activeTokenIndex + 1));
     document.querySelector("[data-profile-toggle]")?.addEventListener("click", toggleProfileMenu);
-    document.querySelector("[data-difusora-clear]")?.addEventListener("click", clearDifusoraHistory);
+    if (document.querySelector("[data-difusora-feed]")) {
+      document.querySelector("[data-difusora-clear]")?.addEventListener("click", clearDifusoraHistory);
+    }
     window.addEventListener("focus", renderDifusora);
     window.addEventListener("storage", (event) => {
       if (event.key === difusoraStorageKey) renderDifusora();

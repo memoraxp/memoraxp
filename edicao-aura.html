@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/memora-id.css">
   </head>
   <body class="biplano-page aura-page edition-modern-page" data-edition-id="aura" data-edition-name="EdiÃ§Ã£o Aura">
     <header class="site-header biplano-header" aria-label="NavegaÃ§Ã£o da ediÃ§Ã£o">
@@ -32,7 +33,31 @@
         <a class="header-cta back-cta" href="index.html#edicoes">Voltar</a>
       </div>
     </header>
-
+    <div class="memora-id-profile-dock edition-profile-dock" data-profile-dock>
+      <aside class="memora-id-profile-menu" id="edition-profile-menu" data-profile-menu hidden>
+        <div class="section-inner memora-id-profile-menu-inner">
+          <div class="memora-id-profile">
+            <div class="memora-id-avatar-wrap"><img data-profile-avatar src="assets/avatar.png" alt="Avatar do colecionador"></div>
+            <div>
+              <p class="eyebrow">Memora ID</p>
+              <h2 data-profile-name>Arthur</h2>
+              <p class="memora-id-handle" data-profile-handle>@arthur.memora</p>
+              <p class="memora-id-contact" data-profile-contact><span>Instagram @arthurmina</span><span>WhatsApp: (83) 999139300</span></p>
+              <p class="memora-id-role" data-profile-role>Colecionador de experiências Memora.</p>
+              <label class="memora-id-contact-share">
+                <span>Tornar minhas informações de contato visíveis para outros colecionadores</span>
+                <input type="checkbox" role="switch" name="share-contact-info" aria-label="Tornar minhas informações de contato visíveis para outros colecionadores">
+                <span class="memora-id-toggle" aria-hidden="true"></span>
+              </label>
+            </div>
+          </div>
+          <dl class="memora-id-stats" aria-label="Métricas do perfil" data-profile-stats></dl>
+        </div>
+      </aside>
+      <div class="memora-id-profile-trigger-wrap">
+        <button class="header-cta memora-id-profile-trigger" type="button" data-profile-toggle aria-expanded="false" aria-controls="edition-profile-menu">Perfil</button>
+      </div>
+    </div>
     <main class="biplano-main">
       <section class="biplano-hero" aria-labelledby="edition-title">
         <div class="section-inner biplano-hero-inner">
@@ -267,6 +292,7 @@
         });
       });
     </script>
+    <script src="assets/memora-id.js"></script>
     <script src="assets/memora-difusora.js"></script>
     <script src="assets/snap-scroll.js"></script>
   </body>
