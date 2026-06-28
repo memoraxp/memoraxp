@@ -10,7 +10,9 @@
   const body = document.body;
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const sections = Array.from(document.querySelectorAll("main > section:not(.login-screen)"));
+  const enableSnapSections = false;
   const isHomeSnapPage =
+    enableSnapSections &&
     main.id === "top" &&
     sections.length > 1 &&
     !body.classList.contains("biplano-page") &&
@@ -249,7 +251,7 @@
   const createSectionRail = () => {
     sectionRail = document.createElement("nav");
     sectionRail.className = "snap-section-rail";
-    sectionRail.setAttribute("aria-label", "Secoes da pagina");
+    sectionRail.setAttribute("aria-label", "Seções da pagina");
 
     sections.forEach((section, index) => {
       const button = document.createElement("button");
@@ -274,7 +276,7 @@
 
     sectionRail = document.createElement("nav");
     sectionRail.className = "snap-section-rail snap-section-rail-local";
-    sectionRail.setAttribute("aria-label", "Secoes da pagina");
+    sectionRail.setAttribute("aria-label", "Seções da pagina");
 
     targets.forEach(({ hash, target, label }) => {
       const button = document.createElement("button");
@@ -329,6 +331,121 @@
     updateHeaderState();
   };
 
+
+  const setupPullToRefresh = () => {
+    const coarsePointerQuery = window.matchMedia("(hover: none) and (pointer: coarse)");
+
+    if (!coarsePointerQuery.matches) {
+      return;
+    }
+
+    const threshold = 68;
+    const maxDistance = 96;
+    const indicator = document.createElement("div");
+    const status = document.createElement("span");
+    let startY = 0;
+    let startX = 0;
+    let currentDistance = 0;
+    let isTrackingPull = false;
+    let isRefreshing = false;
+
+    indicator.className = "pull-refresh-indicator";
+    indicator.setAttribute("aria-live", "polite");
+    status.className = "pull-refresh-status";
+    status.textContent = "Puxe para atualizar";
+    indicator.append(status);
+    document.body.append(indicator);
+
+    const setIndicator = (distance) => {
+      const progress = Math.min(1, distance / threshold);
+      currentDistance = distance;
+      root.style.setProperty("--pull-refresh-distance", `${Math.round(distance)}px`);
+      root.style.setProperty("--pull-refresh-progress", progress.toFixed(3));
+      indicator.classList.toggle("is-visible", distance > 2);
+      indicator.classList.toggle("is-ready", distance >= threshold);
+      status.textContent = distance >= threshold ? "Solte para atualizar" : "Puxe para atualizar";
+    };
+
+    const resetPull = () => {
+      isTrackingPull = false;
+      currentDistance = 0;
+      indicator.classList.remove("is-visible", "is-ready", "is-refreshing");
+      root.style.setProperty("--pull-refresh-distance", "0px");
+      root.style.setProperty("--pull-refresh-progress", "0");
+      status.textContent = "Puxe para atualizar";
+    };
+
+    window.addEventListener(
+      "touchstart",
+      (event) => {
+        if (isRefreshing || event.touches.length !== 1 || window.scrollY > 0 || window.location.hash === "#login") {
+          isTrackingPull = false;
+          return;
+        }
+
+        startY = event.touches[0].clientY;
+        startX = event.touches[0].clientX;
+        currentDistance = 0;
+        isTrackingPull = true;
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
+      "touchmove",
+      (event) => {
+        if (!isTrackingPull || isRefreshing || event.touches.length !== 1) {
+          return;
+        }
+
+        const touch = event.touches[0];
+        const deltaY = touch.clientY - startY;
+        const deltaX = touch.clientX - startX;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 16) {
+          resetPull();
+          return;
+        }
+
+        if (deltaY <= 0) {
+          resetPull();
+          return;
+        }
+
+        if (window.scrollY > 0 || nestedScrollableCanScroll(event.target, -deltaY)) {
+          return;
+        }
+
+        const resistedDistance = Math.min(maxDistance, deltaY * 0.44);
+
+        if (resistedDistance > 4) {
+          event.preventDefault();
+        }
+
+        setIndicator(resistedDistance);
+      },
+      { passive: false }
+    );
+
+    window.addEventListener("touchend", () => {
+      if (!isTrackingPull || isRefreshing) {
+        return;
+      }
+
+      if (currentDistance >= threshold) {
+        isRefreshing = true;
+        indicator.classList.add("is-visible", "is-ready", "is-refreshing");
+        root.style.setProperty("--pull-refresh-distance", `${maxDistance}px`);
+        status.textContent = "Atualizando";
+        window.setTimeout(() => window.location.reload(), 180);
+        return;
+      }
+
+      resetPull();
+    });
+
+    window.addEventListener("touchcancel", resetPull);
+  };
   document.addEventListener("click", (event) => {
     if (event.defaultPrevented || event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
       return;
@@ -525,6 +642,8 @@
       syncRailState(window.location.hash);
     }
   });
+
+  setupPullToRefresh();
 
   reducedMotionQuery.addEventListener?.("change", () => {
     root.classList.toggle("is-snap-reduced-motion", reducedMotionQuery.matches);

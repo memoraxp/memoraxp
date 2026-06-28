@@ -1,26 +1,26 @@
-﻿(() => {
+(() => {
   const mockUser = {
     name: "Arthur",
     memoraId: "@arthur.memora",
     contact: ["Instagram @arthurmina", "WhatsApp: (83) 999139300"],
-    role: "Colecionador de experiencias",
+    role: "Colecionador de experiências",
     avatar: "assets/avatar.png",
-    stats: { Tokens: 4, XP: 1280, Memorias: 12, Eventos: 3 },
+    stats: { Tokens: 4, XP: 1280, Memórias: 12, Eventos: 3 },
   };
 
   const mockDifusora = [
     {
       author: "Equipe Memora",
       time: "ha 2h",
-      tag: "lancamento",
-      text: "A proxima edicao Memora Music ganhou previa visual para colecionadores ativos.",
+      tag: "lançamento",
+      text: "A proxima edição Memora Music ganhou previa visual para colecionadores ativos.",
       metrics: "12 salvos - 4 respostas",
     },
     {
       author: "Memora XP",
       time: "hoje",
       tag: "evento",
-      text: "Colecionadores Genesis receberao uma janela antecipada para novas experiencias presenciais.",
+      text: "Colecionadores Genesis receberao uma janela antecipada para novas experiências presenciais.",
       metrics: "28 salvos - 9 ecos",
     },
     {
@@ -33,10 +33,10 @@
   ];
 
   const mockUpdates = [
-    { title: "Conteudo desbloqueado", text: "Voce desbloqueou um novo conteudo em Biplano Sessions.", date: "Hoje" },
-    { title: "Memoria recebida", text: "Seu token Festival Aurora recebeu uma nova memoria.", date: "Ontem" },
+    { title: "Conteúdo desbloqueado", text: "Você desbloqueou um novo conteúdo em Biplano Sessions.", date: "Hoje" },
+    { title: "Memória recebida", text: "Seu token Festival Aurora recebeu uma nova memória.", date: "Ontem" },
     { title: "Acesso antecipado", text: "Acesso antecipado liberado para colecionadores Genesis.", date: "21 jun" },
-    { title: "Capsula do Tempo", text: "Nova Capsula do Tempo disponivel em breve.", date: "18 jun" },
+    { title: "Cápsula do Tempo", text: "Nova Cápsula do Tempo disponivel em breve.", date: "18 jun" },
   ];
 
   const state = { activeTokenIndex: 0 };
@@ -49,6 +49,43 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+
+  const difusoraStorageKey = "memora:difusora:feed";
+
+  const readDifusoraRecords = () => {
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(difusoraStorageKey) || "[]");
+      return Array.isArray(parsed) ? parsed.filter((item) => item && item.text) : [];
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const formatDateTime = (createdAt) => {
+    const date = new Date(createdAt);
+    if (Number.isNaN(date.getTime())) return "Agora";
+
+    return new Intl.DateTimeFormat("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
+  const getDifusoraPosts = () => {
+    const managerPosts = readDifusoraRecords()
+      .sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime())
+      .map((post) => ({
+        author: post.author || "Realizadores",
+        time: formatDateTime(post.createdAt),
+        tag: post.tag || "comunicado",
+        text: post.text,
+        metrics: post.metrics || "0 salvos - 0 respostas",
+      }));
+
+    return [...managerPosts, ...mockDifusora];
+  };
 
   const getHiveCells = () => Array.from(document.querySelectorAll("[data-token-index]"));
 
@@ -161,6 +198,8 @@
     menu: document.querySelector("[data-profile-menu]"),
   });
 
+  const profileMenuTransitionFallback = 2100;
+
   const setProfileMenuOpen = (isOpen, options = {}) => {
     const { button, menu } = getProfileMenuElements();
     if (!button || !menu) return;
@@ -212,7 +251,7 @@
         finishOpen();
       };
       menu.addEventListener("transitionend", menu.profileTransitionEnd);
-      menu.profileCloseTimer = window.setTimeout(finishOpen, 820);
+      menu.profileCloseTimer = window.setTimeout(finishOpen, profileMenuTransitionFallback);
       return;
     }
 
@@ -233,7 +272,7 @@
       finishClose();
     };
     menu.addEventListener("transitionend", menu.profileTransitionEnd);
-    menu.profileCloseTimer = window.setTimeout(finishClose, 820);
+    menu.profileCloseTimer = window.setTimeout(finishClose, profileMenuTransitionFallback);
   };
 
   const toggleProfileMenu = () => {
@@ -261,7 +300,7 @@
     const feed = document.querySelector("[data-difusora-feed]");
     if (!feed) return;
 
-    feed.innerHTML = mockDifusora
+    feed.innerHTML = getDifusoraPosts()
       .map(
         (post) => `
           <article>
@@ -274,6 +313,15 @@
       .join("");
   };
 
+  const clearDifusoraHistory = () => {
+    try {
+      window.localStorage.removeItem(difusoraStorageKey);
+    } catch (error) {
+      return;
+    }
+
+    renderDifusora();
+  };
   const renderUpdates = () => {
     const list = document.querySelector("[data-updates-list]");
     if (!list) return;
@@ -314,6 +362,11 @@
     document.querySelector("[data-token-prev]")?.addEventListener("click", () => setActiveToken(state.activeTokenIndex - 1));
     document.querySelector("[data-token-next]")?.addEventListener("click", () => setActiveToken(state.activeTokenIndex + 1));
     document.querySelector("[data-profile-toggle]")?.addEventListener("click", toggleProfileMenu);
+    document.querySelector("[data-difusora-clear]")?.addEventListener("click", clearDifusoraHistory);
+    window.addEventListener("focus", renderDifusora);
+    window.addEventListener("storage", (event) => {
+      if (event.key === difusoraStorageKey) renderDifusora();
+    });
 
     document.querySelectorAll("[data-modal-close]").forEach((item) => {
       item.addEventListener("click", closeModal);

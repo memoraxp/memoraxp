@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body class="biplano-page distance-page">
+  <body class="biplano-page distance-page edition-modern-page" data-edition-id="distance" data-edition-name="Edição Distance And Belief">
     <header class="site-header biplano-header" aria-label="Navegação da edição">
       <a class="brand" href="index.html#top" aria-label="Memora">
         <img src="assets/pdf-img-000.png" alt="Memora">
@@ -23,6 +23,7 @@
         <a href="#capsula">Cápsula</a>
         <a href="#arte">Arte</a>
         <a href="#comunidade">Comunidade</a>
+        <a href="#difusora">Difusora</a>
         <a href="#pagamentos">Pagamentos</a>
         <a href="#coaster">Coaster</a>
       </nav>
@@ -35,24 +36,45 @@
     <main class="biplano-main">
       <section class="biplano-hero" aria-labelledby="edition-title">
         <div class="section-inner biplano-hero-inner">
-          <img class="biplano-logo distance-logo" src="assets/m2.png" alt="Token visual da edição Distance And Belief">
-          <p class="eyebrow">Memora Music</p>
-          <h1 id="edition-title" class="distance-title-logo">
-            <img src="assets/distance.png" alt="#4 Distance And Belief, Arthur Miná">
-          </h1>
-          <div class="biplano-album-copy">
-            <p>
-              Distance And Belief apresenta uma música instrumental de Arthur Miná em uma leitura audiovisual
-              dirigida e produzida por Natha.
-            </p>
-            <p>
-              Esta página nasce como base da edição, com espaços preparados para token, cápsula do tempo,
-              arte, comunidade, pagamentos e coaster. Os conteúdos poderão ser preenchidos aos poucos.
-            </p>
+          <div class="edition-hero-copy">
+            <p class="eyebrow">Memora Music #4</p>
+            <h1 id="edition-title" class="distance-title-logo">
+              <img src="assets/distance.png" alt="#4 Distance And Belief, Arthur Miná">
+            </h1>
+            <div class="biplano-album-copy">
+              <p>
+                Distance And Belief apresenta a musica instrumental de Arthur Miná em uma leitura audiovisual dirigida e produzida por Natha.
+              </p>
+            </div>
+            <div class="edition-hero-meta" aria-label="Resumo da edição">
+              <span>Arthur Miná</span>
+              <span>Instrumental</span>
+              <span>Audiovisual</span>
+            </div>
+            <div class="edition-hero-actions" aria-label="Acessos rápidos da edição">
+              <a href="#token">Abrir token</a>
+              <a href="#difusora">Ver difusora</a>
+            </div>
+          </div>
+          <div class="edition-hero-visual" aria-label="Token visual da edição Distance And Belief">
+            <span class="edition-hero-kicker">004</span>
+            <img class="biplano-logo distance-logo" src="assets/m2.png" alt="Token visual da edição Distance And Belief">
           </div>
         </div>
       </section>
-
+      <section class="biplano-difusora" id="difusora" aria-labelledby="difusora-title">
+        <div class="section-inner">
+          <div class="biplano-difusora-top" data-edition-id="distance" data-edition-name="Edição Distance And Belief">
+            <div class="biplano-section-heading">
+              <p class="eyebrow">difusora</p>
+              <h2 id="difusora-title">Difusora</h2>
+              <p>Notícias e comunicados publicados pelo manager desta edição para os colecionadores.</p>
+            </div>
+            <button class="biplano-difusora-clear" type="button" data-difusora-clear>Limpar hist&oacute;rico</button>
+          </div>
+          <div class="biplano-difusora-feed" data-edition-difusora-feed data-edition-id="distance" data-edition-name="Edição Distance And Belief"></div>
+        </div>
+      </section>
       <section class="biplano-resources" aria-label="Recursos da edição">
         <div class="section-inner">
           <div class="biplano-section-heading">
@@ -245,6 +267,7 @@
         });
       });
     </script>
+    <script src="assets/memora-difusora.js"></script>
     <script src="assets/snap-scroll.js"></script>
   </body>
 </html>

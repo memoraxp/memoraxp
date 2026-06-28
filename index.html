@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Memora | Conecte o momento, colecione a experiÃªncia</title>
+    <title>Memora | Conecte o momento, colecione a experiência</title>
     <meta
       name="description"
-      content="Memora transforma arte, eventos e mÃºsica em tokens fÃ­sicos colecionÃ¡veis com acesso digital exclusivo."
+      content="Memora transforma arte, eventos e música em tokens físicos colecionáveis com acesso digital exclusivo."
     >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,21 +14,21 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <header class="site-header" aria-label="NavegaÃ§Ã£o principal">
+    <header class="site-header" aria-label="Navegação principal">
       <a class="brand" href="#top" aria-label="Memora">
         <img src="assets/pdf-img-000.png" alt="Memora">
       </a>
-      <nav class="nav-links" aria-label="SeÃ§Ãµes">
+      <nav class="nav-links" aria-label="Seções">
         <a href="#produto">Produto</a>
         <a href="#recursos">Recursos</a>
-        <a href="#modulos">MÃ³dulos</a>
+        <a href="#modulos">Módulos</a>
         <a href="#xp">Memora XP</a>
-        <a href="#edicoes">EdiÃ§Ãµes</a>
+        <a href="#edicoes">Edições</a>
       </nav>
       <div class="header-actions">
         <a class="header-cta" href="memora-id.html">Memora ID</a>
         <a class="header-cta login-cta" href="#login">Login</a>
-        <a class="header-cta" href="#contato">Criar ediÃ§Ã£o</a>
+        <a class="header-cta" href="#contato">Criar edição</a>
         <a class="header-cta" href="#contato">Contato</a>
       </div>
     </header>
@@ -38,61 +38,71 @@
         <a class="login-close" href="#top" aria-label="Fechar login">x</a>
         <div class="login-panel">
           <img class="login-logo" src="assets/pdf-img-000.png" alt="Memora">
-          <div class="login-actions" aria-label="Opcoes de login">
-            <button class="login-button" type="button" data-memora-login>
-              <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <rect x="3" y="3" width="18" height="18" rx="5"></rect>
-                <circle cx="12" cy="12" r="4"></circle>
-                <circle cx="17.5" cy="6.5" r="1.2"></circle>
+          <div class="login-actions" aria-label="Opções de login">
+            <button class="login-button" type="button" data-google-login>
+              <svg class="google-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="#4285f4" d="M21.6 12.23c0-.78-.07-1.53-.2-2.23H12v4.22h5.38a4.6 4.6 0 0 1-2 3.02v2.51h3.24c1.9-1.75 2.98-4.32 2.98-7.52z"></path>
+                <path fill="#34a853" d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.24-2.51c-.9.6-2.05.96-3.38.96-2.6 0-4.81-1.76-5.6-4.12H3.06v2.59A9.99 9.99 0 0 0 12 22z"></path>
+                <path fill="#fbbc05" d="M6.4 13.9A6.02 6.02 0 0 1 6.08 12c0-.66.11-1.3.32-1.9V7.51H3.06A9.99 9.99 0 0 0 2 12c0 1.61.39 3.14 1.06 4.49L6.4 13.9z"></path>
+                <path fill="#ea4335" d="M12 5.98c1.47 0 2.79.51 3.83 1.5l2.86-2.86C16.96 3.01 14.7 2 12 2a9.99 9.99 0 0 0-8.94 5.51L6.4 10.1C7.19 7.74 9.4 5.98 12 5.98z"></path>
               </svg>
-              <span>Login com Instagram</span>
+              <span>Login com Google</span>
             </button>
-            <button class="login-button" type="button">
+            <button class="login-button" type="button" aria-expanded="false" aria-controls="manager-login-inline" data-manager-login-toggle>
               <svg class="hexagon-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M7 4h10l5 8-5 8H7l-5-8 5-8z"></path>
               </svg>
               <span>Login como realizador</span>
             </button>
           </div>
+          <form class="manager-login-inline" id="manager-login-inline" data-manager-login-form hidden novalidate>
+            <div class="manager-login-field">
+              <label class="manager-login-label" for="manager-access-code">Codigo de acesso</label>
+              <input id="manager-access-code" name="manager-access-code" type="password" autocomplete="current-password" autocapitalize="none" spellcheck="false" aria-describedby="manager-login-help manager-login-error" data-manager-access-code>
+              <p id="manager-login-help">Digite sua senha de realizador</p>
+              <p class="manager-login-error" id="manager-login-error" data-manager-login-error hidden>Codigo invalido.</p>
+            </div>
+            <button class="login-button manager-login-submit" type="submit">Entrar</button>
+          </form>
         </div>
       </section>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">token fÃ­sico colecionÃ¡vel</p>
+          <p class="eyebrow">token físico colecionável</p>
           <h1 id="hero-title" class="hero-logo-title">
             <img src="assets/pdf-img-000.png" alt="Memora">
           </h1>
-          <p class="hero-subtitle">Conecte o momento, colecione a experiÃªncia.</p>
+          <p class="hero-subtitle">Conecte o momento, colecione a experiência.</p>
           <p class="hero-text">
             Um porta-copos hexagonal de acabamento premium que guarda arte, ativa
-            conteÃºdos exclusivos e transforma experiÃªncias em memÃ³ria tÃ¡til.
+            conteúdos exclusivos e transforma experiências em memória tátil.
           </p>
           <div class="hero-actions">
             <a class="primary-button" href="#produto">Ver o produto</a>
             <a class="secondary-button" href="#modulos">Explorar usos</a>
           </div>
         </div>
-        <div class="scroll-cue" aria-hidden="true">â†“</div>
+        <div class="scroll-cue" aria-hidden="true">↓</div>
       </section>
 
       <section class="intro-band" id="produto" aria-labelledby="product-title">
         <div class="section-inner two-column">
           <div>
             <p class="eyebrow">objeto + plataforma</p>
-            <h2 id="product-title">Uma nova mÃ­dia para artistas, eventos e comunidades.</h2>
+            <h2 id="product-title">Uma nova mídia para artistas, eventos e comunidades.</h2>
           </div>
           <div class="intro-copy">
-            <img src="assets/pdf-img-005.png" alt="AplicaÃ§Ã£o visual Memora">
+            <img src="assets/pdf-img-005.png" alt="Aplicação visual Memora">
             <p>
-              Cada Memora Ã© uma pequena obra de arte com QR Code ou NFC: souvenir,
-              credencial, mÃ­dia de lanÃ§amento, cÃ¡psula do tempo e ponto de encontro entre
-              pessoas que viveram a mesma experiÃªncia.
+              Cada Memora é uma pequena obra de arte com QR Code ou NFC: souvenir,
+              credencial, mídia de lançamento, cápsula do tempo e ponto de encontro entre
+              pessoas que viveram a mesma experiência.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="showcase section-inner" aria-label="DemonstraÃ§Ã£o visual do Memora">
+      <section class="showcase section-inner" aria-label="Demonstração visual do Memora">
         <div class="product-panel">
           <img src="assets/memora fk.png" alt="Token Memora hexagonal com arte impressa">
         </div>
@@ -100,17 +110,17 @@
           <article>
             <span>01</span>
             <h3>Formato hexagonal</h3>
-            <p>As peÃ§as se conectam como cÃ©lulas de uma colmeia, formando painÃ©is e coleÃ§Ãµes.</p>
+            <p>As peças se conectam como células de uma colmeia, formando painéis e coleções.</p>
           </article>
           <article>
             <span>02</span>
             <h3>Camadas funcionais</h3>
-            <p>Madeira tratada, nÃºcleo de cortiÃ§a e acabamento pensado para toque, uso e exibiÃ§Ã£o.</p>
+            <p>Madeira tratada, núcleo de cortiça e acabamento pensado para toque, uso e exibição.</p>
           </article>
           <article>
             <span>03</span>
             <h3>Acesso digital</h3>
-            <p>QR Code ou NFC abre conteÃºdos, ingressos, pagamentos, comunidades e registros.</p>
+            <p>QR Code ou NFC abre conteúdos, ingressos, pagamentos, comunidades e registros.</p>
           </article>
         </div>
       </section>
@@ -119,10 +129,10 @@
         <div class="section-inner hive-grid">
           <div>
             <p class="eyebrow">Adquira o Memora</p>
-            <h2 id="hive-title">Uma peÃ§a Ãºnica que pertence a algo maior.</h2>
+            <h2 id="hive-title">Uma peça única que pertence a algo maior.</h2>
             <p>
-              Conecte os seus tokens para criar composiÃ§Ãµes modulares, interaja com os demais colecionadores 
-              e crie o seu painel de experiÃªncias: comunidade, conexÃ£o e memÃ³ria.
+              Conecte os seus tokens para criar composições modulares, interaja com os demais colecionadores 
+              e crie o seu painel de experiências: comunidade, conexão e memória.
             </p>
           </div>
           <div class="hive-visual" aria-hidden="true">
@@ -134,12 +144,12 @@
       <section class="section-inner resources" id="recursos" aria-labelledby="resources-title">
         <div class="section-heading">
           <p class="eyebrow">seis recursos</p>
-          <h2 id="resources-title">Do copo sobre a mesa ao conteÃºdo exclusivo na mÃ£o.</h2>
+          <h2 id="resources-title">Do copo sobre a mesa ao conteúdo exclusivo na mão.</h2>
         </div>
         <div class="resource-grid">
           <article>
             <h3>Arte</h3>
-            <p>Capas, pÃ´steres, ilustraÃ§Ãµes, fotografias e identidades visuais viram ediÃ§Ã£o colecionÃ¡vel.</p>
+            <p>Capas, pôsteres, ilustrações, fotografias e identidades visuais viram edição colecionável.</p>
           </article>
           <article>
             <h3>Coaster</h3>
@@ -147,19 +157,19 @@
           </article>
           <article>
             <h3>Comunidade</h3>
-            <p>Pessoas da mesma ediÃ§Ã£o podem se reconhecer, publicar e compartilhar redes sociais.</p>
+            <p>Pessoas da mesma edição podem se reconhecer, publicar e compartilhar redes sociais.</p>
           </article>
           <article>
-            <h3>CÃ¡psula do tempo</h3>
-            <p>Fotos, vÃ­deos, bastidores e registros ficam disponÃ­veis para revisitar depois.</p>
+            <h3>Cápsula do tempo</h3>
+            <p>Fotos, vídeos, bastidores e registros ficam disponíveis para revisitar depois.</p>
           </article>
           <article>
             <h3>Pagamentos</h3>
-            <p>Venda direta, contribuiÃ§Ãµes â€œpague quanto quiserâ€ ou crÃ©dito para consumo em eventos.</p>
+            <p>Venda direta, contribuições “pague quanto quiser” ou crédito para consumo em eventos.</p>
           </article>
           <article>
             <h3>Token</h3>
-            <p>Chave autenticada para eventos, conteÃºdos digitais, controle de acesso e Memora ID.</p>
+            <p>Chave autenticada para eventos, conteúdos digitais, controle de acesso e Memora ID.</p>
           </article>
         </div>
       </section>
@@ -167,24 +177,24 @@
       <section class="modules-band" id="modulos" aria-labelledby="modules-title">
         <div class="section-inner">
           <div class="section-heading">
-            <p class="eyebrow">mÃ³dulos comerciais</p>
-            <h2 id="modules-title">TrÃªs caminhos para lanÃ§ar uma coleÃ§Ã£o.</h2>
+            <p class="eyebrow">módulos comerciais</p>
+            <h2 id="modules-title">Três caminhos para lançar uma coleção.</h2>
           </div>
           <div class="module-grid">
             <article>
               <h3>Artist</h3>
-              <p>Para ilustradores, fotÃ³grafos e artistas grÃ¡ficos criarem obras fÃ­sicas colecionÃ¡veis.</p>
-              <span>arte Â· coaster Â· comunidade Â· apoio</span>
+              <p>Para ilustradores, fotógrafos e artistas gráficos criarem obras físicas colecionáveis.</p>
+              <span>arte · coaster · comunidade · apoio</span>
             </article>
             <article>
               <h3>Music</h3>
-              <p>Para bandas e mÃºsicos conectarem lanÃ§amentos, clipes, bastidores e fÃ£s.</p>
-              <span>souvenir Â· conteÃºdo Â· fÃ£s Â· token</span>
+              <p>Para bandas e músicos conectarem lançamentos, clipes, bastidores e fãs.</p>
+              <span>souvenir · conteúdo · fãs · token</span>
             </article>
             <article>
               <h3>Stage</h3>
-              <p>Para festivais, formaturas, casamentos, conferÃªncias e experiÃªncias ao vivo.</p>
-              <span>ingresso Â· crÃ©dito Â· galeria Â· passaporte</span>
+              <p>Para festivais, formaturas, casamentos, conferências e experiências ao vivo.</p>
+              <span>ingresso · crédito · galeria · passaporte</span>
             </article>
           </div>
         </div>
@@ -194,20 +204,20 @@
         <div class="section-inner xp-layout">
           <div class="xp-copy">
             <p class="eyebrow">memora xp</p>
-            <h2 id="xp-title">ExperiÃªncia interativa de colecionismo, mÃºsica e inovaÃ§Ã£o.</h2>
+            <h2 id="xp-title">Experiência interativa de colecionismo, música e inovação.</h2>
             <p class="xp-lead">
-              O Memora XP Ã© o primeiro grande encontro oficial da comunidade Memora: um
-              evento presencial, com formato hÃ­brido e interativo, voltado para
-              colecionadores, entusiastas de mÃºsica, geeks, produtores culturais, artistas
-              endorsers e o pÃºblico curioso por novas tecnologias.
+              O Memora XP é o primeiro grande encontro oficial da comunidade Memora: um
+              evento presencial, com formato híbrido e interativo, voltado para
+              colecionadores, entusiastas de música, geeks, produtores culturais, artistas
+              endorsers e o público curioso por novas tecnologias.
             </p>
             <p>
-              Unindo porta-copos colecionÃ¡veis high-tech com realidade aumentada,
-              universo digital, CÃ¡psula do Tempo e forte presenÃ§a artÃ­stica, o Memora XP Ã©
-              mais que um evento: Ã© uma celebraÃ§Ã£o da memÃ³ria afetiva como experiÃªncia.
+              Unindo porta-copos colecionáveis high-tech com realidade aumentada,
+              universo digital, Cápsula do Tempo e forte presença artística, o Memora XP é
+              mais que um evento: é uma celebração da memória afetiva como experiência.
             </p>
           </div>
-          <div class="xp-media" aria-label="Identidade visual e aplicaÃ§Ãµes do Memora XP">
+          <div class="xp-media" aria-label="Identidade visual e aplicações do Memora XP">
             <img class="xp-logo" src="assets/pdf-img-012.png" alt="Identidade visual Memora XP">
             <div class="xp-image-grid">
               <img src="assets/memora-xp-coasters.png" alt="Colecionadores segurando tokens musicais Memora">
@@ -219,9 +229,9 @@
           <h3>Objetivos do evento</h3>
           <ul class="xp-objectives">
             <li>Reunir e engajar a comunidade que utiliza o Memora.</li>
-            <li>Apresentar novos produtos, coleÃ§Ãµes e funcionalidades.</li>
+            <li>Apresentar novos produtos, coleções e funcionalidades.</li>
             <li>Fortalecer parcerias com artistas, eventos e marcas.</li>
-            <li>Estimular trocas e experiÃªncias entre colecionadores.</li>
+            <li>Estimular trocas e experiências entre colecionadores.</li>
             <li>Posicionar o Memora como uma plataforma inovadora de cultura, tecnologia e afeto.</li>
           </ul>
         </div>
@@ -230,32 +240,38 @@
       <section class="apps section-inner" aria-labelledby="apps-title">
         <div>
           <p class="eyebrow">aplicativos oficiais</p>
-          <h2 id="apps-title">GestÃ£o para idealizadores. MemÃ³ria para colecionadores.</h2>
+          <h2 id="apps-title">Gestão para idealizadores. Memória para colecionadores.</h2>
         </div>
         <div class="app-list">
           <article>
             <h3>Memora Manager</h3>
-            <p>Acompanhamento de tokens, acesso em tempo real, mensagens, pagamentos e seguranÃ§a do evento.</p>
+            <p>Acompanhamento de tokens, acesso em tempo real, mensagens, pagamentos e segurança do evento.</p>
+            <p class="manager-entry-links">
+              <a href="manager-toninho-borbo-biplano.html">Toninho Borbo</a>
+              <a href="manager-distance-and-belief.html">Arthur Miná</a>
+              <a href="manager-fourkaos.html">Johnny</a>
+              <a href="manager-aura.html">Guilherme</a>
+            </p>
           </article>
           <article>
             <h3>Memora ID</h3>
-            <p>ColeÃ§Ã£o pessoal, conteÃºdos desbloqueados, contatos de emergÃªncia, comunidade e #TBT automÃ¡tico.</p>
+            <p>Coleção pessoal, conteúdos desbloqueados, contatos de emergência, comunidade e #TBT automático.</p>
           </article>
         </div>
       </section>
 
       <section class="closing" id="contato" aria-labelledby="closing-title">
         <div class="closing-inner">
-          <p class="eyebrow">ediÃ§Ãµes limitadas</p>
-          <h2 id="closing-title">Transforme o prÃ³ximo lanÃ§amento em algo que o pÃºblico possa tocar.</h2>
-          <a class="primary-button" href="mailto:contato@memora.co">ComeÃ§ar uma coleÃ§Ã£o</a>
+          <p class="eyebrow">edições limitadas</p>
+          <h2 id="closing-title">Transforme o próximo lançamento em algo que o público possa tocar.</h2>
+          <a class="primary-button" href="mailto:contato@memora.co">Começar uma coleção</a>
         </div>
       </section>
 
-      <section class="xp-band editions-band" id="edicoes" aria-label="EdiÃ§Ãµes Memora Music" data-active-edition="toninho">
+      <section class="xp-band editions-band" id="edicoes" aria-label="Edições Memora Music" data-active-edition="toninho">
         <div class="section-inner editions-shell">
           <div class="edition-carousel" data-edition-carousel>
-            <div class="edition-mobile-nav" aria-label="Escolher edicao">
+            <div class="edition-mobile-nav" aria-label="Escolher edição">
               <button class="edition-mobile-option is-active" type="button" aria-pressed="true" data-edition-jump>
                 <span>01</span>
                 Toninho Borbo
@@ -282,25 +298,25 @@
                       <img src="assets/toninho-biplano-logo.png" alt="#1 Toninho Borbo">
                     </h2>
                     <p>
-                      "Biplano" Ã© o quinto Ã¡lbum de Toninho Borbo, lanÃ§ado em 2018. Com uma proposta autoral e reflexiva, o disco faz um percurso pelas influÃªncias do artista, unindo MPB, poesia, regionalidade nordestina e experimentaÃ§Ã£o sonora, enquanto aborda temas como identidade, memÃ³ria, afetos e a condiÃ§Ã£o humana.
+                      "Biplano" é o quinto álbum de Toninho Borbo, lançado em 2018. Com uma proposta autoral e reflexiva, o disco faz um percurso pelas influências do artista, unindo MPB, poesia, regionalidade nordestina e experimentação sonora, enquanto aborda temas como identidade, memória, afetos e a condição humana.
                     </p>
                     <p>
-                      Visite a CÃ¡psula do Tempo e confira uma entrevista exclusiva de 2018, ano do lanÃ§amento do disco.
+                      Visite a Cápsula do Tempo e confira uma entrevista exclusiva de 2018, ano do lançamento do disco.
                     </p>
-                    <a class="primary-button edition-button" href="edicao-toninho-borbo-biplano.html">Confira esta ediÃ§Ã£o</a>
+                    <a class="primary-button edition-button" href="edicao-toninho-borbo-biplano.html">Confira esta edição</a>
                   </div>
-                  <div class="xp-media" aria-label="Identidade visual da ediÃ§Ã£o Toninho Borbo">
-                    <img class="xp-logo" src="assets/Memora TB.png" alt="Identidade visual da ediÃ§Ã£o Toninho Borbo">
+                  <div class="xp-media" aria-label="Identidade visual da edição Toninho Borbo">
+                    <img class="xp-logo" src="assets/Memora TB.png" alt="Identidade visual da edição Toninho Borbo">
                   </div>
                 </div>
                 <div class="xp-objectives-wrap" id="edicao-toninho-borbo">
-                  <h3>Nesta EdiÃ§Ã£o:</h3>
+                  <h3>Nesta Edição:</h3>
                   <ul class="xp-objectives">
-                    <li>CÃ¡psula do Tempo: Entrevistas com o Toninho Borbo em Agosto de 2018 e em Agosto de 2026.</li>
-                    <li>Arte: ConheÃ§a o Ilustrador paraibano Eldon Evangelista.</li>
+                    <li>Cápsula do Tempo: Entrevistas com o Toninho Borbo em Agosto de 2018 e em Agosto de 2026.</li>
+                    <li>Arte: Conheça o Ilustrador paraibano Eldon Evangelista.</li>
                     <li>Contribua com o trabalho do artista!.</li>
                     <li>Como usar o seu Memora: Na parede, ou como porta-copos.</li>
-                    <li>Comunidade: Conecte-se com os colecionadores que adquiriram esta versÃ£o.</li>
+                    <li>Comunidade: Conecte-se com os colecionadores que adquiriram esta versão.</li>
                   </ul>
                 </div>
               </article>
@@ -313,27 +329,27 @@
                       <img src="assets/LOGO FOURKAOS.png" alt="#2 Fourkaos">
                     </h2>
                     <p>
-                      Uma nova ediÃ§Ã£o do Memora Music dedicada Ã  banda Fourkaos, com visual em preto e branco,
-                      atmosfera pesada e recursos preparados para conteÃºdos exclusivos da coleÃ§Ã£o.
+                      Uma nova edição do Memora Music dedicada à banda Fourkaos, com visual em preto e branco,
+                      atmosfera pesada e recursos preparados para conteúdos exclusivos da coleção.
                     </p>
                     <p>
-                      Acesse a pÃ¡gina da ediÃ§Ã£o para conferir a identidade visual, o token, a cÃ¡psula do tempo,
-                      a arte, a comunidade e as aÃ§Ãµes do coaster.
+                      Acesse a página da edição para conferir a identidade visual, o token, a cápsula do tempo,
+                      a arte, a comunidade e as ações do coaster.
                     </p>
-                    <a class="primary-button edition-button" href="edicao-fourkaos.html">Confira esta ediÃ§Ã£o</a>
+                    <a class="primary-button edition-button" href="edicao-fourkaos.html">Confira esta edição</a>
                   </div>
-                  <div class="xp-media" aria-label="Identidade visual da ediÃ§Ã£o Fourkaos">
-                    <img class="xp-logo" src="assets/memora fk.png" alt="Identidade visual da ediÃ§Ã£o Fourkaos">
+                  <div class="xp-media" aria-label="Identidade visual da edição Fourkaos">
+                    <img class="xp-logo" src="assets/memora fk.png" alt="Identidade visual da edição Fourkaos">
                   </div>
                 </div>
                 <div class="xp-objectives-wrap" id="edicao-fourkaos">
-                  <h3>Nesta EdiÃ§Ã£o:</h3>
+                  <h3>Nesta Edição:</h3>
                   <ul class="xp-objectives">
-                    <li>Token: acesso aos recursos digitais da ediÃ§Ã£o Fourkaos.</li>
-                    <li>CÃ¡psula do Tempo: espaÃ§o reservado para entrevistas e registros da banda.</li>
-                    <li>Arte: wallpapers e materiais visuais da ediÃ§Ã£o.</li>
-                    <li>Comunidade: conexÃ£o entre colecionadores desta versÃ£o.</li>
-                    <li>Coaster: peÃ§a fÃ­sica numerada da coleÃ§Ã£o.</li>
+                    <li>Token: acesso aos recursos digitais da edição Fourkaos.</li>
+                    <li>Cápsula do Tempo: espaço reservado para entrevistas e registros da banda.</li>
+                    <li>Arte: wallpapers e materiais visuais da edição.</li>
+                    <li>Comunidade: conexão entre colecionadores desta versão.</li>
+                    <li>Coaster: peça física numerada da coleção.</li>
                   </ul>
                 </div>
               </article>
@@ -346,27 +362,27 @@
                       <img src="assets/Aura logo.png" alt="Aura">
                     </h2>
                     <p>
-                      Aura Ã© uma banda de Campina Grande que cria folk rock em inglÃªs, unindo melodias orgÃ¢nicas,
-                      atmosfera contemplativa e energia de palco em uma ediÃ§Ã£o Memora com identidade visual prÃ³pria.
+                      Aura é uma banda de Campina Grande que cria folk rock em inglês, unindo melodias orgânicas,
+                      atmosfera contemplativa e energia de palco em uma edição Memora com identidade visual própria.
                     </p>
                     <p>
-                      Esta ediÃ§Ã£o apresenta a peÃ§a colecionÃ¡vel da banda e prepara o acesso a conteÃºdos, registros e
-                      conexÃµes entre fÃ£s que acompanham a cena autoral paraibana.
+                      Esta edição apresenta a peça colecionável da banda e prepara o acesso a conteúdos, registros e
+                      conexões entre fãs que acompanham a cena autoral paraibana.
                     </p>
-                    <a class="primary-button edition-button" href="edicao-aura.html">Confira esta ediÃ§Ã£o</a>
+                    <a class="primary-button edition-button" href="edicao-aura.html">Confira esta edição</a>
                   </div>
-                  <div class="xp-media" aria-label="PeÃ§a visual da ediÃ§Ã£o Aura">
-                    <img class="xp-logo" src="assets/aura-memora.png" alt="PeÃ§a Memora da ediÃ§Ã£o Aura">
+                  <div class="xp-media" aria-label="Peça visual da edição Aura">
+                    <img class="xp-logo" src="assets/aura-memora.png" alt="Peça Memora da edição Aura">
                   </div>
                 </div>
                 <div class="xp-objectives-wrap" id="edicao-aura">
-                  <h3>Nesta EdiÃ§Ã£o:</h3>
+                  <h3>Nesta Edição:</h3>
                   <ul class="xp-objectives">
-                    <li>Token: acesso aos recursos digitais da ediÃ§Ã£o Aura.</li>
-                    <li>Arte: peÃ§a visual colecionÃ¡vel com identidade da banda.</li>
-                    <li>CÃ¡psula do Tempo: espaÃ§o preparado para registros, relatos e bastidores.</li>
-                    <li>Comunidade: conexÃ£o entre colecionadores e fÃ£s da banda.</li>
-                    <li>Coaster: peÃ§a fÃ­sica numerada para a coleÃ§Ã£o Memora Music.</li>
+                    <li>Token: acesso aos recursos digitais da edição Aura.</li>
+                    <li>Arte: peça visual colecionável com identidade da banda.</li>
+                    <li>Cápsula do Tempo: espaço preparado para registros, relatos e bastidores.</li>
+                    <li>Comunidade: conexão entre colecionadores e fãs da banda.</li>
+                    <li>Coaster: peça física numerada para a coleção Memora Music.</li>
                   </ul>
                 </div>
               </article>
@@ -375,37 +391,37 @@
                   <div class="xp-copy">
                     <p class="eyebrow">memora music</p>
                     <h2 id="distance-title" class="edition-logo-title edition-logo-title-distance">
-                      <img src="assets/distance.png" alt="#4 Distance And Belief, Arthur MinÃ¡">
+                      <img src="assets/distance.png" alt="#4 Distance And Belief, Arthur Miná">
                     </h2>
                     <p>
-                      O lanÃ§amento do clipe de <strong>Distance And Belief</strong> apresenta uma mÃºsica instrumental
-                      de Arthur MinÃ¡ em uma leitura audiovisual dirigida e produzida por Natha.
+                      O lançamento do clipe de <strong>Distance And Belief</strong> apresenta uma música instrumental
+                      de Arthur Miná em uma leitura audiovisual dirigida e produzida por Natha.
                     </p>
                     <p>
-                      A ediÃ§Ã£o prepara um espaÃ§o para o clipe, bastidores, arte visual e registros do processo criativo
-                      por trÃ¡s dessa experiÃªncia sonora.
+                      A edição prepara um espaço para o clipe, bastidores, arte visual e registros do processo criativo
+                      por trás dessa experiência sonora.
                     </p>
                     <a class="primary-button edition-button" href="edicao-distance-and-belief.html">Confira esta edição</a>
                   </div>
-                  <div class="xp-media" aria-label="Token visual da ediÃ§Ã£o Distance And Belief">
-                    <img class="xp-logo" src="assets/m2.png" alt="Token visual da ediÃ§Ã£o Distance And Belief">
+                  <div class="xp-media" aria-label="Token visual da edição Distance And Belief">
+                    <img class="xp-logo" src="assets/m2.png" alt="Token visual da edição Distance And Belief">
                   </div>
                 </div>
                 <div class="xp-objectives-wrap" id="edicao-distance-and-belief">
-                  <h3>Nesta EdiÃ§Ã£o:</h3>
+                  <h3>Nesta Edição:</h3>
                   <ul class="xp-objectives">
-                    <li>Clipe: lanÃ§amento de Distance And Belief.</li>
-                    <li>MÃºsica: composiÃ§Ã£o instrumental de Arthur MinÃ¡.</li>
-                    <li>DireÃ§Ã£o: clipe dirigido e produzido por Natha.</li>
+                    <li>Clipe: lançamento de Distance And Belief.</li>
+                    <li>Música: composição instrumental de Arthur Miná.</li>
+                    <li>Direção: clipe dirigido e produzido por Natha.</li>
                     <li>Bastidores: registros do processo criativo e audiovisual.</li>
-                    <li>Comunidade: conexÃ£o entre colecionadores, realizadores e ouvintes.</li>
+                    <li>Comunidade: conexão entre colecionadores, realizadores e ouvintes.</li>
                   </ul>
                 </div>
               </article>
             </div>
 
-            <div class="edition-carousel-controls" aria-label="Navegar entre ediÃ§Ãµes">
-              <button class="edition-arrow edition-arrow-prev" type="button" aria-label="EdiÃ§Ã£o anterior" data-edition-prev>
+            <div class="edition-carousel-controls" aria-label="Navegar entre edições">
+              <button class="edition-arrow edition-arrow-prev" type="button" aria-label="Edição anterior" data-edition-prev>
                 <span aria-hidden="true">&lsaquo;</span>
               </button>
               <div class="edition-counter" aria-live="polite">
@@ -413,7 +429,7 @@
                 <span>/</span>
                 <span data-edition-total>4</span>
               </div>
-              <button class="edition-arrow edition-arrow-next" type="button" aria-label="PrÃ³xima ediÃ§Ã£o" data-edition-next>
+              <button class="edition-arrow edition-arrow-next" type="button" aria-label="Próxima edição" data-edition-next>
                 <span aria-hidden="true">&rsaquo;</span>
               </button>
             </div>
@@ -423,6 +439,49 @@
 
     </main>
     <script src="assets/memora-access.js"></script>
+    <script>
+      (() => {
+        const routes = {
+          toninho: "manager-toninho-borbo-biplano.html",
+          aura: "manager-aura.html",
+          johnny: "manager-fourkaos.html",
+          arthur: "manager-distance-and-belief.html",
+        };
+
+        const toggle = document.querySelector("[data-manager-login-toggle]");
+        const form = document.querySelector("[data-manager-login-form]");
+        const input = document.querySelector("[data-manager-access-code]");
+        const error = document.querySelector("[data-manager-login-error]");
+
+        const showForm = () => {
+          if (!form) return;
+          form.hidden = false;
+          toggle?.setAttribute("aria-expanded", "true");
+          window.setTimeout(() => input?.focus(), 0);
+        };
+
+        toggle?.addEventListener("click", showForm);
+
+        form?.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const code = input?.value.trim().toLowerCase() || "";
+          const target = routes[code];
+
+          if (target) {
+            window.location.href = target;
+            return;
+          }
+
+          input?.setAttribute("aria-invalid", "true");
+          if (error) error.hidden = false;
+        });
+
+        input?.addEventListener("input", () => {
+          input.removeAttribute("aria-invalid");
+          if (error) error.hidden = true;
+        });
+      })();
+    </script>
     <script>
       (() => {
         const carousel = document.querySelector("[data-edition-carousel]");

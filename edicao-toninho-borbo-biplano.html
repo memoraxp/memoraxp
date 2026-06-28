@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body class="biplano-page">
+  <body class="biplano-page toninho-page" data-edition-id="toninho-borbo-biplano" data-edition-name="Edição Toninho Borbo | Biplano">
     <header class="site-header biplano-header" aria-label="Navegação da edição">
       <a class="brand" href="index.html#top" aria-label="Memora">
         <img src="assets/pdf-img-000.png" alt="Memora">
@@ -23,6 +23,7 @@
         <a href="#capsula">Cápsula</a>
         <a href="#arte">Arte</a>
         <a href="#comunidade">Comunidade</a>
+        <a href="#difusora">Difusora</a>
         <a href="#pagamentos">Pagamentos</a>
         <a href="#coaster">Coaster</a>
       </nav>
@@ -35,32 +36,46 @@
     <main class="biplano-main">
       <section class="biplano-hero" aria-labelledby="edition-title">
         <div class="section-inner biplano-hero-inner">
-          <img class="biplano-logo" src="assets/toninho-biplano-logo.png" alt="Toninho Borbo Biplano">
-          <p class="eyebrow">Memora Music</p>
-          <h1 id="edition-title" class="biplano-title-image-wrap">
-            <img class="biplano-title-image" src="assets/Memora TB.png" alt="#1 - Toninho Borbo | Biplano">
-          </h1>
-          <div class="biplano-album-copy">
-            <p>
-              "Biplano" é o quinto álbum do cantor e compositor paraibano Toninho Borbo,
-              lançado em 2018. O disco foi concebido como uma espécie de voo pelas diversas
-              influências acumuladas pelo artista ao longo da carreira, misturando música
-              popular brasileira, poesia, regionalidade nordestina e experimentação sonora.
-            </p>
-            <p>
-              O álbum tem um caráter autoral e reflexivo, explorando identidade, existência,
-              memória, afetos e a condição humana. A faixa-título sintetiza essa proposta ao
-              usar a metáfora do voo como imagem de liberdade, autenticidade e descoberta.
-            </p>
-            <p>
-              Com 12 faixas, Biplano apresenta um Toninho Borbo maduro artisticamente,
-              equilibrando lirismo, riqueza poética e sonoridades que dialogam com a tradição
-              nordestina e uma MPB contemporânea.
-            </p>
+          <div class="toninho-hero-copy">
+            <p class="eyebrow">Memora Music #1</p>
+            <h1 id="edition-title" class="biplano-title-image-wrap">
+              <img class="biplano-title-image" src="assets/Memora TB.png" alt="#1 - Toninho Borbo | Biplano">
+            </h1>
+            <div class="biplano-album-copy">
+              <p>
+                "Biplano" é o quinto álbum do cantor e compositor paraibano Toninho Borbo. A edição combina música
+                popular brasileira, poesia, regionalidade nordestina e experimentação sonora em uma memória de coleção.
+              </p>
+            </div>
+            <div class="toninho-hero-meta" aria-label="Resumo da edição">
+              <span>Álbum de 2018</span>
+              <span>12 faixas</span>
+              <span>MPB autoral</span>
+            </div>
+            <div class="toninho-hero-actions" aria-label="Acessos rápidos da edição">
+              <a href="#token">Abrir token</a>
+              <a href="#difusora">Ver difusora</a>
+            </div>
+          </div>
+          <div class="toninho-hero-visual" aria-label="Identidade visual da edição Toninho Borbo Biplano">
+            <span class="toninho-hero-kicker">001</span>
+            <img class="biplano-logo" src="assets/toninho-biplano-logo.png" alt="Toninho Borbo Biplano">
           </div>
         </div>
       </section>
-
+      <section class="biplano-difusora" id="difusora" aria-labelledby="difusora-title">
+        <div class="section-inner">
+          <div class="biplano-difusora-top" data-edition-id="toninho-borbo-biplano" data-edition-name="Edição Toninho Borbo | Biplano">
+            <div class="biplano-section-heading">
+              <p class="eyebrow">difusora</p>
+              <h2 id="difusora-title">Difusora</h2>
+              <p>Notícias e comunicados publicados pelo manager desta edição para os colecionadores.</p>
+            </div>
+            <button class="biplano-difusora-clear" type="button" data-difusora-clear>Limpar hist&oacute;rico</button>
+          </div>
+          <div class="biplano-difusora-feed" data-edition-difusora-feed data-edition-id="toninho-borbo-biplano" data-edition-name="Edição Toninho Borbo | Biplano"></div>
+        </div>
+      </section>
       <section class="biplano-resources" aria-labelledby="resources-title">
         <div class="section-inner">
           <div class="biplano-section-heading">
@@ -923,6 +938,7 @@
         });
       });
     </script>
+    <script src="assets/memora-difusora.js"></script>
     <script src="assets/snap-scroll.js"></script>
   </body>
 </html>

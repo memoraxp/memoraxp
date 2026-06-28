@@ -1,4 +1,4 @@
-﻿.memora-id-page {
+.memora-id-page {
   min-height: 100svh;
   background: linear-gradient(180deg, rgba(23, 20, 25, 0.18), rgba(255, 250, 242, 0.96) 42%), var(--paper);
   color: var(--ink);
@@ -74,7 +74,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
   opacity: 0;
   pointer-events: auto;
   transform: translateY(-18px);
-  transition: height 720ms ease, opacity 520ms ease, padding 720ms ease, transform 720ms ease;
+  transition: height 1800ms ease, opacity 1400ms ease, padding 1800ms ease, transform 1800ms ease;
   backdrop-filter: blur(16px);
 }
 
@@ -317,7 +317,9 @@ html.has-nav-scrolled .memora-id-profile-dock {
 
 .memora-id-section-heading {
   max-width: 660px;
+  margin-inline: auto;
   margin-bottom: clamp(24px, 4vw, 44px);
+  text-align: center;
 }
 
 .memora-id-section-heading h2 {
@@ -334,6 +336,9 @@ html.has-nav-scrolled .memora-id-profile-dock {
   color: rgba(255, 255, 255, 0.74);
 }
 
+.memora-id-section-heading .memora-id-action-button {
+  margin-top: 18px;
+}
 .memora-id-band .eyebrow {
   color: var(--honey);
 }
@@ -346,12 +351,18 @@ html.has-nav-scrolled .memora-id-profile-dock {
 }
 
 .memora-id-hive-layout {
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, min(100%, 920px));
   align-items: center;
+  justify-content: center;
 }
 
 .memora-id-two-column {
-  grid-template-columns: minmax(0, 0.72fr) minmax(360px, 1fr);
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+
+.memora-id-two-column > :not(.memora-id-section-heading) {
+  width: min(100%, 880px);
 }
 
 .memora-id-hive-panel,
@@ -376,7 +387,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
 .memora-id-hive-controls {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 0;
   color: var(--muted);
@@ -691,6 +702,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
   font: inherit;
   font-size: 0.86rem;
   font-weight: 850;
+  text-decoration: none;
 }
 
 .memora-id-action-button:first-child,
@@ -1180,4 +1192,118 @@ html.has-nav-scrolled .memora-id-profile-dock {
 .memora-id-header {
   background: linear-gradient(180deg, rgba(23, 20, 25, 0.78), rgba(23, 20, 25, 0));
   backdrop-filter: none;
+}
+
+/* Mobile refinements */
+@media (max-width: 760px) {
+  .memora-id-profile-dock {
+    top: calc(60px + env(safe-area-inset-top, 0px));
+  }
+
+  html.has-nav-scrolled .memora-id-profile-dock {
+    top: calc(54px + env(safe-area-inset-top, 0px));
+  }
+
+  .memora-id-profile-trigger-wrap {
+    justify-content: flex-end;
+    padding: 6px 12px 0;
+  }
+
+  .memora-id-profile-trigger {
+    min-width: 0;
+    max-width: 34vw;
+  }
+
+  .memora-id-profile-menu {
+    max-height: calc(100svh - 64px);
+    overflow-y: auto;
+  }
+
+  .memora-id-hero {
+    padding: calc(76px + env(safe-area-inset-top, 0px)) 0 14px;
+  }
+
+  .memora-id-shell,
+  .memora-id-band,
+  .memora-id-security {
+    scroll-margin-top: 78px;
+    padding-block: clamp(44px, 10vw, 72px);
+  }
+
+  .memora-id-section-heading {
+    margin-bottom: 22px;
+  }
+
+  .memora-id-section-heading h2 {
+    font-size: clamp(2.25rem, 13vw, 3.6rem);
+  }
+
+  .memora-id-hive-stage {
+    margin-inline: -16px;
+  }
+
+  .memora-id-hive-viewport {
+    overflow-x: auto;
+    padding: 18px 34px;
+    scroll-snap-type: x proximity;
+  }
+
+  .memora-id-honeycomb-cell {
+    scroll-snap-align: center;
+  }
+
+  .memora-id-feed header,
+  .memora-id-feed footer,
+  .memora-id-detail-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .memora-id-action-button,
+  .memora-id-resource-card button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .memora-id-modal-dialog {
+    width: min(100% - 28px, 520px);
+    max-height: calc(100svh - 32px);
+    overflow-y: auto;
+    padding: 22px;
+  }
+}
+
+@media (max-width: 430px) {
+  .memora-id-profile-menu-inner {
+    gap: 14px;
+  }
+
+  .memora-id-profile {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .memora-id-contact,
+  .memora-id-role,
+  .memora-id-contact-share {
+    max-width: 100%;
+  }
+
+  .memora-id-contact-share {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .memora-id-hive-track {
+    --hive-cell-size: clamp(158px, 56vw, 210px);
+    min-height: clamp(176px, 74vw, 250px);
+  }
+
+  .memora-id-stats,
+  .memora-id-token-grid {
+    grid-template-columns: 1fr;
+  }
 }

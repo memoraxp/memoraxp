@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body class="biplano-page fourkaos-page">
+  <body class="biplano-page fourkaos-page edition-modern-page" data-edition-id="fourkaos" data-edition-name="Edição Fourkaos">
     <header class="site-header biplano-header" aria-label="Navegação da edição">
       <a class="brand" href="index.html#top" aria-label="Memora">
         <img src="assets/pdf-img-000.png" alt="Memora">
@@ -23,6 +23,7 @@
         <a href="#capsula">Cápsula</a>
         <a href="#arte">Arte</a>
         <a href="#comunidade">Comunidade</a>
+        <a href="#difusora">Difusora</a>
         <a href="#pagamentos">Pagamentos</a>
         <a href="#coaster">Coaster</a>
       </nav>
@@ -35,24 +36,45 @@
     <main class="biplano-main">
       <section class="biplano-hero" aria-labelledby="edition-title">
         <div class="section-inner biplano-hero-inner">
-          <img class="biplano-logo fourkaos-logo" src="assets/fourkaos-logo-vermelha.png" alt="Fourkaos">
-          <p class="eyebrow">Memora Music</p>
-          <h1 id="edition-title" class="biplano-title-image-wrap">
-            <img class="biplano-title-image fourkaos-title-image" src="assets/memora fk.png" alt="#2 - Fourkaos | Memora Music">
-          </h1>
-          <div class="biplano-album-copy">
-            <p>
-              Esta edição do Memora Music apresenta a banda Fourkaos em uma composição visual
-              monocromática, intensa e voltada para a experiência de coleção.
-            </p>
-            <p>
-              As imagens da banda, da performance e da marca guiam o plano de fundo e a
-              identidade da página, preparando os recursos da edição para conteúdos exclusivos.
-            </p>
+          <div class="edition-hero-copy">
+            <p class="eyebrow">Memora Music #2</p>
+            <h1 id="edition-title" class="biplano-title-image-wrap">
+              <img class="biplano-title-image fourkaos-title-image" src="assets/memora fk.png" alt="#2 - Fourkaos | Memora Music">
+            </h1>
+            <div class="biplano-album-copy">
+              <p>
+                A edição Fourkaos transforma a identidade monocromática e intensa da banda em uma experiência de coleção.
+              </p>
+            </div>
+            <div class="edition-hero-meta" aria-label="Resumo da edição">
+              <span>Banda Fourkaos</span>
+              <span>Visual monocromatico</span>
+              <span>Conteúdos exclusivos</span>
+            </div>
+            <div class="edition-hero-actions" aria-label="Acessos rápidos da edição">
+              <a href="#token">Abrir token</a>
+              <a href="#difusora">Ver difusora</a>
+            </div>
+          </div>
+          <div class="edition-hero-visual" aria-label="Identidade visual da edição Fourkaos">
+            <span class="edition-hero-kicker">002</span>
+            <img class="biplano-logo fourkaos-logo" src="assets/fourkaos-logo-vermelha.png" alt="Fourkaos">
           </div>
         </div>
       </section>
-
+      <section class="biplano-difusora" id="difusora" aria-labelledby="difusora-title">
+        <div class="section-inner">
+          <div class="biplano-difusora-top" data-edition-id="fourkaos" data-edition-name="Edição Fourkaos">
+            <div class="biplano-section-heading">
+              <p class="eyebrow">difusora</p>
+              <h2 id="difusora-title">Difusora</h2>
+              <p>Notícias e comunicados publicados pelo manager desta edição para os colecionadores.</p>
+            </div>
+            <button class="biplano-difusora-clear" type="button" data-difusora-clear>Limpar hist&oacute;rico</button>
+          </div>
+          <div class="biplano-difusora-feed" data-edition-difusora-feed data-edition-id="fourkaos" data-edition-name="Edição Fourkaos"></div>
+        </div>
+      </section>
       <section class="biplano-resources" aria-label="Recursos da edição">
         <div class="section-inner">
           <div class="biplano-section-heading">
@@ -245,6 +267,7 @@
         });
       });
     </script>
+    <script src="assets/memora-difusora.js"></script>
     <script src="assets/snap-scroll.js"></script>
   </body>
 </html>

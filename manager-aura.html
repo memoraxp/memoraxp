@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Guilherme | Memora Manager</title>
+    <meta name="description" content="Painel Memora Manager da edição Aura.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/memora-id.css">
+    <link rel="stylesheet" href="assets/memora-manager.css">
+  </head>
+  <body class="memora-id-page memora-manager-page" data-manager-edition="aura">
+    <header class="site-header memora-id-header" aria-label="Navegação do Memora Manager">
+      <a class="brand" href="index.html#top" aria-label="Memora"><img src="assets/pdf-img-000.png" alt="Memora"></a>
+      <nav class="nav-links" aria-label="Seções do Memora Manager">
+        <a href="#colmeia">Colmeia</a>
+        <a href="#difusora">Difusora</a>
+        <a href="#updates">Updates</a>
+        <a href="#configuracoes">Configurações</a>
+      </nav>
+      <div class="header-actions">
+        <a class="header-cta" href="#colmeia">Minhas edições</a>
+        <a class="header-cta login-cta" href="#configuracoes">Conta</a>
+      </div>
+    </header>
+
+    <div class="memora-id-profile-dock" data-profile-dock>
+      <aside class="memora-id-profile-menu" id="manager-profile-menu" data-profile-menu hidden>
+        <div class="section-inner memora-id-profile-menu-inner">
+          <div class="memora-id-profile">
+            <div class="memora-id-avatar-wrap manager-avatar"><img data-profile-avatar src="assets/avatar.png" alt="Avatar do realizador"></div>
+            <div>
+              <p class="eyebrow">Memora Manager</p>
+              <h2 data-profile-name>Marina Costa</h2>
+              <p class="memora-id-handle" data-profile-type>Artista, produtora cultural e idealizadora</p>
+              <p class="memora-id-contact" data-profile-contact>
+                <span>Instagram @marinacosta.art</span>
+                <span>WhatsApp: (83) 98888-1200</span>
+              </p>
+              <p class="memora-id-role">Centro de comando das edições criadas, endossadas ou gerenciadas por este realizador.</p>
+              <label class="memora-id-contact-share">
+                <span>Permitir alertas administrativos sobre vendas, check-ins e tokens pausados</span>
+                <input type="checkbox" role="switch" name="manager-alerts" checked aria-label="Permitir alertas administrativos">
+                <span class="memora-id-toggle" aria-hidden="true"></span>
+              </label>
+            </div>
+          </div>
+          <dl class="memora-id-stats" aria-label="Métricas do realizador" data-profile-stats></dl>
+        </div>
+      </aside>
+      <div class="memora-id-profile-trigger-wrap">
+        <button class="header-cta memora-id-profile-trigger" type="button" data-profile-toggle aria-expanded="false" aria-controls="manager-profile-menu">Perfil</button>
+      </div>
+    </div>
+
+    <main>
+      <section class="memora-id-hero manager-hero" aria-labelledby="manager-title">
+        <div class="section-inner manager-hero-inner">
+          <div class="manager-hero-copy">
+            <p class="eyebrow">realizador</p>
+            <h1 id="manager-title">Memora Manager</h1>
+            <p>Controle suas edições, acompanhe sua comunidade e gerencie a jornada dos tokens em tempo real.</p>
+          </div>
+          <div class="manager-hero-status" aria-label="Resumo do sistema">
+            <span>4 edições ativas</span>
+            <strong data-active-edition-label>Edição Aura</strong>
+            <small>Selecione um favo para abrir o painel da edição.</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="memora-id-shell manager-shell" id="colmeia" aria-labelledby="hive-manager-title">
+        <div class="section-inner">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">minhas edições</p>
+            <h2 id="hive-manager-title">Colmeia</h2>
+            <p>Cada favo representa uma edição sob sua responsabilidade. A selecao atual alimenta todo o painel abaixo.</p>
+          </div>
+
+          <div class="memora-id-hive-layout manager-hive-layout">
+            <div class="memora-id-hive-stage" aria-label="Favos das edições gerenciadas">
+              <div class="memora-id-hive-viewport" data-hive-viewport>
+                <div class="memora-id-hive-track" data-edition-grid>
+                  <button class="memora-id-honeycomb-cell is-active" type="button" data-edition-index="0" aria-label="Selecionar Edição Aura" aria-pressed="true">
+                    <img src="assets/MC1.png" alt="Miniatura da Edição Aura">
+                  </button>
+                  <button class="memora-id-honeycomb-cell" type="button" data-edition-index="1" aria-label="Selecionar Edição Distance And Belief" aria-pressed="false">
+                    <img src="assets/MC2.png" alt="Miniatura da Edição Distance And Belief">
+                  </button>
+                  <button class="memora-id-honeycomb-cell" type="button" data-edition-index="2" aria-label="Selecionar Edição Fourkaos" aria-pressed="false">
+                    <img src="assets/MC3.png" alt="Miniatura da Edição Fourkaos">
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="memora-id-hive-controls">
+              <button class="memora-id-icon-button" type="button" data-edition-prev aria-label="Edição anterior"><span aria-hidden="true">&lsaquo;</span></button>
+              <span data-edition-counter>1 / 4</span>
+              <button class="memora-id-icon-button" type="button" data-edition-next aria-label="Próxima edição"><span aria-hidden="true">&rsaquo;</span></button>
+            </div>
+          </div>
+
+          <article class="manager-control-panel" aria-live="polite" data-edition-panel>
+            <div class="manager-panel-top">
+              <div>
+                <p class="eyebrow">painel da edição</p>
+                <h2 data-panel-title>Edição Aura</h2>
+                <div class="manager-panel-meta">
+                  <span data-panel-module>Modulo Artist</span>
+                  <span data-panel-status>Status ativa</span>
+                </div>
+              </div>
+              <div class="manager-panel-actions" aria-label="Ações rapidas da edição">
+                <button class="memora-id-action-button" type="button" data-modal-open="Editar edição">Editar edição</button>
+                <a class="memora-id-action-button" href="edicao-aura.html" data-panel-public-link>Ver página da edição</a>
+                <button class="memora-id-action-button" type="button" data-open-difusora>Enviar comunicado</button>
+                <button class="memora-id-action-button" type="button" data-open-community>Ver comunidade</button>
+                <button class="memora-id-action-button" type="button" data-modal-open="Exportar relatorio">Exportar relatorio</button>
+              </div>
+            </div>
+
+            <dl class="manager-metric-grid" aria-label="Métricas da edição" data-panel-metrics></dl>
+
+            <div class="manager-accordion-list" data-accordion-list>
+              <section class="manager-accordion">
+                <h3><button type="button" data-accordion-toggle aria-expanded="true" aria-controls="panel-arte">Arte <span aria-hidden="true"></span></button></h3>
+                <div class="manager-accordion-panel is-open" id="panel-arte" data-section="arte"></div>
+              </section>
+              <section class="manager-accordion">
+                <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="panel-coaster">Coaster <span aria-hidden="true"></span></button></h3>
+                <div class="manager-accordion-panel" id="panel-coaster" data-section="coaster" hidden></div>
+              </section>
+              <section class="manager-accordion">
+                <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="panel-comunidade">Comunidade <span aria-hidden="true"></span></button></h3>
+                <div class="manager-accordion-panel" id="panel-comunidade" data-section="comunidade" hidden></div>
+              </section>
+              <section class="manager-accordion">
+                <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="panel-token">Token <span aria-hidden="true"></span></button></h3>
+                <div class="manager-accordion-panel" id="panel-token" data-section="token" hidden></div>
+              </section>
+              <section class="manager-accordion">
+                <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="panel-pagamentos">Pagamentos <span aria-hidden="true"></span></button></h3>
+                <div class="manager-accordion-panel" id="panel-pagamentos" data-section="pagamentos" hidden></div>
+              </section>
+              <section class="manager-accordion">
+                <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="panel-capsula">Cápsula do Tempo <span aria-hidden="true"></span></button></h3>
+                <div class="manager-accordion-panel" id="panel-capsula" data-section="capsula" hidden></div>
+              </section>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="memora-id-band memora-id-feed-band manager-band" id="difusora" aria-labelledby="difusora-manager-title">
+        <div class="section-inner manager-difusora">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">sinal ativo</p>
+            <h2 id="difusora-manager-title">Difusora</h2>
+            <p>Uma central de comunicação para falar com a comunidade da edição ativa sem disparo real neste protótipo.</p>
+          </div>
+
+          <div class="manager-accordion-list manager-comm-list">
+            <section class="manager-accordion manager-comm-card">
+              <h3><button type="button" data-accordion-toggle aria-expanded="true" aria-controls="push-panel">Push <span aria-hidden="true"></span></button></h3>
+              <div class="manager-accordion-panel is-open" id="push-panel">
+                <div class="manager-form-grid">
+                  <label>Edição ativa
+                    <select data-push-edition aria-label="Selecionar edição para push"></select>
+                  </label>
+                  <label>Mensagem
+                    <textarea data-push-message maxlength="180" rows="5" aria-describedby="push-counter">Nova memória liberada para quem carrega este token. Entre na sua capsula e revisite a experiência.</textarea>
+                  </label>
+                  <div class="manager-form-row">
+                    <span id="push-counter" data-push-counter>0 / 180</span>
+                    <button class="memora-id-action-button" type="button" data-push-send>Enviar push</button>
+                    <button class="memora-id-action-button" type="button" data-difusora-clear>Limpar hist&oacute;rico</button>
+                  </div>
+                  <div class="manager-preview-card" aria-label="Preview da notificação push">
+                    <small>Preview</small>
+                    <strong data-push-preview-title>Edição Aura</strong>
+                    <p data-push-preview-text></p>
+                    <span>emoji, link curto e imagem mockada ficam apenas em preview.</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="manager-accordion manager-comm-card">
+              <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="whatsapp-panel">WhatsApp <span aria-hidden="true"></span></button></h3>
+              <div class="manager-accordion-panel" id="whatsapp-panel" hidden>
+                <div class="manager-form-grid">
+                  <label>Edição
+                    <select data-whatsapp-edition aria-label="Selecionar edição para WhatsApp"></select>
+                  </label>
+                  <div class="manager-contact-picker" data-whatsapp-contacts aria-label="Colecionadores da edição"></div>
+                  <button class="memora-id-action-button" type="button" data-whatsapp-open>Abrir conversa no WhatsApp</button>
+                  <p class="manager-sensitive-note">Prototipo: nenhum envio real sera executado. O link wa.me e apenas demonstrativo.</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="memora-id-shell manager-shell" id="updates" aria-labelledby="updates-manager-title">
+        <div class="section-inner memora-id-two-column memora-id-updates-layout">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">radar do app</p>
+            <h2 id="updates-manager-title">Updates</h2>
+            <p>Novidades, dicas e alertas operacionais que podem levar direto para uma edição ou area do painel.</p>
+          </div>
+          <ol class="memora-id-timeline manager-update-feed" data-updates-list></ol>
+        </div>
+      </section>
+
+      <section class="memora-id-shell manager-shell manager-settings" id="configuracoes" aria-labelledby="settings-title">
+        <div class="section-inner">
+          <div class="memora-id-section-heading">
+            <p class="eyebrow">sistema</p>
+            <h2 id="settings-title">Configurações</h2>
+            <p>Preferências de conta, segurança e suporte para a operação das edições Memora.</p>
+          </div>
+          <div class="manager-card-grid">
+            <article><strong>Idioma</strong><span>Portugues do Brasil</span></article>
+            <article><strong>Notificações</strong><span>Vendas, check-ins e alertas de token</span></article>
+            <article><strong>Permissões</strong><span>Equipe editorial, financeiro e atendimento</span></article>
+            <article><strong>Dados da conta</strong><span>Marina Costa Produções</span></article>
+            <article><strong>Suporte técnico</strong><span>Canal prioritario para realizadores</span></article>
+            <article><strong>Termos de uso</strong><span>Privacidade, consentimento e dados sensíveis</span></article>
+            <article><strong>Versao do app</strong><span>Manager prototype 0.9.0</span></article>
+            <article><strong>Logs básicos</strong><span>Última sincronização: hoje, 14:28</span></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="memora-id-modal" data-mock-modal hidden>
+      <div class="memora-id-modal-backdrop" data-modal-close></div>
+      <div class="memora-id-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="mock-modal-title">
+        <button class="memora-id-modal-close" type="button" data-modal-close>Fechar</button>
+        <p class="eyebrow">Memora Manager</p>
+        <h2 id="mock-modal-title" data-modal-title>Recurso</h2>
+        <p data-modal-body></p>
+      </div>
+    </div>
+
+    <script src="assets/memora-manager.js"></script>
+    <script src="assets/snap-scroll.js"></script>
+  </body>
+</html>
