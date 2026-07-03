@@ -5049,3 +5049,135 @@ html[data-manager-theme="light"] .biplano-page .digital-card-face::before {
   height: 100%;
   border: 0;
 }
+
+/* Mobile navigation completeness */
+@media (max-width: 860px) {
+  .site-header {
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 8px;
+    overflow: hidden;
+  }
+
+  .site-header .brand,
+  .site-header .manager-theme-switch,
+  .site-header .header-actions {
+    position: relative;
+    z-index: 1;
+  }
+
+  .nav-links {
+    order: 10;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0 4px;
+    scroll-padding-inline: 2px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    flex: 0 0 auto;
+    min-height: 32px;
+    max-width: min(54vw, 210px);
+    padding: 0 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 760px) {
+  .header-actions {
+    flex: 1 1 auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-end;
+    max-width: calc(100vw - 150px);
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .header-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header-actions .header-cta,
+  .header-actions .header-cta:not(.login-cta):not(.back-cta):not(.memora-id-profile-trigger),
+  .login-cta,
+  .back-cta,
+  .memora-id-profile-trigger {
+    display: inline-flex;
+    flex: 0 0 auto;
+    max-width: none;
+  }
+
+  .memora-manager-page .site-header,
+  .biplano-page .site-header {
+    align-items: center;
+  }
+
+  .memora-manager-page .manager-theme-switch,
+  .biplano-page .manager-theme-switch {
+    flex: 0 0 auto;
+    margin-right: 0;
+  }
+
+  .memora-manager-page .header-actions,
+  .biplano-page .header-actions {
+    order: 9;
+    flex-basis: 100%;
+    max-width: 100%;
+    justify-content: flex-start;
+  }
+
+  .memora-manager-page .nav-links,
+  .biplano-page .nav-links {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .header-actions {
+    max-width: calc(100vw - 124px);
+  }
+
+  .header-cta,
+  .login-cta {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    gap: 7px;
+    font-size: 0.7rem;
+  }
+
+  .nav-links a {
+    min-height: 30px;
+    max-width: min(58vw, 190px);
+  }
+
+  .memora-manager-page .manager-theme-switch,
+  .biplano-page .manager-theme-switch {
+    max-width: 64px;
+  }
+
+  .manager-theme-text {
+    max-width: 64px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+  }
+}

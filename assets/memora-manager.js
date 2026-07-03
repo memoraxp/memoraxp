@@ -1138,6 +1138,18 @@
     panel.hidden = false;
     panel.classList.add("is-open");
   };
+  const openManagerPanelLink = (hash, options = {}) => {
+    const id = String(hash || "").replace(/^#/, "");
+    if (!id.startsWith("panel-")) return false;
+
+    openAccordionPanel(id);
+    const target = document.querySelector("[data-edition-panel]") || document.getElementById(id);
+    target?.scrollIntoView({
+      behavior: options.instant ? "auto" : "smooth",
+      block: "start",
+    });
+    return true;
+  };
 
   const bindAccordions = () => {
     document.querySelectorAll("[data-accordion-toggle]").forEach((button) => {
@@ -1192,6 +1204,13 @@
       openAccordionPanel("panel-comunidade");
       document.querySelector("[data-edition-panel]")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+    document.querySelectorAll("[data-manager-panel-link]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (!openManagerPanelLink(link.hash)) return;
+        event.preventDefault();
+        history.pushState(null, "", link.hash);
+      });
+    });
     document.querySelector("[data-push-message]")?.addEventListener("input", updatePushPreview);
     document.querySelector("[data-push-send]")?.addEventListener("click", publishDifusoraPost);
     document.querySelector("[data-difusora-clear]")?.addEventListener("click", clearDifusoraHistory);
@@ -1228,6 +1247,9 @@
     bindAccordions();
     bindControls();
     setActiveEdition(initialEditionIndex, { scroll: false });
-    requestAnimationFrame(() => centerActiveCell("auto"));
+    requestAnimationFrame(() => {
+      centerActiveCell("auto");
+      openManagerPanelLink(window.location.hash, { instant: true });
+    });
   });
 })();
