@@ -1,10 +1,29 @@
 .memora-manager-page {
+  --manager-text: #f5f7ff;
+  --manager-text-strong: #ffffff;
+  --manager-text-muted: rgba(230, 236, 255, 0.74);
+  --manager-text-soft: rgba(230, 236, 255, 0.62);
+  --manager-panel-border: rgba(132, 160, 255, 0.22);
+  --manager-panel-bg: linear-gradient(180deg, rgba(12, 18, 46, 0.82), rgba(5, 9, 28, 0.74));
+  --manager-card-bg: rgba(255, 255, 255, 0.07);
+  --manager-chip-bg: rgba(8, 14, 38, 0.64);
+  --manager-field-bg: rgba(8, 14, 38, 0.88);
+  --manager-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  --manager-focus: rgba(42, 167, 165, 0.52);
+  --manager-theme-transition: background 260ms ease, color 260ms ease, border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease, opacity 260ms ease;
   background:
     radial-gradient(circle at 18% 14%, rgba(255, 177, 27, 0.18), transparent 28vw),
     radial-gradient(circle at 86% 20%, rgba(42, 167, 165, 0.18), transparent 30vw),
     linear-gradient(180deg, rgba(3, 5, 16, 0.96), rgba(7, 9, 29, 1));
 }
 
+.memora-manager-page .brand {
+  flex: 0 0 auto;
+}
+
+.memora-manager-page .manager-theme-switch {
+  margin-right: auto;
+}
 .memora-manager-page .nav-links {
   gap: clamp(12px, 2vw, 26px);
 }
@@ -61,10 +80,10 @@
 .manager-card-grid article,
 .manager-preview-card,
 .manager-contact-picker label {
-  border: 1px solid rgba(132, 160, 255, 0.22);
+  border: 1px solid var(--manager-panel-border);
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(12, 18, 46, 0.82), rgba(5, 9, 28, 0.74));
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  background: var(--manager-panel-bg);
+  box-shadow: var(--manager-shadow);
   backdrop-filter: blur(12px);
 }
 
@@ -90,6 +109,97 @@
   background: linear-gradient(135deg, rgba(255, 177, 27, 0.24), rgba(42, 167, 165, 0.22));
 }
 
+.memora-manager-page .memora-id-profile-dock {
+  justify-items: center;
+  padding-inline: 18px;
+}
+
+.memora-manager-page .memora-id-profile-menu {
+  width: min(760px, calc(100vw - 36px));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(18, 13, 34, 0.92), rgba(4, 24, 38, 0.86)),
+    rgba(3, 5, 16, 0.78);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+}
+
+.memora-manager-page .memora-id-profile-menu.is-open {
+  padding: 0;
+}
+
+.memora-manager-page .memora-id-profile-menu-inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px;
+}
+
+.memora-manager-page .memora-id-profile {
+  align-items: start;
+  gap: 14px;
+}
+
+.memora-manager-page .memora-id-avatar-wrap {
+  width: 64px;
+}
+
+.memora-manager-page .memora-id-profile h2 {
+  font-size: clamp(1.42rem, 2vw, 1.86rem);
+  line-height: 1;
+}
+
+.memora-manager-page .memora-id-handle {
+  margin-top: 4px;
+}
+
+.memora-manager-page .memora-id-contact {
+  display: flex;
+  max-width: none;
+  flex-flow: row wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.memora-manager-page .memora-id-contact span,
+.memora-manager-page .memora-id-contact-share,
+.memora-manager-page .memora-id-stats div {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.memora-manager-page .memora-id-contact span {
+  padding: 6px 9px;
+}
+
+.memora-manager-page .memora-id-role {
+  max-width: 620px;
+  margin-top: 9px;
+}
+
+.memora-manager-page .memora-id-contact-share {
+  width: 100%;
+  max-width: none;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 9px 10px;
+}
+
+.memora-manager-page .memora-id-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.memora-manager-page .memora-id-stats div {
+  padding: 9px 10px;
+  backdrop-filter: none;
+}
+
+.memora-manager-page .memora-id-stats dd {
+  font-size: clamp(0.98rem, 1.35vw, 1.2rem);
+}
+
 .manager-shell {
   background:
     linear-gradient(180deg, rgba(4, 8, 25, 0.96), rgba(7, 9, 29, 0.94)),
@@ -106,14 +216,109 @@
   margin-bottom: clamp(26px, 5vw, 56px);
 }
 
+.memora-manager-page[data-manager-edition] .memora-id-hive-track {
+  width: 100%;
+  justify-content: center;
+  padding-inline: 0 !important;
+}
+
+.memora-manager-page[data-manager-edition] .manager-hive-layout {
+  width: min(100%, 460px);
+  margin-inline: auto;
+  margin-bottom: clamp(18px, 3vw, 34px);
+}
+
+.memora-manager-page[data-manager-edition] .memora-id-hive-stage {
+  display: grid;
+  place-items: center;
+}
+
+.memora-manager-page[data-manager-edition] .memora-id-hive-stage::before,
+.memora-manager-page[data-manager-edition] .memora-id-hive-stage::after {
+  width: clamp(20px, 5vw, 44px);
+}
+
+.memora-manager-page[data-manager-edition] .memora-id-hive-viewport {
+  width: 100%;
+  padding: clamp(14px, 2.5vw, 24px);
+}
+
+.memora-manager-page[data-manager-edition] .memora-id-hive-track {
+  --hive-cell-size: clamp(156px, 18vw, 214px);
+  min-height: calc(var(--hive-cell-size) + clamp(18px, 3vw, 30px));
+  align-items: center;
+}
+
+.memora-manager-page[data-manager-edition] .memora-id-honeycomb-cell {
+  --cell-y: 0;
+  aspect-ratio: 1;
+}
+
+.memora-manager-page[data-manager-edition] .memora-id-honeycomb-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .manager-control-panel {
   display: grid;
   gap: clamp(18px, 3vw, 28px);
   margin-top: clamp(28px, 5vw, 58px);
   padding: clamp(18px, 3vw, 32px);
-  color: #f5f7ff;
+  color: var(--manager-text);
 }
 
+.manager-token-config {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.68fr);
+  gap: clamp(16px, 3vw, 28px);
+  align-items: end;
+  border: 1px solid rgba(255, 177, 27, 0.24);
+  border-radius: 8px;
+  padding: clamp(14px, 2.4vw, 22px);
+  background: linear-gradient(135deg, rgba(255, 177, 27, 0.1), rgba(42, 167, 165, 0.08)), rgba(255, 255, 255, 0.06);
+}
+
+.manager-token-config[hidden] {
+  display: none;
+}
+
+.manager-token-config h3 {
+  margin: 6px 0 0;
+  color: var(--white);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.05;
+}
+
+.manager-token-config-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.manager-token-config-fields label {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  color: rgba(230, 236, 255, 0.66);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manager-token-config-fields input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid rgba(132, 160, 255, 0.28);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: rgba(8, 14, 38, 0.82);
+  color: var(--white);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
 .manager-panel-top {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
@@ -122,7 +327,7 @@
 }
 
 .manager-panel-top h2 {
-  color: #f8fbff;
+  color: var(--manager-text-strong);
   font-size: clamp(2rem, 5vw, 5.4rem);
   line-height: 0.92;
 }
@@ -152,7 +357,7 @@
   border: 1px solid rgba(132, 160, 255, 0.24);
   border-radius: 999px;
   padding: 6px 10px;
-  background: rgba(8, 14, 38, 0.64);
+  background: var(--manager-chip-bg);
   color: rgba(232, 238, 255, 0.84);
   font-size: 0.76rem;
   font-weight: 900;
@@ -175,7 +380,7 @@
   padding: 14px;
   border: 1px solid rgba(132, 160, 255, 0.2);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--manager-card-bg);
 }
 
 .manager-metric-grid dt,
@@ -204,7 +409,7 @@
 
 .manager-accordion {
   overflow: hidden;
-  color: #f5f7ff;
+  color: var(--manager-text);
 }
 
 .manager-accordion h3 {
@@ -231,7 +436,7 @@
 }
 
 .manager-accordion h3 button:focus-visible {
-  outline: 2px solid rgba(42, 167, 165, 0.52);
+  outline: 2px solid var(--manager-focus);
   outline-offset: -4px;
 }
 
@@ -255,6 +460,120 @@
   padding: 0 18px 18px;
 }
 
+.manager-token-panel {
+  border: 1px solid rgba(132, 160, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+  overflow: hidden;
+}
+
+.manager-token-panel summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 16px;
+  gap: 12px;
+  align-items: center;
+  min-height: 58px;
+  padding: 14px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.manager-token-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+.manager-token-panel summary::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.manager-token-panel[open] summary::after {
+  transform: rotate(225deg);
+}
+
+.manager-token-panel summary span {
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.manager-token-panel summary small {
+  color: rgba(230, 236, 255, 0.68);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-align: right;
+}
+
+.manager-token-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 14px 14px;
+}
+
+.manager-token-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+  border: 1px solid rgba(132, 160, 255, 0.22);
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: rgba(230, 236, 255, 0.78);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manager-token-grid {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  gap: 7px;
+  padding: 0 14px 16px;
+}
+
+.manager-token-hex,
+.manager-token-swatch {
+  --token-fill: rgba(236, 240, 246, 0.9);
+  --token-ring: rgba(236, 240, 246, 0.58);
+  display: block;
+  aspect-ratio: 1;
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+  background: var(--token-fill);
+  box-shadow: inset 0 0 0 1px var(--token-ring), 0 3px 8px rgba(0, 0, 0, 0.18);
+}
+
+.manager-token-hex {
+  min-width: 0;
+}
+
+.manager-token-hex.is-active,
+.manager-token-swatch.is-active {
+  --token-fill: #34c77b;
+  --token-ring: rgba(52, 199, 123, 0.5);
+}
+
+.manager-token-hex.is-sold,
+.manager-token-swatch.is-sold {
+  --token-fill: #f4c542;
+  --token-ring: rgba(244, 197, 66, 0.54);
+}
+
+.manager-token-hex.is-available,
+.manager-token-swatch.is-available {
+  --token-fill: #e7ecf2;
+  --token-ring: rgba(231, 236, 242, 0.62);
+}
+
+.manager-token-swatch {
+  width: 14px;
+  flex: 0 0 14px;
+}
 .manager-section-grid,
 .manager-card-grid,
 .manager-community-grid,
@@ -276,14 +595,37 @@
   padding: 14px;
   border: 1px solid rgba(132, 160, 255, 0.18);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--manager-card-bg);
 }
 
+.manager-edition-cover-link {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.manager-edition-cover-link:hover,
+.manager-edition-cover-link:focus-visible {
+  outline: none;
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.manager-edition-cover-link:focus-visible {
+  box-shadow: 0 0 0 2px rgba(245, 247, 255, 0.72);
+}
 .manager-section-card img {
   width: 100%;
   aspect-ratio: 16 / 10;
   border-radius: 8px;
   object-fit: cover;
+}
+
+.manager-edition-cover-card img {
+  aspect-ratio: 458 / 410;
+  background: rgba(4, 19, 37, 0.78);
+  object-fit: contain;
 }
 
 .manager-section-card strong,
@@ -311,6 +653,376 @@
   margin: 0;
   color: rgba(230, 236, 255, 0.74);
   font-size: 0.9rem;
+}
+
+.manager-digital-card-config {
+  grid-column: 1 / -1;
+  align-items: start;
+}
+
+.manager-card-config-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.manager-card-composer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+  padding: 12px;
+  border: 1px solid rgba(132, 160, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(8, 14, 38, 0.32);
+}
+
+.manager-card-side {
+  display: grid;
+  min-width: 0;
+  gap: 9px;
+  align-content: start;
+  cursor: pointer;
+}
+
+.manager-card-side > span:first-child {
+  color: var(--manager-text-strong);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manager-card-side input {
+  width: 100%;
+  color: var(--manager-text-muted);
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+.manager-card-preview {
+  position: relative;
+  display: grid;
+  width: min(100%, 132px);
+  aspect-ratio: 9 / 14;
+  place-items: center;
+  justify-self: center;
+  overflow: hidden;
+  border: 1px dashed rgba(245, 247, 255, 0.34);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    rgba(5, 9, 28, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 12px 22px rgba(0, 0, 0, 0.2);
+}
+
+.manager-card-preview.has-image {
+  border-style: solid;
+  border-color: rgba(42, 167, 165, 0.42);
+}
+
+.manager-card-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.manager-card-preview small {
+  max-width: 12ch;
+  color: var(--manager-text-soft);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.manager-card-remove {
+  min-height: 36px;
+  justify-self: start;
+  border: 1px solid rgba(245, 247, 255, 0.22);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--manager-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.manager-card-remove:hover,
+.manager-card-remove:focus-visible {
+  border-color: rgba(245, 247, 255, 0.42);
+  background: rgba(255, 255, 255, 0.12);
+  outline: 2px solid var(--manager-focus);
+  outline-offset: 2px;
+}
+
+.manager-card-save-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.manager-card-save-status {
+  flex: 1 1 220px;
+  color: var(--manager-text-soft);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.manager-card-save-status[data-tone="pending"] {
+  color: rgba(255, 213, 128, 0.9);
+}
+
+.manager-card-save-status[data-tone="saved"] {
+  color: rgba(144, 238, 218, 0.92);
+}
+
+.manager-card-save-status[data-tone="error"] {
+  color: rgba(255, 148, 158, 0.92);
+}
+
+.manager-illustrator-card {
+  grid-template-columns: 82px minmax(0, 1fr);
+  align-content: start;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.manager-illustrator-title {
+  grid-column: 1 / -1;
+}
+
+.manager-illustrator-avatar {
+  width: 82px;
+  aspect-ratio: 1;
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+  overflow: hidden;
+  background: rgba(8, 14, 38, 0.6);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+}
+
+.manager-illustrator-avatar img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.manager-illustrator-info {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.manager-illustrator-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.manager-illustrator-heading strong {
+  overflow: hidden;
+  color: var(--white);
+  font-size: 1.05rem;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.manager-illustrator-heading span {
+  color: rgba(230, 236, 255, 0.76);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.manager-illustrator-name,
+.manager-illustrator-bio {
+  margin: 0;
+  color: rgba(245, 247, 255, 0.9);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.manager-illustrator-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 2px 0;
+}
+
+.manager-illustrator-stats div {
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+}
+
+.manager-illustrator-stats dt,
+.manager-illustrator-stats dd {
+  margin: 0;
+  color: rgba(245, 247, 255, 0.86);
+  font-size: 0.76rem;
+  line-height: 1.1;
+}
+
+.manager-illustrator-stats dd {
+  order: -1;
+  color: var(--white);
+  font-weight: 950;
+}
+
+.manager-illustrator-bio {
+  color: rgba(245, 247, 255, 0.94);
+  font-weight: 800;
+}
+
+.manager-illustrator-card {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  border-color: rgba(132, 160, 255, 0.22);
+}
+
+.manager-illustrator-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(230, 236, 255, 0.14);
+}
+
+.manager-illustrator-avatar {
+  grid-row: 2;
+  width: 74px;
+  justify-self: start;
+}
+
+.manager-illustrator-info {
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 6px 14px;
+  align-items: center;
+}
+
+.manager-illustrator-heading,
+.manager-illustrator-name {
+  grid-column: 2;
+}
+
+.manager-illustrator-heading {
+  align-self: end;
+}
+
+.manager-illustrator-name {
+  align-self: start;
+  color: var(--manager-text-soft);
+}
+
+.manager-illustrator-stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  margin: 10px 0 0;
+}
+
+.manager-illustrator-stats div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  border: 1px solid rgba(132, 160, 255, 0.18);
+  border-radius: 8px;
+  padding: 9px 8px;
+  background: rgba(8, 14, 38, 0.26);
+  text-align: center;
+}
+
+.manager-illustrator-stats dd {
+  order: -1;
+  font-size: 0.92rem;
+}
+
+.manager-illustrator-stats dt {
+  color: var(--manager-text-soft);
+  font-size: 0.68rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.manager-illustrator-bio {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  border-left: 3px solid rgba(132, 160, 255, 0.36);
+  padding: 9px 0 9px 12px;
+  color: var(--manager-text-muted);
+  font-size: 0.86rem;
+}
+.manager-wallpaper-config {
+  align-content: start;
+}
+
+.manager-wallpaper-upload {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px dashed rgba(245, 247, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(8, 14, 38, 0.34);
+  cursor: pointer;
+}
+
+.manager-wallpaper-upload span {
+  color: var(--manager-text-strong);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manager-wallpaper-upload input {
+  width: 100%;
+  color: var(--manager-text-muted);
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.manager-wallpaper-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.manager-wallpaper-thumb {
+  display: grid;
+  width: 58px;
+  min-width: 0;
+  gap: 5px;
+  margin: 0;
+}
+
+.manager-wallpaper-thumb img {
+  width: 58px;
+  height: 82px;
+  aspect-ratio: auto;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+}
+
+.manager-wallpaper-thumb figcaption {
+  overflow: hidden;
+  color: var(--manager-text-soft);
+  font-size: 0.68rem;
+  font-weight: 850;
+  line-height: 1.15;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .manager-sensitive-note {
@@ -344,7 +1056,7 @@
   border: 1px solid rgba(132, 160, 255, 0.26);
   border-radius: 8px;
   padding: 12px;
-  background: rgba(8, 14, 38, 0.88);
+  background: var(--manager-field-bg);
   color: var(--white);
   font: inherit;
   font-size: 0.95rem;
@@ -421,7 +1133,8 @@
 
 @media (max-width: 980px) {
   .manager-hero-inner,
-  .manager-panel-top {
+  .manager-panel-top,
+  .manager-token-config {
     grid-template-columns: 1fr;
   }
 
@@ -430,6 +1143,7 @@
   }
 
   .manager-metric-grid,
+  .manager-token-grid,
   .manager-section-grid,
   .manager-card-grid,
   .manager-community-grid,
@@ -440,7 +1154,24 @@
 }
 
 @media (max-width: 760px) {
-  .memora-manager-page .nav-links {
+  .manager-card-composer {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-card-preview {
+    width: min(100%, 150px);
+  }
+}
+@media (max-width: 760px) {
+
+.memora-manager-page .brand {
+  flex: 0 0 auto;
+}
+
+.memora-manager-page .manager-theme-switch {
+  margin-right: auto;
+}
+.memora-manager-page .nav-links {
     display: none;
   }
 
@@ -467,6 +1198,7 @@
   }
 
   .manager-metric-grid,
+  .manager-token-grid,
   .manager-section-grid,
   .manager-card-grid,
   .manager-community-grid,
@@ -700,5 +1432,731 @@
   .manager-memory-card,
   .manager-card-grid article {
     padding: 13px;
+  }
+}
+
+/* Token manager responsive fixes */
+@media (max-width: 980px) {
+  .manager-token-grid {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .manager-token-config-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .manager-token-grid {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  .manager-token-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .manager-token-panel summary {
+    grid-template-columns: minmax(0, 1fr) 16px;
+  }
+
+  .manager-token-panel summary small {
+    grid-column: 1 / -1;
+    order: 3;
+    text-align: left;
+  }
+}
+
+.manager-theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: max-content;
+  color: rgba(245, 247, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.42);
+}
+
+.manager-theme-switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.manager-theme-track {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  flex: 0 0 42px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(3, 5, 16, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 18px rgba(0, 0, 0, 0.22);
+  transition: var(--manager-theme-transition), transform 220ms ease;
+}
+
+.manager-theme-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff, #dfe8ff);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.32);
+  transition: transform 240ms ease, background 240ms ease, box-shadow 240ms ease;
+}
+
+.manager-theme-switch input:checked + .manager-theme-track {
+  border-color: rgba(255, 177, 27, 0.78);
+  background: linear-gradient(135deg, rgba(255, 177, 27, 0.9), rgba(42, 167, 165, 0.82));
+}
+
+.manager-theme-switch input:checked + .manager-theme-track .manager-theme-thumb {
+  transform: translateX(18px);
+  background: #fffaf2;
+}
+
+.manager-theme-switch input:focus-visible + .manager-theme-track {
+  outline: 2px solid rgba(255, 255, 255, 0.86);
+  outline-offset: 3px;
+}
+
+.manager-theme-text {
+  white-space: nowrap;
+}
+
+.memora-manager-page,
+.memora-manager-page .site-header,
+.memora-manager-page .manager-hero,
+.memora-manager-page .manager-shell,
+.memora-manager-page .manager-band,
+.memora-manager-page .manager-hero-status,
+.memora-manager-page .manager-control-panel,
+.memora-manager-page .manager-accordion,
+.memora-manager-page .manager-section-card,
+.memora-manager-page .manager-community-card,
+.memora-manager-page .manager-payment-card,
+.memora-manager-page .manager-log-card,
+.memora-manager-page .manager-memory-card,
+.memora-manager-page .manager-card-grid article,
+.memora-manager-page .manager-preview-card,
+.memora-manager-page .manager-contact-picker label,
+.memora-manager-page .manager-token-config,
+.memora-manager-page .manager-token-panel,
+.memora-manager-page .manager-metric-grid div,
+.memora-manager-page .manager-panel-meta span,
+.memora-manager-page .manager-status-pill,
+.memora-manager-page .manager-tag,
+.memora-manager-page .manager-consent,
+.memora-manager-page .manager-form-grid select,
+.memora-manager-page .manager-form-grid textarea,
+.memora-manager-page .manager-token-legend span,
+.memora-manager-page .manager-token-config-fields input,
+.memora-manager-page .memora-id-profile-menu,
+.memora-manager-page .memora-id-modal-dialog,
+.memora-manager-page .memora-id-hive-stage,
+.memora-manager-page .memora-id-hive-stage::before,
+.memora-manager-page .memora-id-hive-stage::after,
+.memora-manager-page .memora-id-hive-controls,
+.memora-manager-page .memora-id-icon-button,
+.memora-manager-page .memora-id-action-button,
+.memora-manager-page .memora-id-modal-close {
+  transition: var(--manager-theme-transition);
+}
+
+html[data-manager-theme="light"] .memora-manager-page {
+  --manager-text: #182033;
+  --manager-text-strong: #071024;
+  --manager-text-muted: rgba(28, 36, 56, 0.78);
+  --manager-text-soft: rgba(35, 44, 67, 0.64);
+  --manager-panel-border: rgba(255, 255, 255, 0.52);
+  --manager-panel-bg: linear-gradient(180deg, rgba(255, 252, 244, 0.78), rgba(231, 241, 246, 0.58));
+  --manager-card-bg: rgba(255, 252, 244, 0.58);
+  --manager-chip-bg: rgba(255, 255, 255, 0.56);
+  --manager-field-bg: rgba(255, 255, 255, 0.72);
+  --manager-shadow: 0 18px 42px rgba(30, 42, 68, 0.16);
+  --manager-focus: rgba(228, 28, 62, 0.42);
+  color: var(--manager-text);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .site-header,
+html[data-manager-theme="light"].has-nav-scrolled .memora-manager-page .site-header {
+  background: linear-gradient(180deg, rgba(14, 18, 31, 0.72), rgba(14, 18, 31, 0.18));
+  box-shadow: 0 16px 38px rgba(30, 42, 68, 0.14);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .brand img,
+html[data-manager-theme="light"] .memora-manager-page .manager-title-logo {
+  filter: drop-shadow(0 16px 28px rgba(255, 255, 255, 0.34)) drop-shadow(0 18px 32px rgba(30, 42, 68, 0.2));
+}
+
+html[data-manager-theme="light"] .manager-theme-switch {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-hero-copy p:not(.eyebrow),
+html[data-manager-theme="light"] .memora-manager-page .manager-hero-status,
+html[data-manager-theme="light"] .memora-manager-page .manager-section-card span,
+html[data-manager-theme="light"] .memora-manager-page .manager-section-card p,
+html[data-manager-theme="light"] .memora-manager-page .manager-community-card span,
+html[data-manager-theme="light"] .memora-manager-page .manager-community-card p,
+html[data-manager-theme="light"] .memora-manager-page .manager-payment-card span,
+html[data-manager-theme="light"] .memora-manager-page .manager-payment-card p,
+html[data-manager-theme="light"] .memora-manager-page .manager-log-card span,
+html[data-manager-theme="light"] .memora-manager-page .manager-log-card p,
+html[data-manager-theme="light"] .memora-manager-page .manager-memory-card span,
+html[data-manager-theme="light"] .memora-manager-page .manager-memory-card p,
+html[data-manager-theme="light"] .memora-manager-page .manager-card-grid span,
+html[data-manager-theme="light"] .memora-manager-page .manager-sensitive-note,
+html[data-manager-theme="light"] .memora-manager-page .manager-form-row span,
+html[data-manager-theme="light"] .memora-manager-page .manager-preview-card p {
+  color: var(--manager-text-muted);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-hero-status strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-panel-top h2,
+html[data-manager-theme="light"] .memora-manager-page .manager-metric-grid dd,
+html[data-manager-theme="light"] .memora-manager-page .manager-accordion h3 button,
+html[data-manager-theme="light"] .memora-manager-page .manager-token-panel summary span,
+html[data-manager-theme="light"] .memora-manager-page .manager-section-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-community-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-payment-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-log-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-memory-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-card-grid strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-preview-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-token-config h3 {
+  color: var(--manager-text-strong);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-metric-grid dt,
+html[data-manager-theme="light"] .memora-manager-page .manager-token-panel summary small,
+html[data-manager-theme="light"] .memora-manager-page .manager-token-legend span,
+html[data-manager-theme="light"] .memora-manager-page .manager-token-config-fields label,
+html[data-manager-theme="light"] .memora-manager-page .manager-form-grid label,
+html[data-manager-theme="light"] .memora-manager-page .manager-preview-card small,
+html[data-manager-theme="light"] .memora-manager-page .manager-preview-card span,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-hive-controls {
+  color: var(--manager-text-soft);
+}
+html[data-manager-theme="light"] .memora-manager-page .memora-id-section-heading h2,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile h1,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile h2,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-stats dd,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-timeline h3,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-dialog h2,
+html[data-manager-theme="light"] .memora-manager-page .manager-card-side > span:first-child,
+html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-upload span,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-heading strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-stats dd {
+  color: var(--manager-text-strong);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-section-heading p:not(.eyebrow),
+html[data-manager-theme="light"] .memora-manager-page .memora-id-band .memora-id-section-heading p:not(.eyebrow),
+html[data-manager-theme="light"] .memora-manager-page .memora-id-contact,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-role,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-contact-share,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-timeline p,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-dialog p:not(.eyebrow),
+html[data-manager-theme="light"] .memora-manager-page .manager-card-save-status,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-name,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-bio {
+  color: var(--manager-text-muted);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-stats dt,
+html[data-manager-theme="light"] .memora-manager-page .manager-card-preview small,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-stats dt,
+html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-thumb figcaption {
+  color: var(--manager-text-soft);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-stats div {
+  border-color: rgba(42, 55, 89, 0.14);
+  background: rgba(255, 255, 255, 0.48);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-panel-meta span,
+html[data-manager-theme="light"] .memora-manager-page .manager-status-pill,
+html[data-manager-theme="light"] .memora-manager-page .manager-tag,
+html[data-manager-theme="light"] .memora-manager-page .manager-consent {
+  border-color: rgba(42, 167, 165, 0.26);
+  color: rgba(18, 42, 53, 0.86);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-token-config {
+  border-color: rgba(255, 177, 27, 0.34);
+  background: linear-gradient(135deg, rgba(255, 228, 166, 0.54), rgba(196, 242, 238, 0.42)), rgba(255, 255, 255, 0.38);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-token-config-fields input,
+html[data-manager-theme="light"] .memora-manager-page .manager-form-grid select,
+html[data-manager-theme="light"] .memora-manager-page .manager-form-grid textarea {
+  border-color: rgba(42, 55, 89, 0.18);
+  background: var(--manager-field-bg);
+  color: var(--manager-text-strong);
+}
+
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-hive-stage {
+  border-color: rgba(255, 255, 255, 0.58);
+  background:
+    radial-gradient(circle at 50% 46%, rgba(255, 177, 27, 0.18), transparent 54%),
+    linear-gradient(180deg, rgba(255, 252, 244, 0.56), rgba(231, 241, 246, 0.42));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.38), 0 18px 42px rgba(30, 42, 68, 0.14);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-hive-stage::before {
+  background: linear-gradient(90deg, rgba(255, 252, 244, 0.86), transparent);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-hive-stage::after {
+  background: linear-gradient(270deg, rgba(255, 252, 244, 0.86), transparent);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-honeycomb-cell:hover,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-honeycomb-cell:focus-visible,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-honeycomb-cell.is-active {
+  filter: drop-shadow(0 0 14px rgba(255, 177, 27, 0.34)) drop-shadow(0 18px 28px rgba(30, 42, 68, 0.18));
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-icon-button,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-action-button,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile-trigger,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-close {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--manager-text-strong);
+  box-shadow: 0 8px 18px rgba(30, 42, 68, 0.08);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-action-button:first-child {
+  border-color: rgba(228, 28, 62, 0.22);
+  background: linear-gradient(135deg, rgba(228, 28, 62, 0.9), rgba(42, 167, 165, 0.78));
+  color: #ffffff;
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-icon-button:hover,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-icon-button:focus-visible,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-action-button:hover,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-action-button:focus-visible,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile-trigger:hover,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile-trigger:focus-visible,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile-trigger[aria-expanded="true"],
+html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-close:hover,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-close:focus-visible {
+  background: rgba(255, 255, 255, 0.9);
+  outline-color: var(--manager-focus);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-contact-picker label {
+  color: var(--manager-text-muted);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-composer,
+html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-upload,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-stats div,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-instagram {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 255, 255, 0.46);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-preview,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-avatar {
+  border-color: rgba(42, 55, 89, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(231, 241, 246, 0.34)),
+    rgba(255, 255, 255, 0.44);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28), 0 12px 22px rgba(30, 42, 68, 0.12);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-side input,
+html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-upload input {
+  color: var(--manager-text-muted);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-remove {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--manager-text-strong);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-remove:hover,
+html[data-manager-theme="light"] .memora-manager-page .manager-card-remove:focus-visible,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-instagram:hover,
+html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-instagram:focus-visible {
+  border-color: rgba(42, 167, 165, 0.32);
+  background: rgba(255, 255, 255, 0.84);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-save-status[data-tone="pending"] {
+  color: rgba(122, 83, 18, 0.9);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-save-status[data-tone="saved"] {
+  color: rgba(16, 100, 84, 0.9);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-card-save-status[data-tone="error"] {
+  color: rgba(146, 23, 44, 0.9);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-token-panel {
+  border-color: rgba(255, 255, 255, 0.48);
+  background: rgba(255, 255, 255, 0.36);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-token-hex,
+html[data-manager-theme="light"] .memora-manager-page .manager-token-swatch {
+  box-shadow: inset 0 0 0 1px var(--token-ring), 0 6px 12px rgba(30, 42, 68, 0.12);
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="toninho-borbo-biplano"],
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .manager-hero,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .manager-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.42), rgba(255, 252, 244, 0.72) 58%, rgba(245, 247, 255, 0.8)),
+    linear-gradient(90deg, rgba(62, 31, 41, 0.56), rgba(68, 42, 48, 0.28) 52%, rgba(255, 255, 255, 0.22)),
+    url("toninho-biplano-background.png") center top / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="fourkaos"],
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="fourkaos"] .manager-hero,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="fourkaos"] .manager-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(245, 247, 255, 0.72) 58%, rgba(239, 245, 248, 0.84)),
+    radial-gradient(circle at 20% 44%, rgba(255, 255, 255, 0.34), transparent 28%),
+    url("fourkaos-band.jpg") left 58% / min(46vw, 520px) auto fixed no-repeat,
+    url("fourkaos-background.jpg") center top / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="aura"],
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="aura"] .manager-hero,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="aura"] .manager-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.36), rgba(238, 248, 247, 0.7) 56%, rgba(245, 247, 255, 0.84)),
+    radial-gradient(circle at 68% 26%, rgba(255, 177, 27, 0.22), transparent 26%),
+    url("aura-memora.png") right 44% / min(46vw, 560px) auto fixed no-repeat,
+    url("fundo.png") center top / cover fixed no-repeat,
+    #eef6f7;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="distance"],
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="distance"] .manager-hero,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="distance"] .manager-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(244, 248, 255, 0.68) 55%, rgba(239, 245, 248, 0.84)),
+    radial-gradient(circle at 74% 22%, rgba(255, 177, 27, 0.18), transparent 26%),
+    url("Capa.jpg") center top / cover fixed no-repeat,
+    #edf3f7;
+}
+
+html[data-manager-theme="light"] .memora-manager-page .manager-band,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .manager-band,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="fourkaos"] .manager-band,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="aura"] .manager-band,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="distance"] .manager-band {
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.74), rgba(231, 241, 246, 0.68) 48%, rgba(217, 238, 236, 0.7)),
+    url("fundo.jpg") center / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile-menu,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-dialog {
+  color: var(--manager-text);
+  background: linear-gradient(180deg, rgba(255, 252, 244, 0.92), rgba(231, 241, 246, 0.88));
+  box-shadow: 0 22px 48px rgba(30, 42, 68, 0.16);
+}
+
+@media (max-width: 760px) {
+  .memora-manager-page .site-header {
+    gap: 10px;
+  }
+
+  .manager-theme-switch {
+    gap: 7px;
+    font-size: 0.7rem;
+  }
+
+  .manager-theme-track {
+    width: 38px;
+    height: 22px;
+    flex-basis: 38px;
+  }
+
+  .manager-theme-thumb {
+    width: 16px;
+    height: 16px;
+  }
+
+  .manager-theme-switch input:checked + .manager-theme-track .manager-theme-thumb {
+    transform: translateX(16px);
+  }
+}
+
+@media (max-width: 430px) {
+  .manager-theme-switch {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    line-height: 1;
+  }
+}
+/* Light theme keeps each edition background in secondary bands. */
+html[data-manager-theme="light"] .memora-manager-page .manager-hero-copy h1 {
+  color: var(--manager-text-strong);
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .manager-band {
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.74), rgba(241, 229, 223, 0.66) 48%, rgba(226, 242, 239, 0.68)),
+    url("toninho-biplano-background.png") center top / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="fourkaos"] .manager-band {
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.72), rgba(239, 232, 244, 0.66) 48%, rgba(226, 242, 239, 0.68)),
+    url("fourkaos-background.jpg") center top / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="aura"] .manager-band {
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.72), rgba(239, 232, 244, 0.64) 48%, rgba(226, 242, 239, 0.7)),
+    url("fundo.png") center top / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="distance"] .manager-band {
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.72), rgba(239, 232, 244, 0.64) 48%, rgba(226, 242, 239, 0.7)),
+    url("Capa.jpg") center top / cover fixed no-repeat;
+}
+
+/* Organized illustrator profile card */
+.manager-illustrator-card {
+  grid-template-columns: 74px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px 14px;
+  padding: 16px;
+}
+
+.manager-illustrator-title {
+  grid-column: 1 / -1;
+  grid-row: auto;
+}
+
+.manager-illustrator-avatar {
+  grid-column: 1;
+  grid-row: 2;
+  width: 74px;
+  margin-top: 2px;
+}
+
+.manager-illustrator-info {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.manager-illustrator-heading,
+.manager-illustrator-name,
+.manager-illustrator-stats,
+.manager-illustrator-bio,
+.manager-illustrator-instagram {
+  grid-column: 1;
+}
+
+.manager-illustrator-heading {
+  min-height: 0;
+  align-self: auto;
+}
+
+.manager-illustrator-name {
+  margin-top: -7px;
+  align-self: auto;
+}
+
+.manager-illustrator-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 2px 0 0;
+}
+
+.manager-illustrator-stats div {
+  min-height: 56px;
+  place-content: center;
+  padding: 8px 5px;
+}
+
+.manager-illustrator-stats dd {
+  order: -1;
+  font-size: 0.92rem;
+  line-height: 1;
+}
+
+.manager-illustrator-stats dt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.manager-illustrator-bio {
+  margin-top: 2px;
+}
+
+.manager-illustrator-instagram {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(132, 160, 255, 0.3);
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: rgba(8, 14, 38, 0.28);
+  color: var(--manager-text-strong);
+  font-size: 0.74rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.manager-illustrator-instagram:hover,
+.manager-illustrator-instagram:focus-visible {
+  border-color: rgba(132, 160, 255, 0.54);
+  background: rgba(132, 160, 255, 0.14);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .manager-illustrator-card {
+    grid-template-columns: 68px minmax(0, 1fr);
+  }
+
+  .manager-illustrator-avatar {
+    width: 68px;
+  }
+}
+/* Centered illustrator avatar */
+.manager-illustrator-card {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+
+.manager-illustrator-avatar {
+  grid-column: 1;
+  grid-row: auto;
+  width: 104px;
+  margin: 2px auto 4px;
+}
+
+.manager-illustrator-info {
+  grid-column: 1;
+  grid-row: auto;
+  width: 100%;
+  justify-items: center;
+  text-align: center;
+}
+
+.manager-illustrator-heading {
+  justify-content: center;
+}
+
+.manager-illustrator-heading span {
+  display: none;
+}
+
+.manager-illustrator-name {
+  margin-top: -5px;
+}
+
+.manager-illustrator-stats,
+.manager-illustrator-bio,
+.manager-illustrator-instagram {
+  width: 100%;
+}
+
+.manager-illustrator-bio {
+  border-left: 0;
+  border-top: 1px solid rgba(132, 160, 255, 0.18);
+  padding: 12px 0 0;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .manager-illustrator-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .manager-illustrator-avatar {
+    width: 96px;
+  }
+}
+html[data-manager-theme="light"] .memora-manager-page .memora-id-profile-menu {
+  border-color: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.9), rgba(230, 242, 241, 0.84)),
+    rgba(255, 255, 255, 0.72);
+  box-shadow: 0 18px 42px rgba(30, 42, 68, 0.16);
+}
+
+html[data-manager-theme="light"] .memora-manager-page .memora-id-contact span,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-contact-share,
+html[data-manager-theme="light"] .memora-manager-page .memora-id-stats div {
+  border-color: rgba(30, 42, 68, 0.12);
+  background: rgba(255, 255, 255, 0.56);
+}
+
+@media (max-width: 700px) {
+  .memora-manager-page .memora-id-profile-dock {
+    padding-inline: 12px;
+  }
+
+  .memora-manager-page .memora-id-profile-menu {
+    width: calc(100vw - 24px);
+  }
+
+  .memora-manager-page .memora-id-profile-menu-inner {
+    padding: 14px;
+  }
+
+  .memora-manager-page .memora-id-profile {
+    gap: 12px;
+  }
+
+  .memora-manager-page .memora-id-avatar-wrap {
+    width: 56px;
+  }
+
+  .memora-manager-page .memora-id-contact-share {
+    align-items: center;
+  }
+
+  .memora-manager-page .memora-id-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  .memora-manager-page .memora-id-profile {
+    grid-template-columns: 1fr;
+  }
+
+  .memora-manager-page .memora-id-contact-share {
+    align-items: flex-start;
   }
 }

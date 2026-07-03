@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Johnny | Memora Manager</title>
-    <meta name="description" content="Painel Memora Manager da edição Fourkaos.">
+    <link rel="icon" type="image/png" href="assets/mlogo.png">
+<meta name="description" content="Painel Memora Manager da edição Fourkaos.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -15,6 +16,11 @@
   <body class="memora-id-page memora-manager-page" data-manager-edition="fourkaos">
     <header class="site-header memora-id-header" aria-label="Navegação do Memora Manager">
       <a class="brand" href="index.html#top" aria-label="Memora"><img src="assets/pdf-img-000.png" alt="Memora"></a>
+      <label class="manager-theme-switch">
+        <input type="checkbox" role="switch" data-manager-theme-toggle aria-label="Ativar tema claro do Memora Manager">
+        <span class="manager-theme-track" aria-hidden="true"><span class="manager-theme-thumb"></span></span>
+        <span class="manager-theme-text">Tema claro</span>
+      </label>
       <nav class="nav-links" aria-label="Seções do Memora Manager">
         <a href="#colmeia">Colmeia</a>
         <a href="#difusora">Difusora</a>
@@ -104,6 +110,20 @@
           </div>
 
           <article class="manager-control-panel" aria-live="polite" data-edition-panel>
+            <section class="manager-token-config" aria-labelledby="token-config-title" data-token-config hidden>
+              <div>
+                <p class="eyebrow">configura&ccedil;&atilde;o de tokens</p>
+                <h3 id="token-config-title">Tokens da edi&ccedil;&atilde;o ativa</h3>
+              </div>
+              <div class="manager-token-config-fields">
+                <label>C&oacute;digo de 4 d&iacute;gitos
+                  <input type="text" value="" readonly data-token-edition-code aria-label="C&oacute;digo de 4 d&iacute;gitos da edi&ccedil;&atilde;o">
+                </label>
+                <label>Quantidade de tokens
+                  <input type="number" value="" readonly data-token-total aria-label="Quantidade de tokens da edi&ccedil;&atilde;o">
+                </label>
+              </div>
+            </section>
             <div class="manager-panel-top">
               <div>
                 <p class="eyebrow">painel da edição</p>

@@ -1,4 +1,34 @@
 (() => {
+  const themeStorageKey = "memora-manager-theme";
+  const lightThemeValue = "light";
+
+  const readSavedTheme = () => {
+    try {
+      return window.localStorage.getItem(themeStorageKey);
+    } catch (error) {
+      return "";
+    }
+  };
+
+  const persistTheme = (theme) => {
+    try {
+      window.localStorage.setItem(themeStorageKey, theme === lightThemeValue ? lightThemeValue : "dark");
+    } catch (error) {
+      // Theme preference is progressive enhancement; the UI still works without storage.
+    }
+  };
+
+  const applyManagerTheme = (theme) => {
+    const isLight = theme === lightThemeValue;
+    document.documentElement.dataset.managerTheme = isLight ? lightThemeValue : "dark";
+    if (document.body) document.body.dataset.theme = isLight ? lightThemeValue : "dark";
+    document.querySelectorAll("[data-manager-theme-toggle]").forEach((toggle) => {
+      toggle.checked = isLight;
+      toggle.setAttribute("aria-checked", String(isLight));
+    });
+  };
+
+  applyManagerTheme(readSavedTheme());
   const profile = {
     name: "Guilherme",
     type: "Manager da banda Aura",
@@ -6,8 +36,8 @@
     avatar: "assets/avatar.png",
     stats: {
       Edições: 1,
-      "Vendas totais": 100,
-      "Tokens ativos": 100,
+      "Vendas totais": 42,
+      "Tokens ativos": 31,
       Comunidade: 537,
     },
   };
@@ -18,7 +48,15 @@
       name: "Edição Aura",
       module: "Artist",
       status: "ativa",
-      image: "assets/aura-memora.png",
+      image: "assets/Capa.jpg",
+      digitalCard: {
+        front: "assets/WP04.png",
+        back: "assets/WP03.png",
+      },
+      wallpapers: [
+        { name: "WP03.png", src: "assets/WP03.png" },
+        { name: "WP04.png", src: "assets/WP04.png" },
+      ],
       tile: "assets/MC1.png",
       managerPage: "manager-aura.html",
       publicPage: "edicao-aura.html",
@@ -28,15 +66,19 @@
         type: "Manager da banda Aura",
         contact: ["Instagram @aura.banda", "WhatsApp: (83) 98888-1200", "guilherme@memora.app"],
         avatar: "assets/avatar.png",
-        stats: { Edições: 1, "Vendas totais": 100, "Tokens ativos": 100, Comunidade: 537 },
+        stats: { Edições: 1, "Vendas totais": 42,
+      "Tokens ativos": 31, Comunidade: 537 },
       },
-      sold: 100,
-      activeTokens: 100,
+      sold: 42,
+      activeTokens: 31,
+      unitPrice: 35,
+      tokenCode: "AURA",
+      tokenTotal: 100,
       qrReads: 621,
       checkins: 0,
-      revenue: "R$ 5.000,00",
+      revenue: "R$ 1.470,00",
       emergency: 84,
-      stock: 0,
+      stock: 27,
       campaign: "R$ 6.800,00 de R$ 10.000,00",
       collectors: [
         { name: "Lia Ramos", instagram: "@liaramos", phone: "(83) 99911-2300", status: "ativo", consent: true, health: "Alergia a dipirona", emergency: "Caio Ramos - (83) 98800-1200" },
@@ -54,6 +96,10 @@
       module: "Music",
       status: "ativa",
       image: "assets/Capa.jpg",
+      wallpapers: [
+        { name: "WP01.png", src: "assets/WP01.png" },
+        { name: "WP02.png", src: "assets/WP02.png" },
+      ],
       tile: "assets/MC2.png",
       managerPage: "manager-distance-and-belief.html",
       publicPage: "edicao-distance-and-belief.html",
@@ -63,15 +109,19 @@
         type: "Manager da edição Distance And Belief",
         contact: ["Instagram @arthurmina", "WhatsApp: (83) 99913-9300", "arthur@memora.app"],
         avatar: "assets/avatar.png",
-        stats: { Edições: 1, "Vendas totais": 96, "Tokens ativos": 91, Comunidade: 3 },
+        stats: { Edições: 1, "Vendas totais": 57,
+      "Tokens ativos": 36, Comunidade: 3 },
       },
-      sold: 96,
-      activeTokens: 91,
+      sold: 57,
+      activeTokens: 36,
+      unitPrice: 35,
+      tokenCode: "ADAB",
+      tokenTotal: 100,
       qrReads: 304,
       checkins: 0,
-      revenue: "R$ 4.800,00",
+      revenue: "R$ 1.995,00",
       emergency: 31,
-      stock: 4,
+      stock: 7,
       campaign: "Campanha nao ativa neste modulo",
       collectors: [
         { name: "Nina Torres", instagram: "@ninatorres", phone: "(83) 98812-6688", status: "ativo", consent: false },
@@ -89,6 +139,10 @@
       module: "Stage",
       status: "ativa",
       image: "assets/fourkaos-background.jpg",
+      wallpapers: [
+        { name: "WP01.png", src: "assets/WP01.png" },
+        { name: "WP02.png", src: "assets/WP02.png" },
+      ],
       tile: "assets/MC3.png",
       managerPage: "manager-fourkaos.html",
       publicPage: "edicao-fourkaos.html",
@@ -98,15 +152,19 @@
         type: "Manager da banda Fourkaos",
         contact: ["Instagram @fourkaos", "WhatsApp: (83) 98844-9000", "johnny@memora.app"],
         avatar: "assets/avatar.png",
-        stats: { Edições: 1, "Vendas totais": 100, "Tokens ativos": 100, Comunidade: 3 },
+        stats: { Edições: 1, "Vendas totais": 68,
+      "Tokens ativos": 24, Comunidade: 3 },
       },
-      sold: 100,
-      activeTokens: 100,
+      sold: 68,
+      activeTokens: 24,
+      unitPrice: 35,
+      tokenCode: "FKOS",
+      tokenTotal: 100,
       qrReads: 774,
       checkins: 241,
-      revenue: "R$ 5.000,00",
+      revenue: "R$ 2.380,00",
       emergency: 187,
-      stock: 0,
+      stock: 8,
       campaign: "R$ 11.420,00 de R$ 16.000,00",
       collectors: [
         { name: "Iago Ferraz", instagram: "@iagoferraz", phone: "(83) 98844-9000", status: "check-in realizado", consent: true, health: "Diabético", emergency: "Renata Ferraz - (83) 98844-9010" },
@@ -123,7 +181,11 @@
       name: "Edição Toninho Borbo | Biplano",
       module: "Music",
       status: "ativa",
-      image: "assets/toninho-biplano-background.png",
+      image: "assets/Capatoninho.jpg",
+      wallpapers: [
+        { name: "WP01.png", src: "assets/WP01.png" },
+        { name: "WP02.png", src: "assets/WP02.png" },
+      ],
       tile: "assets/MC4.png",
       managerPage: "manager-toninho-borbo-biplano.html",
       publicPage: "edicao-toninho-borbo-biplano.html",
@@ -133,15 +195,19 @@
         type: "Manager da edição Biplano",
         contact: ["Instagram @toninhoborbo", "WhatsApp: (83) 98800-1978", "toninho@memora.app"],
         avatar: "assets/avatar.png",
-        stats: { Edições: 1, "Vendas totais": 100, "Tokens ativos": 100, Comunidade: 3 },
+        stats: { Edições: 1, "Vendas totais": 23,
+      "Tokens ativos": 41, Comunidade: 3 },
       },
-      sold: 100,
-      activeTokens: 100,
+      sold: 23,
+      activeTokens: 41,
+      unitPrice: 35,
+      tokenCode: "TBRB",
+      tokenTotal: 100,
       qrReads: 412,
       checkins: 0,
-      revenue: "R$ 5.000,00",
+      revenue: "R$ 805,00",
       emergency: 37,
-      stock: 0,
+      stock: 36,
       campaign: "R$ 7.200,00 de R$ 12.000,00",
       collectors: [
         { name: "Helena Brito", instagram: "@helenabrito", phone: "(83) 98820-1978", status: "ativo", consent: true, health: "Contato de emergencia registrado", emergency: "Rui Brito - (83) 98820-1979" },
@@ -233,13 +299,21 @@
     }
   };
 
+  const formatCurrency = (value) => Number(value || 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
+  const editionRevenue = (edition) => formatCurrency(Number(edition.sold || 0) * Number(edition.unitPrice || 0));
+  const editionUnitPrice = (edition) => edition.unitPrice ? formatCurrency(edition.unitPrice) : "Nao definido";
+
   const moneyMetric = (edition) => [
     ["Vendas", edition.sold],
     ["Tokens ativos", edition.activeTokens],
     ["Leituras QR", edition.qrReads],
     ["Check-ins", edition.checkins],
-    ["Emergencias", edition.emergency],
-    ["Receita", edition.revenue],
+    ["Valor unitario da peca", editionUnitPrice(edition)],
+    ["Receita", edition.unitPrice ? editionRevenue(edition) : edition.revenue],
   ];
 
   const getCells = () => Array.from(document.querySelectorAll("[data-edition-index]"));
@@ -247,6 +321,36 @@
   const scopedEditionId = () => document.body?.dataset.managerEdition || "";
   const isScopedManagerPage = () => Boolean(scopedEditionId());
   const editionIndexById = (id) => editions.findIndex((edition) => edition.id === id);
+  const hasTokenInventory = (edition) => Boolean(edition.tokenCode && edition.tokenTotal);
+  const tokenTotalForEdition = (edition) => Number(edition.tokenTotal || edition.sold + edition.stock || 100);
+  const digitalCardStorageKey = (side, edition = activeEdition()) => `memora:${edition.id}:card${side === "front" ? "Front" : "Back"}`;
+  const fallbackWallpapers = [
+    { name: "WP01.png", src: "assets/WP01.png" },
+    { name: "WP02.png", src: "assets/WP02.png" },
+  ];
+  const wallpaperStorageKey = (edition = activeEdition()) => `memora:${edition.id}:wallpapers`;
+  const defaultWallpapers = (edition = activeEdition()) => edition.wallpapers || fallbackWallpapers;
+  let pendingWallpapers = null;
+
+  const renderTokenIcons = (edition) => {
+    const total = tokenTotalForEdition(edition);
+    return Array.from({ length: total }, (_, index) => {
+      const tokenNumber = index + 1;
+      const tokenLabel = `${edition.tokenCode || "MEMO"}-${String(tokenNumber).padStart(3, "0")}`;
+      const isActive = tokenNumber <= edition.activeTokens;
+      const isSold = tokenNumber > edition.activeTokens && tokenNumber <= edition.activeTokens + edition.sold;
+      const tokenStatus = isActive ? "ativado" : isSold ? "vendido" : "disponivel para venda";
+      const statusClass = isActive ? "is-active" : isSold ? "is-sold" : "is-available";
+      return `
+        <span
+          class="manager-token-hex ${statusClass}"
+          title="Token ${escapeHtml(tokenLabel)}: ${tokenStatus}"
+          aria-label="Token ${escapeHtml(tokenLabel)}: ${tokenStatus}"
+          role="img"
+        ></span>
+      `;
+    }).join("");
+  };
 
   const syncProfileToEdition = (edition) => {
     if (!edition?.manager) return;
@@ -371,6 +475,7 @@
       .map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`)
       .join("");
 
+    renderTokenConfig(edition);
     renderArte(edition);
     renderCoaster(edition);
     renderCommunity(edition);
@@ -380,35 +485,312 @@
     syncDifusoraToActive();
   };
 
+  const renderTokenConfig = (edition) => {
+    const config = document.querySelector("[data-token-config]");
+    if (!config) return;
+    const codeField = config.querySelector("[data-token-edition-code]");
+    const totalField = config.querySelector("[data-token-total]");
+    const hasInventory = hasTokenInventory(edition);
+    config.hidden = !hasInventory;
+    if (codeField) codeField.value = hasInventory ? edition.tokenCode : "";
+    if (totalField) totalField.value = hasInventory ? tokenTotalForEdition(edition) : "";
+  };
+
+  const readStoredCardImage = (storageKey) => {
+    try {
+      return window.localStorage.getItem(storageKey) || "";
+    } catch (error) {
+      return "";
+    }
+  };
+
+  const renderDigitalCardUploads = (edition) => {
+    return `
+      <article class="manager-section-card manager-digital-card-config">
+        <div class="manager-card-config-copy">
+          <strong>Capa Digital interativa</strong>
+          <p>Configure frente e verso do card fisico em um unico quadro funcional.</p>
+        </div>
+        <div class="manager-card-composer" aria-label="Uploads do Card Digital">
+          <label class="manager-card-side">
+            <span>Frente</span>
+            <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-card-upload="front">
+            <span class="manager-card-preview" data-card-preview-wrap="front">
+              <img data-card-preview="front" alt="Preview da frente do Card Digital" hidden>
+              <small data-card-placeholder="front">${edition.digitalCard?.front ? "Trocar frente" : "Anexar frente"}</small>
+            </span>
+            <button class="manager-card-remove" type="button" data-card-remove="front">Remover</button>
+          </label>
+
+          <label class="manager-card-side">
+            <span>Verso</span>
+            <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-card-upload="back">
+            <span class="manager-card-preview" data-card-preview-wrap="back">
+              <img data-card-preview="back" alt="Preview do verso do Card Digital" hidden>
+              <small data-card-placeholder="back">${edition.digitalCard?.back ? "Trocar verso" : "Anexar verso"}</small>
+            </span>
+            <button class="manager-card-remove" type="button" data-card-remove="back">Remover</button>
+          </label>
+        </div>
+        <div class="manager-card-save-row">
+          <button class="memora-id-action-button manager-card-save" type="button" data-card-save>Salvar card</button>
+          <span class="manager-card-save-status" data-card-save-status>Envie frente e verso para atualizar a pagina da edicao.</span>
+        </div>
+      </article>
+    `;
+  };
+
+  const readStoredWallpapers = () => {
+    try {
+      const parsed = JSON.parse(window.localStorage.getItem(wallpaperStorageKey()) || "[]");
+      return Array.isArray(parsed) ? parsed.filter((item) => item?.src) : [];
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const writeStoredWallpapers = (wallpapers) => {
+    window.localStorage.setItem(wallpaperStorageKey(), JSON.stringify(wallpapers));
+  };
+
+  const currentWallpapers = () => {
+    const stored = pendingWallpapers || readStoredWallpapers();
+    const storedSources = new Set(stored.map((item) => item.src));
+    return [
+      ...defaultWallpapers().filter((item) => !storedSources.has(item.src)),
+      ...stored,
+    ];
+  };
+
+  const renderWallpaperUploader = (edition) => {
+    return `
+      <article class="manager-section-card manager-wallpaper-config">
+        <strong>Wallpaper para download</strong>
+        <p>Anexe imagens para aparecerem como miniaturas na pagina publica da edicao.</p>
+        <label class="manager-wallpaper-upload">
+          <span>Anexar arquivos</span>
+          <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" multiple data-wallpaper-upload>
+        </label>
+        <div class="manager-wallpaper-grid" data-wallpaper-preview-list></div>
+        <div class="manager-card-save-row">
+          <button class="memora-id-action-button manager-card-save" type="button" data-wallpaper-save>Salvar</button>
+          <span class="manager-card-save-status" data-wallpaper-save-status>${escapeHtml(defaultWallpapers(edition).map((wallpaper) => wallpaper.name).join(" e "))} estao carregados como exemplo.</span>
+        </div>
+      </article>
+    `;
+  };
+
+  const setWallpaperStatus = (message, tone = "") => {
+    const status = document.querySelector("[data-wallpaper-save-status]");
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.tone = tone;
+  };
+
+  const renderWallpaperPreviewList = () => {
+    const list = document.querySelector("[data-wallpaper-preview-list]");
+    if (!list) return;
+    list.innerHTML = currentWallpapers()
+      .map((wallpaper) => `
+        <figure class="manager-wallpaper-thumb">
+          <img src="${escapeHtml(wallpaper.src)}" alt="${escapeHtml(wallpaper.name || "Wallpaper da edicao")}">
+          <figcaption>${escapeHtml(wallpaper.name || "Wallpaper")}</figcaption>
+        </figure>
+      `)
+      .join("");
+  };
+
+  const initWallpaperUploads = () => {
+    pendingWallpapers = readStoredWallpapers();
+    renderWallpaperPreviewList();
+
+    document.querySelector("[data-wallpaper-upload]")?.addEventListener("change", (event) => {
+      const files = Array.from(event.target.files || []).filter((file) => file.type.startsWith("image/"));
+      if (!files.length) return;
+
+      Promise.all(files.map((file) => new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.addEventListener("load", () => resolve({ name: file.name, src: String(reader.result || "") }));
+        reader.addEventListener("error", () => resolve(null));
+        reader.readAsDataURL(file);
+      }))).then((loadedFiles) => {
+        const validFiles = loadedFiles.filter(Boolean);
+        if (!validFiles.length) return;
+
+        pendingWallpapers = [...(pendingWallpapers || []), ...validFiles];
+        renderWallpaperPreviewList();
+        setWallpaperStatus(`${validFiles.length} arquivo(s) anexado(s). Clique em Salvar para atualizar a pagina da edicao.`, "pending");
+        event.target.value = "";
+      });
+    });
+
+    document.querySelector("[data-wallpaper-save]")?.addEventListener("click", () => {
+      try {
+        writeStoredWallpapers(pendingWallpapers || []);
+        renderWallpaperPreviewList();
+        setWallpaperStatus("Wallpapers salvos. A pagina da edicao exibira os arquivos atualizados.", "saved");
+      } catch (error) {
+        openModal("Arquivos nao salvos", "Nao foi possivel salvar os wallpapers neste navegador. Tente arquivos menores.");
+        setWallpaperStatus("Nao foi possivel salvar. Tente arquivos menores.", "error");
+      }
+    });
+  };
+  const setCardPreview = (preview, placeholder, dataUrl) => {
+    if (!preview || !placeholder) return;
+    preview.hidden = !dataUrl;
+    preview.parentElement?.classList.toggle("has-image", Boolean(dataUrl));
+    if (dataUrl) preview.src = dataUrl;
+    else preview.removeAttribute("src");
+    placeholder.hidden = Boolean(dataUrl);
+  };
+
+  const setSaveStatus = (message, tone = "") => {
+    const status = document.querySelector("[data-card-save-status]");
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.tone = tone;
+  };
+
+  const setupCardUpload = (input, preview, storageKey, removeButton, fallbackSrc = "") => {
+    if (!input || !preview || !storageKey) return;
+    const side = input.dataset.cardUpload;
+    const placeholder = document.querySelector(`[data-card-placeholder="${side}"]`);
+    setCardPreview(preview, placeholder, readStoredCardImage(storageKey) || fallbackSrc);
+
+    input.addEventListener("change", () => {
+      const file = input.files?.[0];
+      if (!file || !file.type.startsWith("image/")) return;
+
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        const dataUrl = String(reader.result || "");
+        preview.dataset.pendingCardImage = dataUrl;
+        setCardPreview(preview, placeholder, dataUrl);
+        setSaveStatus("Imagem carregada. Clique em Salvar imagens para publicar no Card Digital.", "pending");
+      });
+      reader.readAsDataURL(file);
+    });
+
+    removeButton?.addEventListener("click", (event) => {
+      event.preventDefault();
+      input.value = "";
+      delete preview.dataset.pendingCardImage;
+      setCardPreview(preview, placeholder, "");
+      setSaveStatus("Imagem removida do preview. Clique em Salvar imagens para atualizar a pagina da edicao.", "pending");
+    });
+  };
+
+  const saveDigitalCardImages = () => {
+    const edition = activeEdition();
+    const sides = [
+      { side: "front", storageKey: digitalCardStorageKey("front", edition) },
+      { side: "back", storageKey: digitalCardStorageKey("back", edition) },
+    ];
+
+    try {
+      sides.forEach(({ side, storageKey }) => {
+        const preview = document.querySelector(`[data-card-preview="${side}"]`);
+        const hasImage = preview && !preview.hidden && preview.getAttribute("src");
+        if (hasImage) window.localStorage.setItem(storageKey, preview.getAttribute("src"));
+        else window.localStorage.removeItem(storageKey);
+        if (preview) delete preview.dataset.pendingCardImage;
+      });
+      setSaveStatus("Imagens salvas. A pagina da edicao exibira este Card Digital ao abrir.", "saved");
+    } catch (error) {
+      openModal("Imagem nao salva", "Nao foi possivel salvar as imagens neste navegador. Tente arquivos menores.");
+      setSaveStatus("Nao foi possivel salvar. Tente arquivos menores.", "error");
+    }
+  };
+  const initDigitalCardUploads = () => {
+    const edition = activeEdition();
+    setupCardUpload(
+      document.querySelector('[data-card-upload="front"]'),
+      document.querySelector('[data-card-preview="front"]'),
+      digitalCardStorageKey("front", edition),
+      document.querySelector('[data-card-remove="front"]'),
+      edition.digitalCard?.front || ""
+    );
+    setupCardUpload(
+      document.querySelector('[data-card-upload="back"]'),
+      document.querySelector('[data-card-preview="back"]'),
+      digitalCardStorageKey("back", edition),
+      document.querySelector('[data-card-remove="back"]'),
+      edition.digitalCard?.back || ""
+    );
+    document.querySelector("[data-card-save]")?.addEventListener("click", saveDigitalCardImages);
+  };
+
   const renderArte = (edition) => {
     document.querySelector('[data-section="arte"]').innerHTML = `
       <div class="manager-section-grid">
-        <article class="manager-section-card"><img src="${escapeHtml(edition.image)}" alt="Capa de ${escapeHtml(edition.name)}"><strong>Capa da edição</strong><p>Arquivo principal exibido nos tokens e comunicações.</p></article>
-        <article class="manager-section-card"><strong>Realizador estampado</strong><p>${escapeHtml(profile.name)} assina a curadoria visual e editorial desta tiragem.</p></article>
-        <article class="manager-section-card"><strong>Wallpaper para download</strong><p>Pacote visual mockado pronto para colecionadores.</p></article>
-        <article class="manager-section-card"><strong>Card digital interativo</strong><p>Frente e verso do token com narrativa, creditos e acesso rapido.</p></article>
-        <article class="manager-section-card"><strong>Making of</strong><p>${escapeHtml(edition.memories[0])} esta destacado como bastidor oficial.</p></article>
-        <article class="manager-section-card"><strong>Press release</strong><p>Texto institucional pronto para imprensa, parceiros e pontos de venda.</p></article>
+        <article class="manager-section-card manager-edition-cover-card">
+          <strong>Capa da edição</strong>
+          <a class="manager-edition-cover-link" href="${escapeHtml(edition.publicPage)}#arte-capa" aria-label="Abrir capa de ${escapeHtml(edition.name)} na página da edição">
+            <img src="${escapeHtml(edition.image)}" alt="Capa de ${escapeHtml(edition.name)}">
+          </a>
+          <p>Arquivo principal exibido nos tokens, comunicações e na página pública da edição.</p>
+        </article>
+        <article class="manager-section-card manager-illustrator-card">
+          <strong class="manager-illustrator-title">Ilustrador</strong>
+          <div class="manager-illustrator-avatar">
+            <img src="assets/avatareldon.png" alt="Retrato do ilustrador Eldon Oliveira">
+          </div>
+          <div class="manager-illustrator-info">
+            <div class="manager-illustrator-heading">
+              <strong>eldon.art</strong>
+              <span aria-hidden="true">...</span>
+            </div>
+            <p class="manager-illustrator-name">Eldon Oliveira</p>
+            <dl class="manager-illustrator-stats" aria-label="Metricas do perfil do ilustrador">
+              <div><dt>posts</dt><dd>12</dd></div>
+              <div><dt>seguidores</dt><dd>1.675</dd></div>
+              <div><dt>seguindo</dt><dd>3.016</dd></div>
+            </dl>
+            <p class="manager-illustrator-bio">Desenho com a pena da galhofa e a tinta da melancolia.</p>
+            <a class="manager-illustrator-instagram" href="https://www.instagram.com/eldon.art/" target="_blank" rel="noopener">Acessar perfil do Instagram</a>
+          </div>
+        </article>
+        ${renderWallpaperUploader(edition)}
+        ${renderDigitalCardUploads(edition)}
       </div>
       <div class="manager-section-actions">
         <button class="memora-id-action-button" type="button" data-modal-open="Upload de arquivos">Upload mockado de arquivos</button>
       </div>
     `;
     bindModalButtons(document.querySelector('[data-section="arte"]'));
+    initWallpaperUploads();
+    initDigitalCardUploads();
   };
-
   const renderCoaster = (edition) => {
+    const total = tokenTotalForEdition(edition);
+    const availableTokens = Math.max(0, total - edition.activeTokens - edition.sold);
+    const tokenPanel = hasTokenInventory(edition) ? `
+      <details class="manager-token-panel" open>
+        <summary>
+          <span>Tokens</span>
+          <small>${edition.activeTokens} ativados - ${edition.sold} vendidos - ${availableTokens} disponiveis</small>
+        </summary>
+        <div class="manager-token-legend" aria-label="Legenda dos tokens">
+          <span><i class="manager-token-swatch is-active"></i>Ativado</span>
+          <span><i class="manager-token-swatch is-sold"></i>Vendido</span>
+          <span><i class="manager-token-swatch is-available"></i>Disponivel</span>
+        </div>
+        <div class="manager-token-grid" aria-label="Mapa de 100 tokens da edicao">
+          ${renderTokenIcons(edition)}
+        </div>
+      </details>
+    ` : "";
     document.querySelector('[data-section="coaster"]').innerHTML = `
       <div class="manager-section-grid">
         ${edition.logs.map((log) => `<article class="manager-log-card"><strong>Leitura QR</strong><span>${escapeHtml(log)}</span><p>Registro mockado de local, data e hora.</p></article>`).join("")}
         <article class="manager-log-card"><strong>Check-in / check-out</strong><span>${edition.module === "Stage" ? `${edition.checkins} entradas confirmadas` : "Sem check-in neste modulo"}</span><p>Histórico de presenca acompanha a jornada fisica do token.</p></article>
         <article class="manager-log-card"><strong>Alerta de uso suspeito</strong><span>Nenhum alerta critico</span><p>Padroes fora do comum apareceriam aqui antes de qualquer bloqueio.</p></article>
       </div>
+      ${tokenPanel}
       <button class="memora-id-action-button" type="button" data-modal-open="Logs completos">Ver logs completos</button>
     `;
     bindModalButtons(document.querySelector('[data-section="coaster"]'));
   };
-
   const renderCommunity = (edition) => {
     document.querySelector('[data-section="comunidade"]').innerHTML = `
       <p class="manager-sensitive-note">Informacoes de saude e contato de emergencia so aparecem quando fornecidas voluntariamente pelo colecionador.</p>
@@ -434,7 +816,7 @@
       <div class="manager-section-grid">
         <article class="manager-section-card"><strong>Status geral</strong><span class="manager-status-pill">${escapeHtml(edition.status)}</span><p>${edition.activeTokens} tokens ativos nesta edição.</p></article>
         <article class="manager-section-card"><strong>Ativar/desativar token</strong><p>Ações criticas pedem confirmação antes de alterar o estado mockado.</p><button class="memora-id-action-button" type="button" data-critical-token>Desativar token</button></article>
-        <article class="manager-section-card"><strong>Histórico de alterações</strong><p>Última configuração salva hoje as 14:28 por ${escapeHtml(profile.name)}.</p></article>
+        <article class="manager-section-card"><strong>Historico de alteracoes</strong><p>Ultima configuracao salva hoje as 14:28 por ${escapeHtml(profile.name)}.</p></article>
       </div>
       <div class="manager-panel-meta">${edition.links.map((link) => `<span>${escapeHtml(link)}</span>`).join("")}</div>
       <button class="memora-id-action-button" type="button" data-modal-open="Salvar configuração">Salvar configuração</button>
@@ -447,7 +829,7 @@
     document.querySelector('[data-section="pagamentos"]').innerHTML = `
       <div class="manager-payment-grid">
         <article class="manager-payment-card"><strong>Unidades vendidas</strong><span>${edition.sold}</span><p>Consolidado da edição selecionada.</p></article>
-        <article class="manager-payment-card"><strong>Receita total</strong><span>${escapeHtml(edition.revenue)}</span><p>Valor mockado sem integracao financeira.</p></article>
+        <article class="manager-payment-card"><strong>Receita total</strong><span>${escapeHtml(edition.unitPrice ? editionRevenue(edition) : edition.revenue)}</span><p>Calculada pelas unidades vendidas.</p></article>
         <article class="manager-payment-card"><strong>Estoque disponivel</strong><span>${edition.stock} unidades</span><p>Entrada e baixa por ponto de distribuicao.</p></article>
         ${edition.points.map((point) => `<article class="manager-payment-card"><strong>${escapeHtml(point)}</strong><span>Ponto de venda</span><p>Contato e endereco mockados para controle logistico.</p></article>`).join("")}
         <article class="manager-payment-card"><strong>Vaquinha / campanha online</strong><span>${escapeHtml(edition.campaign)}</span><p>Area exibida para modulos Stage e Artist quando houver campanha.</p></article>
@@ -606,6 +988,13 @@
   }
 
   const bindControls = () => {
+    document.querySelectorAll("[data-manager-theme-toggle]").forEach((toggle) => {
+      toggle.addEventListener("change", () => {
+        const theme = toggle.checked ? lightThemeValue : "dark";
+        applyManagerTheme(theme);
+        persistTheme(theme);
+      });
+    });
     getCells().forEach((cell) => cell.addEventListener("click", () => openEditionManager(Number(cell.dataset.editionIndex))));
     document.querySelector("[data-edition-prev]")?.addEventListener("click", () => openEditionManager(state.activeIndex - 1));
     document.querySelector("[data-edition-next]")?.addEventListener("click", () => openEditionManager(state.activeIndex + 1));
@@ -646,6 +1035,7 @@
   };
 
   document.addEventListener("DOMContentLoaded", () => {
+    applyManagerTheme(readSavedTheme());
     const initialEditionIndex = Math.max(0, editionIndexById(scopedEditionId()));
     renderEditionHive();
     renderSelects();

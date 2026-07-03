@@ -1307,3 +1307,130 @@ html.has-nav-scrolled .memora-id-profile-dock {
     grid-template-columns: 1fr;
   }
 }
+/* Compact embedded profile panel */
+.memora-id-profile-dock {
+  padding-inline: 18px;
+}
+
+.memora-id-profile-menu {
+  width: min(760px, calc(100vw - 36px));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(23, 20, 25, 0.94), rgba(45, 24, 49, 0.88)),
+    rgba(3, 5, 16, 0.78);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.32);
+}
+
+.memora-id-profile-menu.is-open {
+  padding: 0;
+}
+
+.memora-id-profile-menu-inner {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  padding: 16px;
+}
+
+.memora-id-profile {
+  align-items: start;
+  gap: 14px;
+}
+
+.memora-id-avatar-wrap {
+  width: 64px;
+}
+
+.memora-id-profile h1,
+.memora-id-profile h2 {
+  font-size: clamp(1.42rem, 2vw, 1.86rem);
+  line-height: 1;
+}
+
+.memora-id-handle {
+  margin-top: 4px;
+}
+
+.memora-id-contact {
+  display: flex;
+  max-width: none;
+  flex-flow: row wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.memora-id-contact span,
+.memora-id-contact-share,
+.memora-id-stats div {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.memora-id-contact span {
+  padding: 6px 9px;
+}
+
+.memora-id-role {
+  max-width: 620px;
+  margin-top: 9px;
+}
+
+.memora-id-contact-share {
+  width: 100%;
+  max-width: none;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 9px 10px;
+}
+
+.memora-id-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.memora-id-stats div {
+  padding: 9px 10px;
+  backdrop-filter: none;
+}
+
+.memora-id-stats dd {
+  font-size: clamp(0.98rem, 1.35vw, 1.2rem);
+}
+
+@media (max-width: 700px) {
+  .memora-id-profile-dock {
+    padding-inline: 12px;
+  }
+
+  .memora-id-profile-menu {
+    width: calc(100vw - 24px);
+  }
+
+  .memora-id-profile-menu-inner {
+    padding: 14px;
+  }
+
+  .memora-id-profile {
+    gap: 12px;
+  }
+
+  .memora-id-avatar-wrap {
+    width: 56px;
+  }
+
+  .memora-id-contact-share {
+    align-items: center;
+  }
+
+  .memora-id-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 430px) {
+  .memora-id-contact-share {
+    align-items: flex-start;
+  }
+}

@@ -1689,6 +1689,13 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .digital-card-button,
+  .digital-card-theater,
+  .digital-card-flip {
+    transition: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
   .editions-band::before,
   .editions-band::after,
   .edition-track,
@@ -1998,6 +2005,22 @@ h3 {
 
 
 @media (max-width: 640px) {
+  .digital-card-stage {
+    width: min(84vw, 330px);
+    max-height: calc(100svh - 104px);
+  }
+
+  .digital-card-theater {
+    padding: 18px;
+  }
+
+  .digital-card-close {
+    width: 40px;
+    height: 40px;
+    font-size: 1.55rem;
+  }
+}
+@media (max-width: 640px) {
   .edition-page h1 {
     font-size: clamp(2.75rem, 15vw, 4.2rem);
   }
@@ -2281,9 +2304,10 @@ h3 {
   top: clamp(26px, 6vw, 58px);
   right: clamp(18px, 4vw, 42px);
   color: rgba(255, 255, 255, 0.34);
-  font-size: clamp(2.2rem, 7vw, 5.8rem);
+  font-size: clamp(1.4rem, 4.2vw, 3.2rem);
   font-weight: 900;
   line-height: 1;
+  white-space: nowrap;
 }
 @media (max-width: 860px) {
   .toninho-page .biplano-hero-inner {
@@ -2503,7 +2527,7 @@ h3 {
   top: clamp(26px, 6vw, 58px);
   right: clamp(18px, 4vw, 42px);
   color: rgba(255, 255, 255, 0.34);
-  font-size: clamp(2.2rem, 7vw, 5.8rem);
+  font-size: clamp(1.4rem, 4.2vw, 3.2rem);
   font-weight: 900;
   line-height: 1;
 }
@@ -2776,6 +2800,453 @@ h3 {
   margin-bottom: 0;
 }
 
+.biplano-wallpapers {
+  display: grid;
+  gap: 12px;
+  padding: 18px 0 4px;
+}
+
+.biplano-wallpapers h4 {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+}
+
+.biplano-edition-cover {
+  display: grid;
+  gap: 12px;
+  padding: 18px 0 8px;
+}
+
+.biplano-edition-cover h4,
+.biplano-illustrator-title {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.86rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+}
+
+.biplano-edition-cover-link {
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(10, 9, 15, 0.62);
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.biplano-edition-cover-link:hover,
+.biplano-edition-cover-link:focus-visible {
+  border-color: rgba(255, 255, 255, 0.52);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.biplano-edition-cover-link img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.biplano-illustrator-card {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.biplano-illustrator-title {
+  grid-column: 1 / -1;
+}
+
+.biplano-illustrator-avatar {
+  width: 82px;
+  aspect-ratio: 1;
+  clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+  overflow: hidden;
+  background: rgba(8, 14, 38, 0.6);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+}
+
+.biplano-illustrator-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.biplano-illustrator-info {
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.biplano-illustrator-heading {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.biplano-illustrator-heading strong {
+  overflow: hidden;
+  color: var(--white);
+  font-size: 1.05rem;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.biplano-illustrator-name,
+.biplano-illustrator-bio {
+  margin: 0;
+  color: rgba(245, 247, 255, 0.9);
+  font-size: 0.78rem;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.biplano-illustrator-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 2px 0;
+}
+
+.biplano-illustrator-stats div {
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+}
+
+.biplano-illustrator-stats dt,
+.biplano-illustrator-stats dd {
+  margin: 0;
+  color: rgba(245, 247, 255, 0.86);
+  font-size: 0.76rem;
+  line-height: 1.1;
+}
+
+.biplano-illustrator-stats dd {
+  order: -1;
+  color: var(--white);
+  font-weight: 950;
+}
+.biplano-illustrator-card {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin: 14px 0 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.biplano-illustrator-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.biplano-illustrator-avatar {
+  grid-row: 2;
+  width: 74px;
+  justify-self: start;
+}
+
+.biplano-illustrator-info {
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 6px 14px;
+  align-items: center;
+}
+
+.biplano-illustrator-heading,
+.biplano-illustrator-name {
+  grid-column: 2;
+}
+
+.biplano-illustrator-heading {
+  align-self: end;
+}
+
+.biplano-illustrator-name {
+  align-self: start;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.biplano-illustrator-stats {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  margin: 10px 0 0;
+}
+
+.biplano-illustrator-stats div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  padding: 9px 8px;
+  background: rgba(0, 0, 0, 0.16);
+  text-align: center;
+}
+
+.biplano-illustrator-stats dd {
+  order: -1;
+  font-size: 0.92rem;
+}
+
+.biplano-illustrator-stats dt {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.68rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.biplano-illustrator-bio {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  border-left: 3px solid rgba(255, 255, 255, 0.32);
+  padding: 9px 0 9px 12px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.86rem;
+}
+.biplano-wallpaper-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.biplano-wallpaper-thumb {
+  display: grid;
+  min-width: 0;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.76rem;
+  font-weight: 850;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.biplano-wallpaper-thumb img {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+
+.biplano-wallpaper-thumb span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.biplano-wallpaper-thumb:hover img,
+.biplano-wallpaper-thumb:focus-visible img {
+  border-color: rgba(255, 255, 255, 0.54);
+  transform: translateY(-2px);
+}
+
+.biplano-wallpaper-thumb:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 4px;
+}
+.digital-card-button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.digital-card-button:hover,
+.digital-card-button:focus-visible {
+  border-color: rgba(255, 255, 255, 0.66);
+  background: rgba(255, 255, 255, 0.17);
+  outline: 2px solid rgba(42, 167, 165, 0.38);
+  outline-offset: 3px;
+  transform: translateY(-1px);
+}
+
+.digital-card-theater {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  padding: clamp(22px, 4vw, 44px);
+  background: rgba(0, 0, 0, 0.82);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.digital-card-theater[hidden] {
+  display: none;
+}
+
+.digital-card-theater.is-open {
+  opacity: 1;
+}
+
+.digital-card-stage {
+  display: grid;
+  width: min(76vw, 390px);
+  max-width: calc(100vw - 42px);
+  max-height: calc(100svh - 118px);
+  aspect-ratio: 9 / 14;
+  place-items: center;
+  cursor: pointer;
+  perspective: 1200px;
+}
+
+.digital-card-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.2, 0.72, 0.24, 1);
+}
+
+.digital-card-flip.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.digital-card-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(12, 10, 18, 0.92);
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.42);
+  backface-visibility: hidden;
+}
+
+.digital-card-face::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  width: 58px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.digital-card-face--back {
+  transform: rotateY(180deg);
+}
+
+.digital-card-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.digital-card-back-fallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-content: center;
+  gap: 12px;
+  padding: 34px;
+  background:
+    linear-gradient(160deg, rgba(42, 167, 165, 0.22), transparent 34%),
+    linear-gradient(22deg, rgba(228, 28, 62, 0.18), transparent 42%),
+    #111018;
+  color: var(--white);
+  text-align: center;
+}
+
+.digital-card-back-fallback[hidden] {
+  display: none;
+}
+.digital-card-back-fallback span {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.digital-card-back-fallback strong {
+  font-size: clamp(1.5rem, 5vw, 2.45rem);
+  line-height: 1.02;
+}
+
+.digital-card-back-fallback p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 800;
+}
+
+.digital-card-close {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top, 0px));
+  right: max(18px, env(safe-area-inset-right, 0px));
+  z-index: 1;
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.digital-card-close:hover,
+.digital-card-close:focus-visible {
+  border-color: rgba(255, 255, 255, 0.56);
+  background: rgba(255, 255, 255, 0.16);
+  outline: 2px solid rgba(42, 167, 165, 0.42);
+  outline-offset: 3px;
+}
+
+.digital-card-hint {
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.86rem;
+  font-weight: 850;
+  text-align: center;
+}
 .biplano-menu-content {
   display: grid;
   gap: 12px;
@@ -3002,8 +3473,9 @@ h3 {
 .biplano-coaster strong {
   display: block;
   color: var(--white);
-  font-size: clamp(4.5rem, 12vw, 8rem);
-  line-height: 0.88;
+  font-size: clamp(2.1rem, 6vw, 4.3rem);
+  line-height: 0.94;
+  white-space: nowrap;
 }
 
 .edition-button {
@@ -3666,7 +4138,7 @@ h3 {
 }
 
 /* Requested mobile alignment for edition profile and home carousel */
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .edition-profile-dock,
   .memora-manager-page .memora-id-profile-dock {
     top: calc(60px + env(safe-area-inset-top, 0px));
@@ -3685,11 +4157,11 @@ h3 {
 
   .editions-band {
     min-height: 100svh;
-    padding-block: calc(18px + env(safe-area-inset-top, 0px)) 18px;
+    padding-block: calc(22px + env(safe-area-inset-top, 0px)) 22px;
   }
 
   .editions-band .section-inner {
-    width: min(100% - 24px, 1180px);
+    width: min(100% - 40px, 1180px);
   }
 
   .edition-carousel {
@@ -3730,18 +4202,28 @@ h3 {
   .edition-slide {
     display: grid;
     align-content: start;
+    overflow: hidden;
   }
 
   .editions-band .xp-layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
+    grid-template-columns: minmax(0, 56%) minmax(124px, 42vw);
+    gap: 10px 12px;
     align-items: center;
+    overflow: hidden;
   }
 
   .editions-band .xp-copy {
-    gap: 7px;
-    justify-items: center;
-    text-align: center;
+    display: contents;
+    text-align: left;
+  }
+
+  .editions-band .xp-copy .eyebrow,
+  .editions-band .xp-copy .edition-logo-title,
+  .editions-band .xp-copy p:not(.eyebrow) {
+    grid-column: 1;
+    min-width: 0;
+    position: relative;
+    z-index: 2;
   }
 
   .editions-band .xp-copy .eyebrow {
@@ -3750,28 +4232,38 @@ h3 {
   }
 
   .editions-band .xp-copy p:not(.eyebrow) {
-    max-width: 34ch;
-    font-size: clamp(0.78rem, 3.4vw, 0.9rem);
-    line-height: 1.24;
+    max-width: 100%;
+    font-size: clamp(0.76rem, 3.25vw, 0.9rem);
+    line-height: 1.36;
   }
 
   .editions-band .edition-button {
-    min-height: 40px;
-    margin-top: 2px;
-    padding: 9px 16px;
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: min(88vw, 360px);
+    min-height: 44px;
+    margin-top: 12px;
+    padding: 10px 18px;
     font-size: 0.82rem;
+    justify-content: center;
   }
 
   .editions-band .xp-media,
   .edition-slide[data-edition-slide="aura"] .xp-media,
   .edition-slide[data-edition-slide="distance"] .xp-media {
+    grid-column: 2;
+    grid-row: 1 / span 4;
+    align-self: center;
+    justify-self: end;
     min-height: 0;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .edition-slide[data-edition-slide] .xp-logo {
     width: auto;
-    max-width: min(86vw, 420px);
-    max-height: clamp(132px, 30svh, 230px);
+    max-width: min(46vw, 190px);
+    max-height: clamp(140px, 42vw, 190px);
     object-fit: contain;
   }
 
@@ -3779,14 +4271,16 @@ h3 {
   .edition-logo-title-fourkaos,
   .edition-logo-title-aura,
   .edition-logo-title-distance {
-    width: min(100%, 280px);
+    width: min(100%, 260px);
   }
 
   .edition-logo-title img,
   .edition-logo-title-fourkaos img,
   .edition-logo-title-aura img,
   .edition-logo-title-distance img {
-    max-height: 74px;
+    max-width: 100%;
+    max-height: 82px;
+    object-fit: contain;
   }
 
   .editions-band .xp-objectives-wrap {
@@ -3794,25 +4288,34 @@ h3 {
   }
 
   .editions-band .xp-objectives-wrap h3 {
-    margin: 0 0 6px;
+    margin: 0 0 8px;
     font-size: 0.92rem;
-    text-align: center;
+    text-align: left;
   }
 
   .editions-band .xp-objectives {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    display: flex;
+    grid-template-columns: none;
+    gap: 10px;
+    margin-inline: -20px;
+    overflow-x: auto;
+    padding: 0 20px 12px;
+    scroll-padding-inline: 20px;
+    scroll-snap-type: x mandatory;
   }
 
   .editions-band .xp-objectives li {
-    padding: 8px 9px;
-    font-size: 0.68rem;
-    line-height: 1.18;
+    flex: 0 0 min(74vw, 286px);
+    min-height: 116px;
+    padding: 12px 13px;
+    font-size: 0.74rem;
+    line-height: 1.24;
+    scroll-snap-align: start;
   }
 
   .editions-band .xp-objectives li::before {
-    margin-bottom: 4px;
-    font-size: 0.58rem;
+    margin-bottom: 6px;
+    font-size: 0.62rem;
   }
 
   .edition-carousel-controls {
@@ -3836,17 +4339,705 @@ h3 {
 }
 
 @media (max-width: 430px) {
+  .editions-band .section-inner {
+    width: min(100% - 32px, 1180px);
+  }
+
+  .editions-band .xp-layout {
+    grid-template-columns: minmax(0, 55%) minmax(118px, 41vw);
+    column-gap: 10px;
+  }
+
   .editions-band .xp-copy p:not(.eyebrow) {
-    max-width: 30ch;
-    font-size: 0.76rem;
+    font-size: 0.74rem;
   }
 
   .edition-slide[data-edition-slide] .xp-logo {
-    max-height: clamp(118px, 27svh, 188px);
+    max-width: min(45vw, 182px);
+    max-height: clamp(132px, 41vw, 182px);
   }
 
   .editions-band .xp-objectives li {
-    padding: 7px;
-    font-size: 0.64rem;
+    flex-basis: min(76vw, 280px);
+    padding: 11px 12px;
+    font-size: 0.72rem;
   }
+}
+
+/* Organized illustrator profile card */
+.biplano-illustrator-card {
+  grid-template-columns: 78px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px 16px;
+  padding: 18px;
+}
+
+.biplano-illustrator-title {
+  grid-column: 1 / -1;
+  grid-row: auto;
+}
+
+.biplano-illustrator-avatar {
+  grid-column: 1;
+  grid-row: 2;
+  width: 78px;
+  margin-top: 2px;
+}
+
+.biplano-illustrator-info {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+.biplano-illustrator-heading,
+.biplano-illustrator-name,
+.biplano-illustrator-stats,
+.biplano-illustrator-bio,
+.biplano-illustrator-instagram {
+  grid-column: 1;
+}
+
+.biplano-illustrator-heading {
+  min-height: 0;
+  align-self: auto;
+}
+
+.biplano-illustrator-heading strong {
+  font-size: 1.1rem;
+}
+
+.biplano-illustrator-name {
+  margin-top: -7px;
+  align-self: auto;
+}
+
+.biplano-illustrator-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 2px 0 0;
+}
+
+.biplano-illustrator-stats div {
+  min-height: 58px;
+  place-content: center;
+  padding: 8px 6px;
+}
+
+.biplano-illustrator-stats dd {
+  order: -1;
+  font-size: 0.96rem;
+  line-height: 1;
+}
+
+.biplano-illustrator-stats dt {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.biplano-illustrator-bio {
+  margin-top: 2px;
+}
+
+.biplano-illustrator-instagram {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.biplano-illustrator-instagram:hover,
+.biplano-illustrator-instagram:focus-visible {
+  border-color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.17);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 420px) {
+  .biplano-illustrator-card {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .biplano-illustrator-avatar {
+    width: 64px;
+  }
+
+  .biplano-illustrator-stats {
+    grid-template-columns: 1fr;
+  }
+}
+/* Centered illustrator avatar */
+.biplano-illustrator-card {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  text-align: center;
+}
+
+.biplano-illustrator-avatar {
+  grid-column: 1;
+  grid-row: auto;
+  width: 112px;
+  margin: 2px auto 4px;
+}
+
+.biplano-illustrator-info {
+  grid-column: 1;
+  grid-row: auto;
+  width: 100%;
+  justify-items: center;
+  text-align: center;
+}
+
+.biplano-illustrator-heading {
+  justify-content: center;
+}
+
+.biplano-illustrator-heading span {
+  display: none;
+}
+
+.biplano-illustrator-name {
+  margin-top: -5px;
+}
+
+.biplano-illustrator-stats,
+.biplano-illustrator-bio,
+.biplano-illustrator-instagram {
+  width: 100%;
+}
+
+.biplano-illustrator-bio {
+  border-left: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 12px 0 0;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .biplano-illustrator-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .biplano-illustrator-avatar {
+    width: 96px;
+  }
+}
+
+.edition-cover-theater {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 44px);
+  background: rgba(0, 0, 0, 0.88);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.edition-cover-theater[hidden] {
+  display: none;
+}
+
+.edition-cover-theater.is-open {
+  opacity: 1;
+}
+
+.edition-cover-theater > img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: calc(100vw - 36px);
+  max-height: calc(100svh - 36px);
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.48);
+}
+
+/* Edition light theme shared with Memora Manager */
+.manager-theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: max-content;
+  color: rgba(245, 247, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.42);
+}
+
+.biplano-page .manager-theme-switch {
+  margin-right: auto;
+}
+
+.manager-theme-switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.manager-theme-track {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  flex: 0 0 42px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+  background: rgba(3, 5, 16, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 8px 18px rgba(0, 0, 0, 0.22);
+  transition: background 260ms ease, color 260ms ease, border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease, opacity 260ms ease, transform 220ms ease;
+}
+
+.manager-theme-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff, #dfe8ff);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.32);
+  transition: transform 240ms ease, background 240ms ease, box-shadow 240ms ease;
+}
+
+.manager-theme-switch input:checked + .manager-theme-track {
+  border-color: rgba(255, 177, 27, 0.78);
+  background: linear-gradient(135deg, rgba(255, 177, 27, 0.9), rgba(42, 167, 165, 0.82));
+}
+
+.manager-theme-switch input:checked + .manager-theme-track .manager-theme-thumb {
+  transform: translateX(18px);
+  background: #fffaf2;
+}
+
+.manager-theme-switch input:focus-visible + .manager-theme-track {
+  outline: 2px solid rgba(255, 255, 255, 0.86);
+  outline-offset: 3px;
+}
+
+.manager-theme-text {
+  white-space: nowrap;
+}
+
+.biplano-page,
+.biplano-page .site-header,
+.biplano-page .biplano-hero,
+.biplano-page .biplano-resource,
+.biplano-page .biplano-difusora,
+.biplano-page .biplano-difusora-feed article,
+.biplano-page .biplano-album-copy,
+.biplano-page .biplano-menu-toggle,
+.biplano-page .biplano-menu-panel,
+.biplano-page .biplano-edition-cover-link,
+.biplano-page .biplano-illustrator-avatar,
+.biplano-page .memora-id-profile-menu,
+.biplano-page .memora-id-profile-trigger,
+.biplano-page .biplano-difusora-clear,
+.biplano-page .toninho-hero-visual::before,
+.biplano-page .edition-hero-visual::before,
+.memora-route-page .memora-access-card {
+  transition: background 260ms ease, color 260ms ease, border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease, opacity 260ms ease;
+}
+
+html[data-manager-theme="light"] .biplano-page {
+  --edition-text: #182033;
+  --edition-text-strong: #071024;
+  --edition-text-muted: rgba(28, 36, 56, 0.78);
+  --edition-text-soft: rgba(35, 44, 67, 0.64);
+  --edition-panel-border: rgba(255, 255, 255, 0.52);
+  --edition-panel-bg: linear-gradient(180deg, rgba(255, 252, 244, 0.78), rgba(231, 241, 246, 0.58));
+  --edition-chip-bg: rgba(255, 255, 255, 0.56);
+  --edition-shadow: 0 18px 42px rgba(30, 42, 68, 0.16);
+  --edition-focus: rgba(228, 28, 62, 0.42);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.42), rgba(255, 252, 244, 0.72) 58%, rgba(245, 247, 255, 0.8)),
+    linear-gradient(90deg, rgba(62, 31, 41, 0.56), rgba(68, 42, 48, 0.28) 52%, rgba(255, 255, 255, 0.22)),
+    url("assets/toninho-biplano-background.png") center top / cover fixed no-repeat;
+  color: var(--edition-text);
+}
+
+html[data-manager-theme="light"] .fourkaos-page {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(245, 247, 255, 0.72) 58%, rgba(239, 245, 248, 0.84)),
+    radial-gradient(circle at 20% 44%, rgba(255, 255, 255, 0.34), transparent 28%),
+    url("assets/fourkaos-band.jpg") left 58% / min(46vw, 520px) auto fixed no-repeat,
+    url("assets/fourkaos-background.jpg") center top / cover fixed no-repeat;
+}
+
+html[data-manager-theme="light"] .aura-page {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.36), rgba(238, 248, 247, 0.7) 56%, rgba(245, 247, 255, 0.84)),
+    radial-gradient(circle at 68% 26%, rgba(255, 177, 27, 0.22), transparent 26%),
+    url("assets/aura-memora.png") right 44% / min(46vw, 560px) auto fixed no-repeat,
+    url("assets/fundo.png") center top / cover fixed no-repeat,
+    #eef6f7;
+}
+
+html[data-manager-theme="light"] .distance-page {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(244, 248, 255, 0.68) 55%, rgba(239, 245, 248, 0.84)),
+    radial-gradient(circle at 74% 22%, rgba(255, 177, 27, 0.18), transparent 26%),
+    url("assets/Capa.jpg") center top / cover fixed no-repeat,
+    #edf3f7;
+}
+
+html[data-manager-theme="light"] .biplano-page .site-header,
+html[data-manager-theme="light"].has-nav-scrolled .biplano-page .site-header {
+  background: linear-gradient(180deg, rgba(14, 18, 31, 0.72), rgba(14, 18, 31, 0.18));
+  box-shadow: 0 16px 38px rgba(30, 42, 68, 0.14);
+}
+
+html[data-manager-theme="light"] .biplano-page .brand img,
+html[data-manager-theme="light"] .biplano-page .biplano-title-image,
+html[data-manager-theme="light"] .biplano-page .aura-title-logo img,
+html[data-manager-theme="light"] .biplano-page .distance-title-logo img {
+  filter: drop-shadow(0 16px 28px rgba(255, 255, 255, 0.34)) drop-shadow(0 18px 32px rgba(30, 42, 68, 0.2));
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-logo {
+  filter: drop-shadow(0 22px 34px rgba(255, 255, 255, 0.3)) drop-shadow(0 24px 38px rgba(30, 42, 68, 0.22));
+}
+
+html[data-manager-theme="light"] .manager-theme-switch {
+  color: rgba(255, 255, 255, 0.94);
+}
+
+html[data-manager-theme="light"] .biplano-page h1,
+html[data-manager-theme="light"] .biplano-page .biplano-section-heading h2,
+html[data-manager-theme="light"] .biplano-page .biplano-resource h3,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-feed strong,
+html[data-manager-theme="light"] .biplano-page .biplano-wallpapers h4,
+html[data-manager-theme="light"] .biplano-page .biplano-edition-cover h4,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-title,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-heading strong,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-stats dd,
+html[data-manager-theme="light"] .biplano-page .memora-id-profile h2,
+html[data-manager-theme="light"] .memora-route-page .memora-access-card h1 {
+  color: var(--edition-text-strong);
+}
+
+html[data-manager-theme="light"] .biplano-page .eyebrow,
+html[data-manager-theme="light"] .biplano-page .biplano-resource .resource-number,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-feed small,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-feed span,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-stats dt {
+  color: var(--edition-text-soft);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-album-copy p,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-top p:not(.eyebrow),
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-feed p,
+html[data-manager-theme="light"] .biplano-page .biplano-menu-panel,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-name,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-bio,
+html[data-manager-theme="light"] .biplano-page .memora-id-contact,
+html[data-manager-theme="light"] .biplano-page .memora-id-role,
+html[data-manager-theme="light"] .biplano-page .memora-id-contact-share,
+html[data-manager-theme="light"] .memora-route-page .memora-access-card p {
+  color: var(--edition-text-muted);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-album-copy,
+html[data-manager-theme="light"] .biplano-page .biplano-resource,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-feed article,
+html[data-manager-theme="light"] .biplano-page .memora-id-profile-menu,
+html[data-manager-theme="light"] .memora-route-page .memora-access-card {
+  border-color: var(--edition-panel-border);
+  background: var(--edition-panel-bg);
+  box-shadow: var(--edition-shadow);
+  backdrop-filter: blur(12px);
+}
+
+html[data-manager-theme="light"] .biplano-page .toninho-hero-visual::before,
+html[data-manager-theme="light"] .biplano-page .edition-hero-visual::before {
+  border-color: var(--edition-panel-border);
+  background:
+    linear-gradient(145deg, rgba(255, 252, 244, 0.72), rgba(231, 241, 246, 0.48)),
+    rgba(255, 255, 255, 0.34);
+  box-shadow: var(--edition-shadow);
+}
+
+html[data-manager-theme="light"] .biplano-page .toninho-hero-kicker,
+html[data-manager-theme="light"] .biplano-page .edition-hero-kicker {
+  color: rgba(7, 16, 36, 0.24);
+}
+
+html[data-manager-theme="light"] .biplano-page .toninho-hero-meta span,
+html[data-manager-theme="light"] .biplano-page .edition-hero-meta span,
+html[data-manager-theme="light"] .biplano-page .memora-id-contact span,
+html[data-manager-theme="light"] .biplano-page .memora-id-stats div {
+  border-color: rgba(42, 55, 89, 0.14);
+  background: var(--edition-chip-bg);
+  color: var(--edition-text-muted);
+}
+
+html[data-manager-theme="light"] .biplano-page .toninho-hero-actions a,
+html[data-manager-theme="light"] .biplano-page .edition-hero-actions a,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-clear,
+html[data-manager-theme="light"] .biplano-page .memora-id-profile-trigger {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--edition-text-strong);
+  box-shadow: 0 8px 18px rgba(30, 42, 68, 0.08);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .toninho-hero-actions a:first-child,
+html[data-manager-theme="light"] .biplano-page .edition-hero-actions a:first-child {
+  border-color: rgba(228, 28, 62, 0.22);
+  background: linear-gradient(135deg, rgba(228, 28, 62, 0.9), rgba(42, 167, 165, 0.78));
+  color: #ffffff;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-expandable,
+html[data-manager-theme="light"] .biplano-page .biplano-expandable:first-child {
+  border-color: rgba(42, 55, 89, 0.16);
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-menu-toggle {
+  color: var(--edition-text-muted);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-menu-toggle:hover,
+html[data-manager-theme="light"] .biplano-page .biplano-menu-toggle:focus-visible,
+html[data-manager-theme="light"] .biplano-page .biplano-menu-toggle[aria-expanded="true"] {
+  color: var(--edition-text-strong);
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-menu-toggle:focus-visible,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-clear:hover,
+html[data-manager-theme="light"] .biplano-page .biplano-difusora-clear:focus-visible,
+html[data-manager-theme="light"] .biplano-page .memora-id-profile-trigger:hover,
+html[data-manager-theme="light"] .biplano-page .memora-id-profile-trigger:focus-visible,
+html[data-manager-theme="light"] .biplano-page .memora-id-profile-trigger[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.9);
+  outline-color: var(--edition-focus);
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-edition-cover-link,
+html[data-manager-theme="light"] .biplano-page .biplano-illustrator-avatar {
+  border-color: rgba(42, 55, 89, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(231, 241, 246, 0.34)),
+    rgba(255, 255, 255, 0.44);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28), 0 12px 22px rgba(30, 42, 68, 0.12);
+}
+
+@media (max-width: 760px) {
+  .biplano-page .site-header {
+    gap: 10px;
+  }
+
+  .manager-theme-switch {
+    gap: 7px;
+    font-size: 0.7rem;
+  }
+
+  .manager-theme-track {
+    width: 38px;
+    height: 22px;
+    flex-basis: 38px;
+  }
+
+  .manager-theme-thumb {
+    width: 16px;
+    height: 16px;
+  }
+
+  .manager-theme-switch input:checked + .manager-theme-track .manager-theme-thumb {
+    transform: translateX(16px);
+  }
+}
+
+@media (max-width: 430px) {
+  .manager-theme-switch {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    line-height: 1;
+  }
+}
+/* Edition light theme readability fixes */
+html[data-manager-theme="light"] .biplano-page .biplano-menu-content h4,
+html[data-manager-theme="light"] .biplano-page .biplano-menu-content h5,
+html[data-manager-theme="light"] .biplano-page .biplano-interview strong,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-now strong,
+html[data-manager-theme="light"] .biplano-page .biplano-coaster strong,
+html[data-manager-theme="light"] .biplano-page .memora-id-handle,
+html[data-manager-theme="light"] .biplano-page .memora-id-stats dd {
+  color: var(--edition-text-strong);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-menu-content p,
+html[data-manager-theme="light"] .biplano-page .biplano-profile-list,
+html[data-manager-theme="light"] .biplano-page .biplano-interview-note,
+html[data-manager-theme="light"] .biplano-page .biplano-coaster p,
+html[data-manager-theme="light"] .biplano-page .biplano-wallpaper-thumb span,
+html[data-manager-theme="light"] .biplano-page .digital-card-hint,
+html[data-manager-theme="light"] .biplano-page .memora-id-stats dt {
+  color: var(--edition-text-muted);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-radio-now span,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-now small,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-time {
+  color: var(--edition-text-soft);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-radio-now,
+html[data-manager-theme="light"] .biplano-page .biplano-profile-photo,
+html[data-manager-theme="light"] .biplano-page .biplano-wallpaper-thumb img {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 255, 255, 0.46);
+  box-shadow: 0 12px 24px rgba(30, 42, 68, 0.12);
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-radio-control,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-tracklist button,
+html[data-manager-theme="light"] .biplano-page .digital-card-button {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--edition-text-strong);
+  box-shadow: 0 8px 18px rgba(30, 42, 68, 0.08);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-radio-control:hover,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-control:focus-visible,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-control.is-active,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-tracklist button:hover,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-tracklist button:focus-visible,
+html[data-manager-theme="light"] .biplano-page .biplano-radio-tracklist button.is-current,
+html[data-manager-theme="light"] .biplano-page .digital-card-button:hover,
+html[data-manager-theme="light"] .biplano-page .digital-card-button:focus-visible {
+  border-color: rgba(42, 167, 165, 0.32);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--edition-text-strong);
+  outline-color: var(--edition-focus);
+}
+
+html[data-manager-theme="light"] .biplano-page .biplano-radio-play {
+  border-color: rgba(228, 28, 62, 0.2);
+  background: linear-gradient(135deg, rgba(228, 28, 62, 0.88), rgba(42, 167, 165, 0.76));
+  color: #ffffff;
+}
+
+html[data-manager-theme="light"] .biplano-page .memora-id-profile-menu {
+  border-color: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(135deg, rgba(255, 252, 244, 0.94), rgba(230, 242, 241, 0.9)),
+    rgba(255, 255, 255, 0.76);
+  color: var(--edition-text);
+  box-shadow: 0 18px 42px rgba(30, 42, 68, 0.16);
+}
+
+html[data-manager-theme="light"] .biplano-page .memora-id-profile .eyebrow {
+  color: var(--edition-text-soft);
+  text-shadow: none;
+}
+
+html[data-manager-theme="light"] .biplano-page .memora-id-contact span,
+html[data-manager-theme="light"] .biplano-page .memora-id-contact-share,
+html[data-manager-theme="light"] .biplano-page .memora-id-stats div {
+  border-color: rgba(42, 55, 89, 0.14);
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--edition-text-muted);
+}
+
+html[data-manager-theme="light"] .biplano-page .memora-id-toggle {
+  border-color: rgba(42, 55, 89, 0.22);
+  background: rgba(30, 42, 68, 0.14);
+}
+
+html[data-manager-theme="light"] .biplano-page .memora-id-toggle::before {
+  background: #ffffff;
+  box-shadow: 0 5px 12px rgba(30, 42, 68, 0.18);
+}
+
+html[data-manager-theme="light"] .biplano-page .memora-id-contact-share input:checked + .memora-id-toggle {
+  border-color: rgba(42, 167, 165, 0.66);
+  background: linear-gradient(135deg, rgba(255, 177, 27, 0.86), rgba(42, 167, 165, 0.78));
+}
+
+html[data-manager-theme="light"] .biplano-page .digital-card-back-fallback {
+  background:
+    linear-gradient(160deg, rgba(42, 167, 165, 0.16), transparent 34%),
+    linear-gradient(22deg, rgba(228, 28, 62, 0.12), transparent 42%),
+    #fffaf2;
+  color: var(--edition-text-strong);
+}
+
+html[data-manager-theme="light"] .biplano-page .digital-card-back-fallback span,
+html[data-manager-theme="light"] .biplano-page .digital-card-back-fallback p {
+  color: var(--edition-text-muted);
+}
+
+html[data-manager-theme="light"] .biplano-page .digital-card-face {
+  border-color: rgba(42, 55, 89, 0.16);
+  background: rgba(255, 252, 244, 0.94);
+  box-shadow: 0 28px 72px rgba(30, 42, 68, 0.24);
+}
+
+html[data-manager-theme="light"] .biplano-page .digital-card-face::before {
+  border-color: rgba(42, 55, 89, 0.24);
+}
+.distance-audio-panel {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.distance-audio-panel[hidden] {
+  display: none;
+}
+
+.distance-video-theater {
+  z-index: 10000;
+}
+
+.distance-video-stage {
+  width: min(100%, 1120px);
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 28px 72px rgba(0, 0, 0, 0.48);
+}
+
+.distance-video-stage iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
