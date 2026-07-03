@@ -286,7 +286,7 @@
                   </button>
                   <div class="biplano-menu-panel" id="arte-wallpapers-panel" role="region" aria-labelledby="arte-wallpapers-toggle" aria-hidden="true">
                     <div class="biplano-menu-content">
-                      <div class="biplano-wallpaper-gallery" data-wallpaper-gallery></div>
+                      <div class="biplano-wallpaper-grid" data-wallpaper-gallery></div>
                     </div>
                   </div>
                 </div>
@@ -381,7 +381,7 @@
     </div>
     <div class="edition-cover-theater" data-edition-cover-theater hidden role="dialog" aria-modal="true" aria-label="Capa da edicao">
       <button class="digital-card-close" type="button" data-edition-cover-close aria-label="Fechar capa da edicao">&times;</button>
-      <img src="assets/Capatoninho.jpg" alt="Capa da edicao">
+      <img src="assets/Capatoninho.jpg" alt="Capa da edicao" data-edition-cover-image>
     </div>
     <div class="edition-cover-theater distance-video-theater" data-distance-video-theater hidden role="dialog" aria-modal="true" aria-label="Videoclipe Distance And Belief">
       <button class="digital-card-close" type="button" data-distance-video-close aria-label="Fechar videoclipe">&times;</button>
@@ -429,6 +429,7 @@
         const gallery = document.querySelector("[data-wallpaper-gallery]");
         if (!gallery) return;
         const storageKey = `memora:${editionId}:wallpapers`;
+        const configuredStorageKey = `memora:${editionId}:wallpapersConfigured`;
         const defaultWallpapers = [{ name: "WP01", src: "assets/WP01.png" }, { name: "WP02", src: "assets/WP02.png" }];
         const readStoredWallpapers = () => {
           try {
@@ -438,15 +439,23 @@
             return [];
           }
         };
-        const stored = readStoredWallpapers();
-        const storedSources = new Set(stored.map((item) => item.src));
-        const wallpapers = [...defaultWallpapers.filter((item) => !storedSources.has(item.src)), ...stored];
+        const isWallpaperConfigured = () => {
+          try { return window.localStorage.getItem(configuredStorageKey) === "true"; } catch (error) { return false; }
+        };
         const escapeHtml = (value) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-        gallery.innerHTML = wallpapers.map((wallpaper) => {
-          const name = escapeHtml(wallpaper.name || "Wallpaper");
-          const src = escapeHtml(wallpaper.src);
-          return `<a class="biplano-wallpaper-thumb" href="${src}" download aria-label="Baixar ${name}"><img src="${src}" alt="${name}"><span>${name}</span></a>`;
-        }).join("");
+        const renderWallpapers = () => {
+          const stored = readStoredWallpapers();
+          const wallpapers = stored.length || isWallpaperConfigured() ? stored : defaultWallpapers;
+          gallery.innerHTML = wallpapers.map((wallpaper) => {
+            const name = escapeHtml(wallpaper.name || "Wallpaper");
+            const src = escapeHtml(wallpaper.src);
+            return `<a class="biplano-wallpaper-thumb" href="${src}" download aria-label="Baixar ${name}"><img src="${src}" alt="${name}"><span>${name}</span></a>`;
+          }).join("");
+        };
+        renderWallpapers();
+        window.addEventListener("storage", (event) => {
+          if (event.key === storageKey || event.key === configuredStorageKey) renderWallpapers();
+        });
       };
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
@@ -498,9 +507,35 @@
       const initEditionCoverTheater = () => {
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
+        const storageKey = `memora:${editionId}:editionCover`;
+        const configuredStorageKey = `memora:${editionId}:editionCoverConfigured`;
+        const fallbackCover = "assets/Capatoninho.jpg";
+        const coverImage = theater.querySelector("[data-edition-cover-image]");
+        const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
         const closeButton = theater.querySelector("[data-edition-cover-close]");
         let previousBodyOverflow = "";
+        const readStoredCover = () => {
+          try { return window.localStorage.getItem(storageKey) || ""; } catch (error) { return ""; }
+        };
+        const isCoverConfigured = () => {
+          try { return window.localStorage.getItem(configuredStorageKey) === "true"; } catch (error) { return false; }
+        };
+        const currentCover = () => {
+          const storedCover = readStoredCover();
+          if (storedCover || isCoverConfigured()) return storedCover;
+          return fallbackCover;
+        };
+        const syncCover = () => {
+          const src = currentCover();
+          openButtons.forEach((button) => { button.hidden = !src; });
+          if (!coverImage) return src;
+          coverImage.hidden = !src;
+          if (src) coverImage.src = src;
+          else coverImage.removeAttribute("src");
+          return src;
+        };
         const openCoverTheater = () => {
+          if (!syncCover()) return;
           previousBodyOverflow = document.body.style.overflow;
           document.body.style.overflow = "hidden";
           theater.hidden = false;
@@ -511,136 +546,17 @@
           document.body.style.overflow = previousBodyOverflow;
           window.setTimeout(() => { if (!theater.classList.contains("is-open")) theater.hidden = true; }, 220);
         };
-        document.querySelectorAll("[data-edition-cover-open]").forEach((button) => button.addEventListener("click", openCoverTheater));
+        syncCover();
+        openButtons.forEach((button) => button.addEventListener("click", openCoverTheater));
+        window.addEventListener("storage", (event) => {
+          if (event.key === storageKey || event.key === configuredStorageKey) syncCover();
+        });
         theater.addEventListener("click", (event) => { if (event.target === theater) closeCoverTheater(); });
         closeButton?.addEventListener("click", (event) => { event.stopPropagation(); closeCoverTheater(); });
-        document.addEventListener("keydown", (event) => { if (event.key === "Escape" && theater.classList.contains("is-open")) closeCoverTheater(); });
-      };
-      const initDistanceVideoTheater = () => {
-        const theater = document.querySelector("[data-distance-video-theater]");
-        if (!theater) return;
-        const frame = theater.querySelector("[data-distance-video-frame]");
-        const closeButton = theater.querySelector("[data-distance-video-close]");
-        const videoSrc = "https://www.youtube.com/embed/Gdsx3g-WLe8?autoplay=1&rel=0&list=RDGdsx3g-WLe8&start_radio=1";
-        let previousBodyOverflow = "";
-        const openVideoTheater = () => {
-          previousBodyOverflow = document.body.style.overflow;
-          document.body.style.overflow = "hidden";
-          if (frame) frame.src = videoSrc;
-          theater.hidden = false;
-          window.requestAnimationFrame(() => theater.classList.add("is-open"));
-        };
-        const closeVideoTheater = () => {
-          theater.classList.remove("is-open");
-          document.body.style.overflow = previousBodyOverflow;
-          if (frame) frame.removeAttribute("src");
-          window.setTimeout(() => { if (!theater.classList.contains("is-open")) theater.hidden = true; }, 220);
-        };
-        document.querySelectorAll("[data-distance-video-open]").forEach((button) => button.addEventListener("click", openVideoTheater));
-        theater.addEventListener("click", (event) => { if (event.target === theater) closeVideoTheater(); });
-        closeButton?.addEventListener("click", (event) => { event.stopPropagation(); closeVideoTheater(); });
-        document.addEventListener("keydown", (event) => { if (event.key === "Escape" && theater.classList.contains("is-open")) closeVideoTheater(); });
-      };
-      const initDistanceAudioPlayer = () => {
-        const panel = document.querySelector("[data-distance-audio-panel]");
-        const player = document.querySelector("[data-distance-audio-player]");
-        if (!panel || !player) return;
-        const audio = player.querySelector("[data-distance-audio]");
-        const status = player.querySelector("[data-distance-audio-status]");
-        const seek = player.querySelector("[data-distance-audio-seek]");
-        const currentTime = player.querySelector("[data-distance-audio-current-time]");
-        const duration = player.querySelector("[data-distance-audio-duration]");
-        const playButtons = Array.from(player.querySelectorAll("[data-distance-audio-action='play']"));
-        const formatTime = (value) => Number.isFinite(value) ? `${Math.floor(value / 60)}:${Math.floor(value % 60).toString().padStart(2, "0")}` : "0:00";
-        const syncPlayState = () => playButtons.forEach((button) => button.classList.toggle("is-playing", !audio.paused));
-        const playAudio = () => {
-          panel.hidden = false;
-          status.textContent = "Carregando...";
-          audio.play().then(() => {
-            status.textContent = "Tocando agora";
-            syncPlayState();
-          }).catch(() => {
-            status.textContent = "Clique em tocar para iniciar";
-            syncPlayState();
-          });
-        };
-        document.querySelectorAll("[data-distance-audio-open]").forEach((button) => button.addEventListener("click", playAudio));
-        player.querySelectorAll("[data-distance-audio-action]").forEach((button) => button.addEventListener("click", () => {
-          const action = button.dataset.distanceAudioAction;
-          if (action === "play") {
-            audio.paused ? playAudio() : (audio.pause(), status.textContent = "Pausado", syncPlayState());
-          }
-          if (action === "restart") {
-            audio.currentTime = 0;
-            playAudio();
-          }
-          if (action === "rewind") audio.currentTime = Math.max(0, audio.currentTime - 10);
-          if (action === "forward" && Number.isFinite(audio.duration)) audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-        }));
-        audio.addEventListener("loadedmetadata", () => { duration.textContent = formatTime(audio.duration); });
-        audio.addEventListener("timeupdate", () => {
-          currentTime.textContent = formatTime(audio.currentTime);
-          if (Number.isFinite(audio.duration) && audio.duration > 0) seek.value = (audio.currentTime / audio.duration) * 100;
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && theater.classList.contains("is-open")) closeCoverTheater();
         });
-        audio.addEventListener("pause", syncPlayState);
-        audio.addEventListener("play", syncPlayState);
-        audio.addEventListener("ended", () => { status.textContent = "Faixa finalizada"; syncPlayState(); });
-        seek.addEventListener("input", () => { if (Number.isFinite(audio.duration) && audio.duration > 0) audio.currentTime = (Number(seek.value) / 100) * audio.duration; });
       };
-      const radioPlayer = document.querySelector("[data-radio-player]");
-      if (radioPlayer) {
-        const radioTracks = [
-          { title: "Agua da Magoa", src: "assets/toninho-radio/assets/music/aguadamagoa.ogg" },
-          { title: "Arquitetura", src: "assets/toninho-radio/assets/music/architectura.ogg" },
-          { title: "Circulador Noturno", src: "assets/toninho-radio/assets/music/circuladornoturno.ogg" },
-        ];
-        const radioAudio = radioPlayer.querySelector("[data-radio-audio]");
-        const radioTitle = radioPlayer.querySelector("[data-radio-title]");
-        const radioStatus = radioPlayer.querySelector("[data-radio-status]");
-        const radioSeek = radioPlayer.querySelector("[data-radio-seek]");
-        const radioCurrentTime = radioPlayer.querySelector("[data-radio-current-time]");
-        const radioDuration = radioPlayer.querySelector("[data-radio-duration]");
-        const radioPlayButton = radioPlayer.querySelector("[data-radio-action='play']");
-        const radioTrackButtons = Array.from(radioPlayer.querySelectorAll("[data-radio-track]"));
-        let radioIndex = 0;
-        const formatRadioTime = (value) => Number.isFinite(value) ? `${Math.floor(value / 60)}:${Math.floor(value % 60).toString().padStart(2, "0")}` : "0:00";
-        const updateRadioButtons = () => {
-          radioPlayButton?.classList.toggle("is-playing", !radioAudio.paused);
-          radioTrackButtons.forEach((button) => button.classList.toggle("is-current", Number(button.dataset.radioTrack) === radioIndex));
-        };
-        const setRadioTrack = (index, shouldPlay = false) => {
-          radioIndex = (index + radioTracks.length) % radioTracks.length;
-          const track = radioTracks[radioIndex];
-          radioAudio.src = track.src;
-          radioTitle.textContent = track.title;
-          radioSeek.value = 0;
-          radioCurrentTime.textContent = "0:00";
-          radioDuration.textContent = "0:00";
-          radioStatus.textContent = shouldPlay ? "Carregando..." : "Pronto para tocar";
-          updateRadioButtons();
-          if (shouldPlay) radioAudio.play().then(() => { radioStatus.textContent = "Tocando agora"; updateRadioButtons(); }).catch(() => { radioStatus.textContent = "Clique em tocar para iniciar"; updateRadioButtons(); });
-        };
-        radioPlayer.querySelectorAll("[data-radio-action]").forEach((button) => button.addEventListener("click", () => {
-          const action = button.dataset.radioAction;
-          if (action === "play") radioAudio.paused ? setRadioTrack(radioIndex, true) : (radioAudio.pause(), radioStatus.textContent = "Pausado", updateRadioButtons());
-          if (action === "prev") setRadioTrack(radioIndex - 1, true);
-          if (action === "next") setRadioTrack(radioIndex + 1, true);
-          if (action === "shuffle") setRadioTrack(Math.floor(Math.random() * radioTracks.length), true);
-        }));
-        radioTrackButtons.forEach((button) => button.addEventListener("click", () => setRadioTrack(Number(button.dataset.radioTrack), true)));
-        radioAudio.addEventListener("loadedmetadata", () => { radioDuration.textContent = formatRadioTime(radioAudio.duration); });
-        radioAudio.addEventListener("timeupdate", () => {
-          radioCurrentTime.textContent = formatRadioTime(radioAudio.currentTime);
-          if (Number.isFinite(radioAudio.duration) && radioAudio.duration > 0) radioSeek.value = (radioAudio.currentTime / radioAudio.duration) * 100;
-        });
-        radioAudio.addEventListener("ended", () => setRadioTrack(radioIndex + 1, true));
-        radioSeek.addEventListener("input", () => { if (Number.isFinite(radioAudio.duration) && radioAudio.duration > 0) radioAudio.currentTime = (Number(radioSeek.value) / 100) * radioAudio.duration; });
-        setRadioTrack(0);
-      }
-      initDistanceVideoTheater();
-      initDistanceAudioPlayer();
-      initWallpaperGallery();
-      initDigitalCardTheater();
       initEditionCoverTheater();
       window.addEventListener("resize", () => {
         document.querySelectorAll(".biplano-menu-panel.is-open").forEach((panel) => { panel.style.maxHeight = "none"; });

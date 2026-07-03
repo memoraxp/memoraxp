@@ -651,6 +651,17 @@
                     </div>
                   </div>
                 </div>
+                <div class="biplano-expandable">
+                  <button class="biplano-menu-toggle" type="button" id="arte-wallpapers-toggle" aria-expanded="false" aria-controls="arte-wallpapers-panel">
+                    <span>Wallpapers</span>
+                    <span class="biplano-menu-arrow" aria-hidden="true"></span>
+                  </button>
+                  <div class="biplano-menu-panel" id="arte-wallpapers-panel" role="region" aria-labelledby="arte-wallpapers-toggle" aria-hidden="true">
+                    <div class="biplano-menu-content">
+                      <div class="biplano-wallpaper-grid" data-wallpaper-gallery></div>
+                    </div>
+                  </div>
+                </div>
                 <button class="digital-card-button" type="button" data-edition-cover-open>Abrir Capa da Edição</button>
                 <button class="digital-card-button" type="button" data-digital-card-open>Abrir Card Digital</button>
               </div>
@@ -735,7 +746,7 @@
 
     <div class="edition-cover-theater" data-edition-cover-theater hidden role="dialog" aria-modal="true" aria-label="Capa da edição Toninho Borbo Biplano">
       <button class="digital-card-close" type="button" data-edition-cover-close aria-label="Fechar capa da edição">&times;</button>
-      <img src="assets/Capatoninho.jpg" alt="Capa da edição Toninho Borbo Biplano">
+      <img src="assets/Capatoninho.jpg" alt="Capa da edição Toninho Borbo Biplano" data-edition-cover-image>
     </div>
 
 
@@ -806,6 +817,7 @@
         if (!gallery) return;
 
         const storageKey = "memora:toninho-borbo-biplano:wallpapers";
+        const configuredStorageKey = "memora:toninho-borbo-biplano:wallpapersConfigured";
         const defaultWallpapers = [
           { name: "WP01", src: "assets/WP01.png" },
           { name: "WP02", src: "assets/WP02.png" },
@@ -820,12 +832,13 @@
           }
         };
 
-        const stored = readStoredWallpapers();
-        const storedSources = new Set(stored.map((item) => item.src));
-        const wallpapers = [
-          ...defaultWallpapers.filter((item) => !storedSources.has(item.src)),
-          ...stored,
-        ];
+        const isWallpaperConfigured = () => {
+          try {
+            return window.localStorage.getItem(configuredStorageKey) === "true";
+          } catch (error) {
+            return false;
+          }
+        };
 
         const escapeHtml = (value) => String(value ?? "")
           .replace(/&/g, "&amp;")
@@ -834,16 +847,25 @@
           .replace(/"/g, "&quot;")
           .replace(/'/g, "&#39;");
 
-        gallery.innerHTML = wallpapers.map((wallpaper) => {
-          const name = escapeHtml(wallpaper.name || "Wallpaper");
-          const src = escapeHtml(wallpaper.src);
-          return `
-            <a class="biplano-wallpaper-thumb" href="${src}" download aria-label="Baixar ${name}">
-              <img src="${src}" alt="${name}">
-              <span>${name}</span>
-            </a>
-          `;
-        }).join("");
+        const renderWallpapers = () => {
+          const stored = readStoredWallpapers();
+          const wallpapers = stored.length || isWallpaperConfigured() ? stored : defaultWallpapers;
+          gallery.innerHTML = wallpapers.map((wallpaper) => {
+            const name = escapeHtml(wallpaper.name || "Wallpaper");
+            const src = escapeHtml(wallpaper.src);
+            return `
+              <a class="biplano-wallpaper-thumb" href="${src}" download aria-label="Baixar ${name}">
+                <img src="${src}" alt="${name}">
+                <span>${name}</span>
+              </a>
+            `;
+          }).join("");
+        };
+
+        renderWallpapers();
+        window.addEventListener("storage", (event) => {
+          if (event.key === storageKey || event.key === configuredStorageKey) renderWallpapers();
+        });
       };
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
@@ -930,10 +952,48 @@
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
 
+        const storageKey = "memora:toninho-borbo-biplano:editionCover";
+        const configuredStorageKey = "memora:toninho-borbo-biplano:editionCoverConfigured";
+        const fallbackCover = "assets/Capatoninho.jpg";
+        const coverImage = theater.querySelector("[data-edition-cover-image]");
+        const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
         const closeButton = theater.querySelector("[data-edition-cover-close]");
         let previousBodyOverflow = "";
 
+        const readStoredCover = () => {
+          try {
+            return window.localStorage.getItem(storageKey) || "";
+          } catch (error) {
+            return "";
+          }
+        };
+
+        const isCoverConfigured = () => {
+          try {
+            return window.localStorage.getItem(configuredStorageKey) === "true";
+          } catch (error) {
+            return false;
+          }
+        };
+
+        const currentCover = () => {
+          const storedCover = readStoredCover();
+          if (storedCover || isCoverConfigured()) return storedCover;
+          return fallbackCover;
+        };
+
+        const syncCover = () => {
+          const src = currentCover();
+          openButtons.forEach((button) => { button.hidden = !src; });
+          if (!coverImage) return src;
+          coverImage.hidden = !src;
+          if (src) coverImage.src = src;
+          else coverImage.removeAttribute("src");
+          return src;
+        };
+
         const openCoverTheater = () => {
+          if (!syncCover()) return;
           previousBodyOverflow = document.body.style.overflow;
           document.body.style.overflow = "hidden";
           theater.hidden = false;
@@ -948,8 +1008,12 @@
           }, 220);
         };
 
-        document.querySelectorAll("[data-edition-cover-open]").forEach((button) => {
+        syncCover();
+        openButtons.forEach((button) => {
           button.addEventListener("click", openCoverTheater);
+        });
+        window.addEventListener("storage", (event) => {
+          if (event.key === storageKey || event.key === configuredStorageKey) syncCover();
         });
         theater.addEventListener("click", (event) => {
           if (event.target === theater) closeCoverTheater();

@@ -681,9 +681,16 @@
   min-width: 0;
   gap: 9px;
   align-content: start;
+}
+
+.manager-card-upload-target {
+  display: grid;
+  min-width: 0;
+  gap: 9px;
   cursor: pointer;
 }
 
+.manager-card-upload-target > span:first-child,
 .manager-card-side > span:first-child {
   color: var(--manager-text-strong);
   font-size: 0.78rem;
@@ -997,12 +1004,60 @@
   gap: 8px;
 }
 
+.manager-wallpaper-clear {
+  justify-self: start;
+  margin-top: 2px;
+}
+
 .manager-wallpaper-thumb {
+  position: relative;
   display: grid;
   width: 58px;
   min-width: 0;
   gap: 5px;
   margin: 0;
+}
+
+.manager-wallpaper-remove {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  z-index: 2;
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 50%;
+  background: rgba(18, 18, 24, 0.9);
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.manager-wallpaper-remove:hover,
+.manager-wallpaper-remove:focus-visible {
+  background: rgba(220, 58, 74, 0.96);
+  outline: 2px solid var(--manager-focus);
+  outline-offset: 2px;
+}
+
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .manager-wallpaper-remove {
+  top: -9px;
+  right: -9px;
+  width: 26px;
+  height: 26px;
+  border-color: rgba(255, 255, 255, 0.86);
+  background: rgba(13, 17, 28, 0.96);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .manager-wallpaper-thumb img {
@@ -1651,6 +1706,7 @@ html[data-manager-theme="light"] .memora-manager-page .memora-id-profile h2,
 html[data-manager-theme="light"] .memora-manager-page .memora-id-stats dd,
 html[data-manager-theme="light"] .memora-manager-page .memora-id-timeline h3,
 html[data-manager-theme="light"] .memora-manager-page .memora-id-modal-dialog h2,
+html[data-manager-theme="light"] .memora-manager-page .manager-card-upload-target > span:first-child,
 html[data-manager-theme="light"] .memora-manager-page .manager-card-side > span:first-child,
 html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-upload span,
 html[data-manager-theme="light"] .memora-manager-page .manager-illustrator-heading strong,
@@ -1782,7 +1838,8 @@ html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-upload 
   color: var(--manager-text-muted);
 }
 
-html[data-manager-theme="light"] .memora-manager-page .manager-card-remove {
+html[data-manager-theme="light"] .memora-manager-page .manager-card-remove,
+html[data-manager-theme="light"] .memora-manager-page .manager-wallpaper-remove {
   border-color: rgba(42, 55, 89, 0.16);
   background: rgba(255, 255, 255, 0.62);
   color: var(--manager-text-strong);

@@ -324,11 +324,14 @@
   const hasTokenInventory = (edition) => Boolean(edition.tokenCode && edition.tokenTotal);
   const tokenTotalForEdition = (edition) => Number(edition.tokenTotal || edition.sold + edition.stock || 100);
   const digitalCardStorageKey = (side, edition = activeEdition()) => `memora:${edition.id}:card${side === "front" ? "Front" : "Back"}`;
+  const editionCoverStorageKey = (edition = activeEdition()) => `memora:${edition.id}:editionCover`;
+  const editionCoverConfiguredStorageKey = (edition = activeEdition()) => `memora:${edition.id}:editionCoverConfigured`;
   const fallbackWallpapers = [
     { name: "WP01.png", src: "assets/WP01.png" },
     { name: "WP02.png", src: "assets/WP02.png" },
   ];
   const wallpaperStorageKey = (edition = activeEdition()) => `memora:${edition.id}:wallpapers`;
+  const wallpaperConfiguredStorageKey = (edition = activeEdition()) => `memora:${edition.id}:wallpapersConfigured`;
   const defaultWallpapers = (edition = activeEdition()) => edition.wallpapers || fallbackWallpapers;
   let pendingWallpapers = null;
 
@@ -503,7 +506,166 @@
       return "";
     }
   };
+  const readImageFileAsDataUrl = (file, options = {}) => new Promise((resolve) => {
+    const maxWidth = options.maxWidth || 1400;
+    const maxHeight = options.maxHeight || 2200;
+    const quality = options.quality || 0.84;
+    const fallbackReader = () => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => resolve(String(reader.result || "")));
+      reader.addEventListener("error", () => resolve(""));
+      reader.readAsDataURL(file);
+    };
 
+    if (!file?.type?.startsWith("image/") || typeof Image === "undefined") {
+      fallbackReader();
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      const originalSrc = String(reader.result || "");
+      const image = new Image();
+      image.addEventListener("load", () => {
+        const scale = Math.min(1, maxWidth / image.naturalWidth, maxHeight / image.naturalHeight);
+        const width = Math.max(1, Math.round(image.naturalWidth * scale));
+        const height = Math.max(1, Math.round(image.naturalHeight * scale));
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext("2d");
+        if (!context) {
+          resolve(originalSrc);
+          return;
+        }
+
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, width, height);
+        context.drawImage(image, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      });
+      image.addEventListener("error", () => resolve(originalSrc));
+      image.src = originalSrc;
+    });
+    reader.addEventListener("error", () => resolve(""));
+    reader.readAsDataURL(file);
+  });
+
+  const writeStoredEditionCover = (src, edition = activeEdition()) => {
+    window.localStorage.setItem(editionCoverStorageKey(edition), src || "");
+    window.localStorage.setItem(editionCoverConfiguredStorageKey(edition), "true");
+  };
+
+  const isEditionCoverConfigured = (edition = activeEdition()) => {
+    try {
+      return window.localStorage.getItem(editionCoverConfiguredStorageKey(edition)) === "true";
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const currentEditionCover = (edition = activeEdition()) => {
+    const storedCover = readStoredCardImage(editionCoverStorageKey(edition));
+    if (storedCover || isEditionCoverConfigured(edition)) return storedCover;
+    return edition.image || "";
+  };
+
+  const renderEditionCoverCard = (edition) => {
+    const coverSrc = currentEditionCover(edition);
+    const isEditableCover = true;
+    if (!isEditableCover) {
+      return `
+        <article class="manager-section-card manager-edition-cover-card">
+          <strong>Capa da edição</strong>
+          <a class="manager-edition-cover-link" href="${escapeHtml(edition.publicPage)}#arte-capa" aria-label="Abrir capa de ${escapeHtml(edition.name)} na página da edição">
+            <img src="${escapeHtml(coverSrc || edition.image)}" alt="Capa de ${escapeHtml(edition.name)}">
+          </a>
+          <p>Arquivo principal exibido nos tokens, comunicações e na página pública da edição.</p>
+        </article>
+      `;
+    }
+
+    return `
+      <article class="manager-section-card manager-edition-cover-card manager-edition-cover-config">
+        <strong>Capa da edição</strong>
+        <label class="manager-card-upload-target manager-edition-cover-upload">
+          <span>Anexar capa</span>
+          <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-edition-cover-upload>
+          <span class="manager-card-preview manager-edition-cover-preview ${coverSrc ? "has-image" : ""}" data-edition-cover-preview-wrap>
+            <img src="${escapeHtml(coverSrc)}" alt="Preview da capa de ${escapeHtml(edition.name)}" data-edition-cover-preview ${coverSrc ? "" : "hidden"}>
+            <small data-edition-cover-placeholder>${coverSrc ? "Trocar capa" : "Anexar capa"}</small>
+          </span>
+        </label>
+        <p>Arquivo principal exibido nos tokens, comunicações e na página pública da edição.</p>
+        <div class="manager-card-save-row manager-edition-cover-actions">
+          <button class="memora-id-action-button manager-card-save" type="button" data-edition-cover-save>Salvar</button>
+          <button class="memora-id-action-button manager-card-remove" type="button" data-edition-cover-remove>Remover</button>
+          <span class="manager-card-save-status" data-edition-cover-status>${coverSrc ? "Capa carregada para esta edição." : "Envie uma imagem para publicar a capa da edição."}</span>
+        </div>
+      </article>
+    `;
+  };
+
+  const setEditionCoverStatus = (message, tone = "") => {
+    const status = document.querySelector("[data-edition-cover-status]");
+    if (!status) return;
+    status.textContent = message;
+    status.dataset.tone = tone;
+  };
+
+  const setEditionCoverPreview = (src = "") => {
+    const preview = document.querySelector("[data-edition-cover-preview]");
+    const placeholder = document.querySelector("[data-edition-cover-placeholder]");
+    const wrap = document.querySelector("[data-edition-cover-preview-wrap]");
+    if (!preview || !placeholder || !wrap) return;
+    wrap.classList.toggle("has-image", Boolean(src));
+    preview.hidden = !src;
+    if (src) preview.src = src;
+    else preview.removeAttribute("src");
+    placeholder.textContent = src ? "Trocar capa" : "Anexar capa";
+  };
+
+  const initEditionCoverUploads = () => {
+    const edition = activeEdition();
+    const upload = document.querySelector("[data-edition-cover-upload]");
+    const preview = document.querySelector("[data-edition-cover-preview]");
+    upload?.addEventListener("change", (event) => {
+      const file = event.target.files?.[0];
+      if (!file || !file.type.startsWith("image/")) return;
+      readImageFileAsDataUrl(file, { maxWidth: 1600, maxHeight: 1600, quality: 0.88 }).then((src) => {
+        if (!src) return;
+        preview.dataset.pendingEditionCover = src;
+        setEditionCoverPreview(src);
+        setEditionCoverStatus("Capa carregada. Clique em Salvar para publicar na pagina da edicao.", "pending");
+        event.target.value = "";
+      });
+    });
+
+    document.querySelector("[data-edition-cover-save]")?.addEventListener("click", () => {
+      try {
+        const src = preview?.dataset.pendingEditionCover || currentEditionCover(edition);
+        writeStoredEditionCover(src, edition);
+        if (preview) delete preview.dataset.pendingEditionCover;
+        setEditionCoverPreview(src);
+        setEditionCoverStatus("Capa salva. A pagina da edicao exibira a imagem atualizada.", "saved");
+      } catch (error) {
+        openModal("Capa nao salva", "Nao foi possivel salvar a capa neste navegador. Tente uma imagem menor.");
+        setEditionCoverStatus("Nao foi possivel salvar. Tente uma imagem menor.", "error");
+      }
+    });
+
+    document.querySelector("[data-edition-cover-remove]")?.addEventListener("click", () => {
+      try {
+        writeStoredEditionCover("", edition);
+        if (preview) delete preview.dataset.pendingEditionCover;
+        setEditionCoverPreview("");
+        setEditionCoverStatus("Capa removida. A pagina da edicao foi atualizada.", "saved");
+      } catch (error) {
+        openModal("Capa nao removida", "Nao foi possivel remover a capa neste navegador.");
+        setEditionCoverStatus("Nao foi possivel remover a capa.", "error");
+      }
+    });
+  };
   const renderDigitalCardUploads = (edition) => {
     return `
       <article class="manager-section-card manager-digital-card-config">
@@ -512,25 +674,29 @@
           <p>Configure frente e verso do card fisico em um unico quadro funcional.</p>
         </div>
         <div class="manager-card-composer" aria-label="Uploads do Card Digital">
-          <label class="manager-card-side">
-            <span>Frente</span>
-            <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-card-upload="front">
-            <span class="manager-card-preview" data-card-preview-wrap="front">
-              <img data-card-preview="front" alt="Preview da frente do Card Digital" hidden>
-              <small data-card-placeholder="front">${edition.digitalCard?.front ? "Trocar frente" : "Anexar frente"}</small>
-            </span>
+          <div class="manager-card-side">
+            <label class="manager-card-upload-target">
+              <span>Frente</span>
+              <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-card-upload="front">
+              <span class="manager-card-preview" data-card-preview-wrap="front">
+                <img data-card-preview="front" alt="Preview da frente do Card Digital" hidden>
+                <small data-card-placeholder="front">${edition.digitalCard?.front ? "Trocar frente" : "Anexar frente"}</small>
+              </span>
+            </label>
             <button class="manager-card-remove" type="button" data-card-remove="front">Remover</button>
-          </label>
+          </div>
 
-          <label class="manager-card-side">
-            <span>Verso</span>
-            <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-card-upload="back">
-            <span class="manager-card-preview" data-card-preview-wrap="back">
-              <img data-card-preview="back" alt="Preview do verso do Card Digital" hidden>
-              <small data-card-placeholder="back">${edition.digitalCard?.back ? "Trocar verso" : "Anexar verso"}</small>
-            </span>
+          <div class="manager-card-side">
+            <label class="manager-card-upload-target">
+              <span>Verso</span>
+              <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-card-upload="back">
+              <span class="manager-card-preview" data-card-preview-wrap="back">
+                <img data-card-preview="back" alt="Preview do verso do Card Digital" hidden>
+                <small data-card-placeholder="back">${edition.digitalCard?.back ? "Trocar verso" : "Anexar verso"}</small>
+              </span>
+            </label>
             <button class="manager-card-remove" type="button" data-card-remove="back">Remover</button>
-          </label>
+          </div>
         </div>
         <div class="manager-card-save-row">
           <button class="memora-id-action-button manager-card-save" type="button" data-card-save>Salvar card</button>
@@ -551,15 +717,23 @@
 
   const writeStoredWallpapers = (wallpapers) => {
     window.localStorage.setItem(wallpaperStorageKey(), JSON.stringify(wallpapers));
+    window.localStorage.setItem(wallpaperConfiguredStorageKey(), "true");
+  };
+
+  const isWallpaperConfigured = () => {
+    try {
+      return window.localStorage.getItem(wallpaperConfiguredStorageKey()) === "true";
+    } catch (error) {
+      return false;
+    }
   };
 
   const currentWallpapers = () => {
-    const stored = pendingWallpapers || readStoredWallpapers();
-    const storedSources = new Set(stored.map((item) => item.src));
-    return [
-      ...defaultWallpapers().filter((item) => !storedSources.has(item.src)),
-      ...stored,
-    ];
+    const stored = Array.isArray(pendingWallpapers) ? pendingWallpapers : readStoredWallpapers();
+    if (stored.length || isWallpaperConfigured()) {
+      return stored.map((item, index) => ({ ...item, storedIndex: index, isDefault: false }));
+    }
+    return defaultWallpapers().map((item) => ({ ...item, isDefault: true }));
   };
 
   const renderWallpaperUploader = (edition) => {
@@ -572,6 +746,7 @@
           <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" multiple data-wallpaper-upload>
         </label>
         <div class="manager-wallpaper-grid" data-wallpaper-preview-list></div>
+        <button class="memora-id-action-button manager-wallpaper-clear" type="button" data-wallpaper-clear>Remover arquivos anexados</button>
         <div class="manager-card-save-row">
           <button class="memora-id-action-button manager-card-save" type="button" data-wallpaper-save>Salvar</button>
           <span class="manager-card-save-status" data-wallpaper-save-status>${escapeHtml(defaultWallpapers(edition).map((wallpaper) => wallpaper.name).join(" e "))} estao carregados como exemplo.</span>
@@ -593,6 +768,7 @@
     list.innerHTML = currentWallpapers()
       .map((wallpaper) => `
         <figure class="manager-wallpaper-thumb">
+          ${wallpaper.isDefault ? "" : `<button class="manager-wallpaper-remove" type="button" data-wallpaper-remove="${wallpaper.storedIndex}" aria-label="Remover ${escapeHtml(wallpaper.name || "wallpaper anexado")}" title="Remover arquivo anexado">x</button>`}
           <img src="${escapeHtml(wallpaper.src)}" alt="${escapeHtml(wallpaper.name || "Wallpaper da edicao")}">
           <figcaption>${escapeHtml(wallpaper.name || "Wallpaper")}</figcaption>
         </figure>
@@ -604,16 +780,32 @@
     pendingWallpapers = readStoredWallpapers();
     renderWallpaperPreviewList();
 
+    document.querySelector("[data-wallpaper-preview-list]")?.addEventListener("click", (event) => {
+      const removeButton = event.target.closest("[data-wallpaper-remove]");
+      if (!removeButton) return;
+      const removeIndex = Number(removeButton.dataset.wallpaperRemove);
+      pendingWallpapers = (pendingWallpapers || []).filter((_, index) => index !== removeIndex);
+      renderWallpaperPreviewList();
+      setWallpaperStatus("Arquivo removido da selecao. Clique em Salvar para atualizar a pagina da edicao.", "pending");
+    });
+    document.querySelector("[data-wallpaper-clear]")?.addEventListener("click", () => {
+      try {
+        pendingWallpapers = [];
+        writeStoredWallpapers([]);
+        renderWallpaperPreviewList();
+        setWallpaperStatus("Arquivos anexados removidos. A pagina da edicao foi atualizada.", "saved");
+      } catch (error) {
+        openModal("Arquivos nao removidos", "Nao foi possivel remover os wallpapers neste navegador.");
+        setWallpaperStatus("Nao foi possivel remover os arquivos anexados.", "error");
+      }
+    });
+
     document.querySelector("[data-wallpaper-upload]")?.addEventListener("change", (event) => {
       const files = Array.from(event.target.files || []).filter((file) => file.type.startsWith("image/"));
       if (!files.length) return;
 
-      Promise.all(files.map((file) => new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.addEventListener("load", () => resolve({ name: file.name, src: String(reader.result || "") }));
-        reader.addEventListener("error", () => resolve(null));
-        reader.readAsDataURL(file);
-      }))).then((loadedFiles) => {
+      Promise.all(files.map((file) => readImageFileAsDataUrl(file, { maxWidth: 1200, maxHeight: 2134, quality: 0.82 })
+        .then((src) => (src ? { name: file.name, src } : null)))).then((loadedFiles) => {
         const validFiles = loadedFiles.filter(Boolean);
         if (!validFiles.length) return;
 
@@ -661,14 +853,12 @@
       const file = input.files?.[0];
       if (!file || !file.type.startsWith("image/")) return;
 
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        const dataUrl = String(reader.result || "");
+      readImageFileAsDataUrl(file, { maxWidth: 1400, maxHeight: 2200, quality: 0.86 }).then((dataUrl) => {
+        if (!dataUrl) return;
         preview.dataset.pendingCardImage = dataUrl;
         setCardPreview(preview, placeholder, dataUrl);
-        setSaveStatus("Imagem carregada. Clique em Salvar imagens para publicar no Card Digital.", "pending");
+        setSaveStatus("Imagem carregada. Clique em Salvar card para publicar no Card Digital.", "pending");
       });
-      reader.readAsDataURL(file);
     });
 
     removeButton?.addEventListener("click", (event) => {
@@ -676,7 +866,7 @@
       input.value = "";
       delete preview.dataset.pendingCardImage;
       setCardPreview(preview, placeholder, "");
-      setSaveStatus("Imagem removida do preview. Clique em Salvar imagens para atualizar a pagina da edicao.", "pending");
+      setSaveStatus("Imagem removida do preview. Clique em Salvar card para atualizar a pagina da edicao.", "pending");
     });
   };
 
@@ -723,13 +913,7 @@
   const renderArte = (edition) => {
     document.querySelector('[data-section="arte"]').innerHTML = `
       <div class="manager-section-grid">
-        <article class="manager-section-card manager-edition-cover-card">
-          <strong>Capa da edição</strong>
-          <a class="manager-edition-cover-link" href="${escapeHtml(edition.publicPage)}#arte-capa" aria-label="Abrir capa de ${escapeHtml(edition.name)} na página da edição">
-            <img src="${escapeHtml(edition.image)}" alt="Capa de ${escapeHtml(edition.name)}">
-          </a>
-          <p>Arquivo principal exibido nos tokens, comunicações e na página pública da edição.</p>
-        </article>
+        ${renderEditionCoverCard(edition)}
         <article class="manager-section-card manager-illustrator-card">
           <strong class="manager-illustrator-title">Ilustrador</strong>
           <div class="manager-illustrator-avatar">
@@ -759,6 +943,7 @@
     `;
     bindModalButtons(document.querySelector('[data-section="arte"]'));
     initWallpaperUploads();
+    initEditionCoverUploads();
     initDigitalCardUploads();
   };
   const renderCoaster = (edition) => {
