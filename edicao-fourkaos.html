@@ -292,7 +292,10 @@
                   </button>
                   <div class="biplano-menu-panel" id="arte-wallpapers-panel" role="region" aria-labelledby="arte-wallpapers-toggle" aria-hidden="true">
                     <div class="biplano-menu-content">
-                      <div class="biplano-wallpaper-grid" data-wallpaper-gallery></div>
+                      <div class="biplano-wallpaper-grid" data-wallpaper-gallery>
+                        <a class="biplano-wallpaper-thumb" href="assets/WP07.png" download aria-label="Baixar WP07"><img src="assets/WP07.png" alt="WP07"><span>WP07</span></a>
+                        <a class="biplano-wallpaper-thumb" href="assets/WP08.png" download aria-label="Baixar WP08"><img src="assets/WP08.png" alt="WP08"><span>WP08</span></a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -447,8 +450,6 @@
         const storageKey = `memora:${editionId}:wallpapers`;
         const configuredStorageKey = `memora:${editionId}:wallpapersConfigured`;
         const defaultWallpapers = [
-          { name: "WP01", src: "assets/WP01.png" },
-          { name: "WP02", src: "assets/WP02.png" },
           { name: "WP07", src: "assets/WP07.png" },
           { name: "WP08", src: "assets/WP08.png" },
         ];
@@ -466,7 +467,7 @@
         const escapeHtml = (value) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
         const renderWallpapers = () => {
           const stored = readStoredWallpapers();
-          const wallpapers = stored.length || isWallpaperConfigured() ? stored : defaultWallpapers;
+          const wallpapers = stored.length ? stored : defaultWallpapers;
           gallery.innerHTML = wallpapers.map((wallpaper) => {
             const name = escapeHtml(wallpaper.name || "Wallpaper");
             const src = escapeHtml(wallpaper.src);

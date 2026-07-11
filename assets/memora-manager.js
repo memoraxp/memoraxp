@@ -141,8 +141,8 @@
       image: "assets/fourkaos-background.jpg",
       digitalCard: { front: "assets/WP07.png", back: "assets/WP08.png" },
       wallpapers: [
-        { name: "WP01.png", src: "assets/WP01.png" },
-        { name: "WP02.png", src: "assets/WP02.png" },
+        { name: "WP07.png", src: "assets/WP07.png" },
+        { name: "WP08.png", src: "assets/WP08.png" },
       ],
       tile: "assets/MC3.png",
       managerPage: "manager-fourkaos.html",
