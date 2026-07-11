@@ -4308,7 +4308,7 @@ h3 {
   }
 
   .editions-band {
-    min-height: 100svh;
+    min-height: 0;
     padding-block: calc(18px + env(safe-area-inset-top, 0px)) 24px;
   }
 
@@ -4328,7 +4328,9 @@ h3 {
     gap: 7px;
     margin-bottom: 12px;
     overflow-x: auto;
-    padding: 5px;
+    overscroll-behavior-inline: contain;
+    padding: 5px 8px;
+    scroll-padding-inline: 8px;
     border-radius: 8px;
     scroll-snap-type: x proximity;
     scrollbar-width: none;
@@ -4345,7 +4347,7 @@ h3 {
     padding: 8px 11px;
     font-size: 0.69rem;
     line-height: 1.05;
-    scroll-snap-align: center;
+    scroll-snap-align: start;
   }
 
   .edition-mobile-option span {
@@ -4353,21 +4355,38 @@ h3 {
   }
 
   .edition-track {
-    overflow: hidden;
+    display: block;
+    overflow: visible;
   }
 
   .edition-slide {
-    display: grid;
+    display: none;
     align-content: start;
-    overflow: hidden;
+    min-height: 0;
+    overflow: visible;
     padding-inline: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .edition-slide.is-active {
+    display: grid;
+    z-index: 1;
+  }
+
+  .edition-slide.is-entering-next,
+  .edition-slide.is-entering-previous,
+  .edition-slide.is-leaving-next,
+  .edition-slide.is-leaving-previous {
+    animation: none;
   }
 
   .editions-band .xp-layout {
     grid-template-columns: 1fr;
     gap: 12px;
     align-items: start;
-    overflow: hidden;
+    overflow: visible;
   }
 
   /*
@@ -4402,7 +4421,7 @@ h3 {
   }
 
   .editions-band .xp-copy p:not(.eyebrow) {
-    order: 4;
+    order: 3;
     max-width: 38ch;
     margin: 0 auto;
     font-size: clamp(0.79rem, 3.35vw, 0.9rem);
@@ -4423,12 +4442,12 @@ h3 {
   .editions-band .xp-media,
   .edition-slide[data-edition-slide="aura"] .xp-media,
   .edition-slide[data-edition-slide="distance"] .xp-media {
-    order: 3;
+    order: 4;
     align-self: center;
     justify-self: center;
     min-height: 0;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .edition-slide[data-edition-slide] .xp-logo {
