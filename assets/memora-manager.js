@@ -87,7 +87,7 @@
       ],
       links: ["Instagram", "Site oficial", "Realidade aumentada", "Loja", "Conteúdo exclusivo"],
       logs: ["João Pessoa - hoje, 14:18", "Campina Grande - ontem, 21:04", "Recife - 23 jun, 19:52"],
-      points: ["Galeria Estação Cabo Branco", "Loja Memora Online", "Ateliê Aura"],
+      points: [{ name: "Galeria Estação Cabo Branco", allocated: 35, sold: 18 }, { name: "Loja Memora Online", allocated: 40, sold: 17 }, { name: "Ateliê Aura", allocated: 25, sold: 7 }],
       memories: ["Foto da montagem da exposicao", "Relato da artista sobre a primeira tiragem", "Prints dos primeiros colecionadores"],
     },
     {
@@ -130,7 +130,7 @@
       ],
       links: ["Instagram", "Playlist", "Site oficial", "Conteúdo exclusivo", "Loja"],
       logs: ["São Paulo - hoje, 10:09", "João Pessoa - ontem, 18:33", "Curitiba - 22 jun, 23:12"],
-      points: ["Bandcamp mockado", "Loja do artista", "Evento de lançamento"],
+      points: [{ name: "Bandcamp", allocated: 35, sold: 21 }, { name: "Loja do artista", allocated: 35, sold: 19 }, { name: "Evento de lançamento", allocated: 30, sold: 17 }],
       memories: ["Video de ensaio", "Making of da capa", "Playlist comentada faixa a faixa"],
     },
     {
@@ -139,6 +139,7 @@
       module: "Stage",
       status: "ativa",
       image: "assets/fourkaos-background.jpg",
+      digitalCard: { front: "assets/WP07.png", back: "assets/WP08.png" },
       wallpapers: [
         { name: "WP01.png", src: "assets/WP01.png" },
         { name: "WP02.png", src: "assets/WP02.png" },
@@ -173,7 +174,7 @@
       ],
       links: ["Instagram", "Site oficial", "Playlist", "Loja", "Conteúdo exclusivo"],
       logs: ["Casa de Show Aurora - hoje, 22:11", "Casa de Show Aurora - hoje, 21:48", "Portaria lateral - hoje, 21:07"],
-      points: ["Bilheteria Aurora", "Sympla mockado", "Loja da banda"],
+      points: [{ name: "Bilheteria Aurora", allocated: 40, sold: 31 }, { name: "Sympla", allocated: 35, sold: 24 }, { name: "Loja da banda", allocated: 25, sold: 13 }],
       memories: ["Check-ins da noite", "Setlist fotografado", "Relatos da comunidade no pós-show"],
     },
     {
@@ -195,19 +196,19 @@
         type: "Manager da edição Biplano",
         contact: ["Instagram @toninhoborbo", "WhatsApp: (83) 98800-1978", "toninho@memora.app"],
         avatar: "assets/avatar.png",
-        stats: { Edições: 1, "Vendas totais": 23,
-      "Tokens ativos": 41, Comunidade: 3 },
+        stats: { Edições: 1, "Vendas totais": 67,
+      "Tokens ativos": 0, Comunidade: 3 },
       },
-      sold: 23,
-      activeTokens: 41,
+      sold: 67,
+      activeTokens: 0,
       unitPrice: 35,
       tokenCode: "TBRB",
       tokenTotal: 100,
       qrReads: 412,
       checkins: 0,
-      revenue: "R$ 805,00",
+      revenue: "R$ 2.345,00",
       emergency: 37,
-      stock: 36,
+      stock: 33,
       campaign: "R$ 7.200,00 de R$ 12.000,00",
       collectors: [
         { name: "Helena Brito", instagram: "@helenabrito", phone: "(83) 98820-1978", status: "ativo", consent: true, health: "Contato de emergencia registrado", emergency: "Rui Brito - (83) 98820-1979" },
@@ -216,17 +217,16 @@
       ],
       links: ["Instagram", "Álbum", "Rádio Biplano", "Loja", "Conteúdo exclusivo"],
       logs: ["Campina Grande - hoje, 12:04", "João Pessoa - ontem, 20:11", "Recife - 24 jun, 18:06"],
-      points: ["Loja Memora Online", "Show Biplano", "Acervo Toninho Borbo"],
+      points: [
+        { name: "Venda direta - Toninho Borbo", allocated: 25, sold: 19 },
+        { name: "Cine S\u00e3o Jos\u00e9", allocated: 25, sold: 15 },
+        { name: "Livraria Nobel", allocated: 25, sold: 11 },
+        { name: "Banca do Orlando", allocated: 25, sold: 22 },
+      ],
       memories: ["Entrevista de 2016 sobre Biplano", "Faixas favoritas do Toninho", "Registros da criação do album"],
     },
   ];
 
-  const updates = [
-    { tag: "#update", title: "Novo painel de links do token", text: "Configure Instagram, loja, playlist e conteúdo exclusivo a partir da edição ativa.", status: "nao lido", edition: "aura", section: "panel-token" },
-    { tag: "#evento", title: "Check-in Stage em tempo real", text: "Fourkaos recebeu uma visão rapida de entradas, saídas e contatos consentidos.", status: "nao lido", edition: "fourkaos", section: "panel-coaster" },
-    { tag: "#dica", title: "Cápsula do Tempo mais forte", text: "Destaque memórias enviadas pela comunidade para transformar a edição em arquivo vivo.", status: "lido", edition: "distance", section: "panel-capsula" },
-    { tag: "#bugfix", title: "Exportacao financeira ajustada", text: "Relatorios mockados agora separam pontos de venda e estoque disponivel.", status: "lido", edition: "aura", section: "panel-pagamentos" },
-  ];
 
   const state = { activeIndex: 0, pushIndex: 0, whatsappIndex: 0 };
   let hiveScrollFrame = 0;
@@ -304,11 +304,21 @@
     currency: "BRL",
   });
 
-  const editionRevenue = (edition) => formatCurrency(Number(edition.sold || 0) * Number(edition.unitPrice || 0));
+  const salePoints = (edition) => Array.isArray(edition.points) && edition.points.every((point) => point && typeof point === "object" && "sold" in point)
+    ? edition.points
+    : [];
+  const editionSold = (edition) => salePoints(edition).reduce((total, point) => total + Number(point.sold || 0), 0) || Number(edition.sold || 0);
+  const editionAvailable = (edition) => {
+    const points = salePoints(edition);
+    return points.length
+      ? points.reduce((total, point) => total + Math.max(0, Number(point.allocated || 0) - Number(point.sold || 0)), 0)
+      : Math.max(0, tokenTotalForEdition(edition) - Number(edition.activeTokens || 0) - editionSold(edition));
+  };
+  const editionRevenue = (edition) => formatCurrency(editionSold(edition) * Number(edition.unitPrice || 0));
   const editionUnitPrice = (edition) => edition.unitPrice ? formatCurrency(edition.unitPrice) : "Nao definido";
 
   const moneyMetric = (edition) => [
-    ["Vendas", edition.sold],
+    ["Vendas", editionSold(edition)],
     ["Tokens ativos", edition.activeTokens],
     ["Leituras QR", edition.qrReads],
     ["Check-ins", edition.checkins],
@@ -341,7 +351,7 @@
       const tokenNumber = index + 1;
       const tokenLabel = `${edition.tokenCode || "MEMO"}-${String(tokenNumber).padStart(3, "0")}`;
       const isActive = tokenNumber <= edition.activeTokens;
-      const isSold = tokenNumber > edition.activeTokens && tokenNumber <= edition.activeTokens + edition.sold;
+      const isSold = tokenNumber > edition.activeTokens && tokenNumber <= edition.activeTokens + editionSold(edition);
       const tokenStatus = isActive ? "ativado" : isSold ? "vendido" : "disponivel para venda";
       const statusClass = isActive ? "is-active" : isSold ? "is-sold" : "is-available";
       return `
@@ -670,7 +680,7 @@
     return `
       <article class="manager-section-card manager-digital-card-config">
         <div class="manager-card-config-copy">
-          <strong>Capa Digital interativa</strong>
+          <strong>Card Digital</strong>
           <p>Configure frente e verso do card fisico em um unico quadro funcional.</p>
         </div>
         <div class="manager-card-composer" aria-label="Uploads do Card Digital">
@@ -1011,29 +1021,48 @@
   };
 
   const renderPayments = (edition) => {
+    const points = salePoints(edition);
     document.querySelector('[data-section="pagamentos"]').innerHTML = `
       <div class="manager-payment-grid">
-        <article class="manager-payment-card"><strong>Unidades vendidas</strong><span>${edition.sold}</span><p>Consolidado da edição selecionada.</p></article>
+        <article class="manager-payment-card"><strong>Unidades vendidas</strong><span>${editionSold(edition)}</span><p>Consolidado da edicao selecionada.</p></article>
         <article class="manager-payment-card"><strong>Receita total</strong><span>${escapeHtml(edition.unitPrice ? editionRevenue(edition) : edition.revenue)}</span><p>Calculada pelas unidades vendidas.</p></article>
-        <article class="manager-payment-card"><strong>Estoque disponivel</strong><span>${edition.stock} unidades</span><p>Entrada e baixa por ponto de distribuicao.</p></article>
-        ${edition.points.map((point) => `<article class="manager-payment-card"><strong>${escapeHtml(point)}</strong><span>Ponto de venda</span><p>Contato e endereco mockados para controle logistico.</p></article>`).join("")}
+        <article class="manager-payment-card"><strong>Estoque disponivel</strong><span>${editionAvailable(edition)} unidades</span><p>Entrada e baixa por ponto de distribuicao.</p></article>
+        ${points.length ? `<section class="manager-sales-by-point" aria-labelledby="sales-by-point-title">
+          <div class="manager-sales-by-point-heading"><div><p class="eyebrow">distribuicao da edicao</p><h4 id="sales-by-point-title">Pontos de venda</h4></div><span>${tokenTotalForEdition(edition)} tokens distribuidos</span></div>
+          <div class="manager-sales-by-point-list">${points.map((point) => {
+            const available = Math.max(0, Number(point.allocated || 0) - Number(point.sold || 0));
+            const pointRevenue = formatCurrency(Number(point.sold || 0) * Number(edition.unitPrice || 0));
+            return `<article class="manager-sales-point-card"><strong>${escapeHtml(point.name)}</strong><dl><div><dt>Disponibilizados</dt><dd>${point.allocated} tokens</dd></div><div><dt>Vendidos</dt><dd>${point.sold} tokens</dd></div><div><dt>Disponiveis</dt><dd>${available} tokens</dd></div><div><dt>Receita gerada</dt><dd>${pointRevenue}</dd></div></dl></article>`;
+          }).join("")}</div>
+        </section>` : edition.points.map((point) => `<article class="manager-payment-card"><strong>${escapeHtml(point)}</strong><span>Ponto de venda</span><p>Contato e endereco mockados para controle logistico.</p></article>`).join("")}
         <article class="manager-payment-card"><strong>Vaquinha / campanha online</strong><span>${escapeHtml(edition.campaign)}</span><p>Area exibida para modulos Stage e Artist quando houver campanha.</p></article>
       </div>
     `;
   };
 
   const renderCapsule = (edition) => {
-    document.querySelector('[data-section="capsula"]').innerHTML = `
-      <div class="manager-timeline-grid">
-        ${edition.memories.map((memory, index) => `<article class="manager-memory-card"><strong>${String(index + 1).padStart(2, "0")} - Memória</strong><p>${escapeHtml(memory)}</p><span>Conteúdo curado para a linha do tempo da edição.</span></article>`).join("")}
-        <article class="manager-memory-card"><strong>Conteúdos da comunidade</strong><p>Relatos e prints destacados aparecem apos curadoria do realizador.</p></article>
-      </div>
-      <div class="manager-section-actions">
-        <button class="memora-id-action-button" type="button" data-modal-open="Adicionar memória">Adicionar memória</button>
-        <button class="memora-id-action-button" type="button" data-modal-open="Gerar arquivo da edição">Gerar arquivo da edição</button>
+    const capsuleSection = document.querySelector('[data-section="capsula"]');
+    if (!capsuleSection) return;
+    const dates = ["2026-03-14", "2026-06-12", "2026-08-15", "2026-09-06", "2026-09-22", "2026-10-03"];
+    const entries = [
+      { text: `Início do arquivo da ${edition.name}.`, date: dates[0], image: edition.image, alt: `Capa da ${edition.name}` },
+      ...edition.memories.map((text, index) => ({ text, date: dates[index + 1] })),
+      { text: "Novas memórias da comunidade entram neste arquivo após curadoria.", date: dates[4] },
+      { text: "Linha do tempo da edição atualizada.", date: dates[5] },
+    ];
+    const formatDate = (value) => {
+      const [year, month, day] = value.split("-").map(Number);
+      return new Intl.DateTimeFormat("pt-BR", { day: "numeric", month: "long", year: "numeric" }).format(new Date(year, month - 1, day));
+    };
+    capsuleSection.innerHTML = `
+      <div class="toninho-timeline-mock" data-timeline-scroll aria-label="Linha do tempo de acontecimentos">
+        ${entries.map((entry) => `<article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content">${entry.image ? `<img src="${escapeHtml(entry.image)}" alt="${escapeHtml(entry.alt || "Imagem da edição")}">` : ""}<p>${escapeHtml(entry.text)}</p><time datetime="${entry.date}">${formatDate(entry.date)}</time></div></article>`).join("")}
       </div>
     `;
-    bindModalButtons(document.querySelector('[data-section="capsula"]'));
+    requestAnimationFrame(() => {
+      const timeline = capsuleSection.querySelector("[data-timeline-scroll]");
+      if (timeline) timeline.scrollTop = timeline.scrollHeight;
+    });
   };
 
   const setActiveEdition = (index, options = {}) => {
@@ -1099,21 +1128,6 @@
       .join("");
   };
 
-  const renderUpdates = () => {
-    document.querySelector("[data-updates-list]").innerHTML = updates
-      .map((item) => {
-        const editionIndex = editions.findIndex((edition) => edition.id === item.edition);
-        return `
-          <li>
-            <time>${escapeHtml(item.tag)} - ${escapeHtml(item.status)}</time>
-            <h3>${escapeHtml(item.title)}</h3>
-            <p>${escapeHtml(item.text)}</p>
-            <button class="memora-id-action-button" type="button" data-update-edition="${editionIndex}" data-update-section="${escapeHtml(item.section)}">Ver detalhes</button>
-          </li>
-        `;
-      })
-      .join("");
-  };
 
   const getProfileMenuElements = () => ({
     button: document.querySelector("[data-profile-toggle]"),
@@ -1222,13 +1236,6 @@
     });
     document.querySelector("[data-whatsapp-open]")?.addEventListener("click", () => openModal("WhatsApp protótipo", "A conversa usaria um link wa.me mockado para os contatos selecionados. Nenhuma mensagem real sera enviada sem backend e consentimento operacional."));
     document.querySelectorAll("[data-modal-close]").forEach((item) => item.addEventListener("click", closeModal));
-    document.querySelector("[data-updates-list]")?.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-update-edition]");
-      if (!button) return;
-      openEditionManager(Number(button.dataset.updateEdition), { scroll: false });
-      openAccordionPanel(button.dataset.updateSection);
-      document.querySelector("[data-edition-panel]")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
     window.addEventListener("resize", () => centerActiveCell("auto"));
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Escape") return;
@@ -1243,7 +1250,6 @@
     const initialEditionIndex = Math.max(0, editionIndexById(scopedEditionId()));
     renderEditionHive();
     renderSelects();
-    renderUpdates();
     bindAccordions();
     bindControls();
     setActiveEdition(initialEditionIndex, { scroll: false });

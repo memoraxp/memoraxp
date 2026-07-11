@@ -11,7 +11,7 @@
     >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="assets/memora-id.css">
   </head>
@@ -27,13 +27,13 @@
       </label>
       <nav class="nav-links" aria-label="Recursos da edição">
         <a href="#token">Token</a>
-        <a href="#capsula">Cápsula</a>
         <a href="#arte">Arte</a>
         <a href="#comunidade">Comunidade</a>
-        <a href="#difusora">Difusora</a>
+        <a href="#capsula">Cápsula</a>
         <a href="#pagamentos">Pagamentos</a>
         <a href="#coaster">Coaster</a>
-      </nav>
+      <a href="#difusora">Difusora</a>
+        </nav>
       <div class="header-actions">
         <a class="header-cta login-cta" href="index.html#login">Login</a>
         <a class="header-cta back-cta" href="index.html#edicoes">Voltar</a>
@@ -49,15 +49,15 @@
               <h2 data-profile-name>Arthur</h2>
               <p class="memora-id-handle" data-profile-handle>@arthur.memora</p>
               <p class="memora-id-contact" data-profile-contact><span>Instagram @arthurmina</span><span>WhatsApp: (83) 999139300</span></p>
-              <p class="memora-id-role" data-profile-role>Colecionador de experi�ncias Memora.</p>
+              <p class="memora-id-role" data-profile-role>Colecionador de experiências Memora.</p>
               <label class="memora-id-contact-share">
-                <span>Tornar minhas informa��es de contato vis�veis para outros colecionadores</span>
-                <input type="checkbox" role="switch" name="share-contact-info" aria-label="Tornar minhas informa��es de contato vis�veis para outros colecionadores">
+                <span>Tornar minhas informações de contato visíveis para outros colecionadores</span>
+                <input type="checkbox" role="switch" name="share-contact-info" aria-label="Tornar minhas informações de contato visíveis para outros colecionadores">
                 <span class="memora-id-toggle" aria-hidden="true"></span>
               </label>
             </div>
           </div>
-          <dl class="memora-id-stats" aria-label="M�tricas do perfil" data-profile-stats></dl>
+          <dl class="memora-id-stats" aria-label="Métricas do perfil" data-profile-stats></dl>
         </div>
       </aside>
       <div class="memora-id-profile-trigger-wrap">
@@ -70,7 +70,7 @@
           <div class="edition-hero-copy">
             <p class="eyebrow">Memora Music #3</p>
             <h1 id="edition-title" class="aura-title-logo">
-              <img src="assets/Aura logo.png" alt="Aura">
+              <img src="assets/aura-memora.png" alt="Token visual da edição Aura">
             </h1>
             <div class="biplano-album-copy">
               <p>
@@ -87,9 +87,9 @@
               <a href="#difusora">Ver difusora</a>
             </div>
           </div>
-          <div class="edition-hero-visual" aria-label="Peca visual da edição Aura">
+          <div class="edition-hero-visual" aria-label="Logo da edição Aura">
             <span class="edition-hero-kicker">AURA003</span>
-            <img class="biplano-logo aura-logo" src="assets/aura-memora.png" alt="Peca Memora da banda Aura">
+            <img class="biplano-logo aura-logo" src="assets/Aura logo.png" alt="Aura">
           </div>
         </div>
       </section>
@@ -118,36 +118,13 @@
               <h3>Token</h3>
               <div class="biplano-actions" aria-label="Ações de Token">
                 <div class="biplano-expandable">
-                  <button class="biplano-menu-toggle" type="button" id="token-musica-toggle" aria-expanded="false" aria-controls="token-musica-panel">
-                    <span>Escute Aura</span>
-                    <span class="biplano-menu-arrow" aria-hidden="true"></span>
-                  </button>
-                  <div class="biplano-menu-panel" id="token-musica-panel" role="region" aria-labelledby="token-musica-toggle" aria-hidden="true">
-                    <div class="biplano-menu-content">
-                      <iframe
-                        class="biplano-spotify-embed"
-                        data-testid="embed-iframe"
-                        src="https://open.spotify.com/embed/album/0S9C2XJGLNHyFDRkytsnHD?utm_source=generator"
-                        width="100%"
-                        height="352"
-                        frameborder="0"
-                        allowfullscreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        title="Album da edicao no Spotify"
-                      ></iframe>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="biplano-expandable">
                   <button class="biplano-menu-toggle" type="button" id="token-sobre-toggle" aria-expanded="false" aria-controls="token-sobre-panel">
                     <span>Sobre Aura</span>
                     <span class="biplano-menu-arrow" aria-hidden="true"></span>
                   </button>
                   <div class="biplano-menu-panel" id="token-sobre-panel" role="region" aria-labelledby="token-sobre-toggle" aria-hidden="true">
                     <div class="biplano-menu-content">
-                      <h4>Sobre esta edicao</h4>
+                      <h4>Sobre esta edição</h4>
                       <p>
                         Esta area replica a estrutura editorial usada na edicao Toninho Borbo | Biplano. O texto pode ser substituido depois por biografia,
                         apresentacao da obra, ficha tecnica e contexto artistico especifico desta edicao.
@@ -167,7 +144,7 @@
                   <div class="biplano-menu-panel" id="token-producao-panel" role="region" aria-labelledby="token-producao-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-profile">
                       <img class="biplano-profile-photo" src="assets/gregg-mervine.jpg" alt="Retrato de Gregg Mervine">
-                      <h4>Gregg Mervine: producao e pesquisa musical</h4>
+                      <h4>Gregg Mervine: produção e pesquisa musical</h4>
                       <p>
                         Painel de producao replicado como base temporaria. Ele pode receber produtor, diretor musical, equipe tecnica,
                         estudio, ficha de gravacao e bastidores da construcao da edicao.
@@ -204,9 +181,15 @@
                         <div class="biplano-radio-time"><span data-radio-current-time>0:00</span><span data-radio-duration>0:00</span></div>
                       </div>
                       <ol class="biplano-radio-tracklist" aria-label="Playlist da Radio do Artista">
-                        <li><button type="button" data-radio-track="0">Agua da Magoa</button></li>
-                        <li><button type="button" data-radio-track="1">Arquitetura</button></li>
-                        <li><button type="button" data-radio-track="2">Circulador Noturno</button></li>
+                        <li><button type="button" data-radio-track="0">Two Notes (Intro)</button></li>
+                        <li><button type="button" data-radio-track="1">Dreaming Inside Out</button></li>
+                        <li><button type="button" data-radio-track="2">Serendipity</button></li>
+                        <li><button type="button" data-radio-track="3">The Little I Know</button></li>
+                        <li><button type="button" data-radio-track="4">The Song Of A New Tomorrow</button></li>
+                        <li><button type="button" data-radio-track="5">Follow My Lead</button></li>
+                        <li><button type="button" data-radio-track="6">Home Sweet Home</button></li>
+                        <li><button type="button" data-radio-track="7">Here I Go (Stronger)</button></li>
+                        <li><button type="button" data-radio-track="8">Green</button></li>
                       </ol>
                     </div>
                   </div>
@@ -217,7 +200,13 @@
             <article class="biplano-resource" id="capsula">
               <span class="resource-number">02</span>
               <h3>Cápsula do Tempo</h3>
-              <div class="biplano-actions" aria-label="Ações da Cápsula do Tempo">
+                            <div class="toninho-timeline-mock" data-timeline-scroll aria-label="Linha do tempo de acontecimentos">
+                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><img src="assets/Capa.jpg" alt="Capa da Edição Aura"><p>O arquivo da Edição Aura ganha sua primeira memória.</p><time datetime="2026-03-14">2026-03-14</time></div></article>
+                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><p>Foto da montagem da exposição incorporada à cápsula.</p><time datetime="2026-06-12">2026-06-12</time></div></article>
+                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><p>Relato da artista sobre a primeira tiragem.</p><time datetime="2026-08-15">2026-08-15</time></div></article>
+                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><p>Prints dos primeiros colecionadores entram no arquivo.</p><time datetime="2026-09-06">2026-09-06</time></div></article>
+              </div>
+<div class="biplano-actions" aria-label="Ações da Cápsula do Tempo">
                 <div class="biplano-expandable">
                   <button class="biplano-menu-toggle" type="button" id="capsula-2026-toggle" aria-expanded="false" aria-controls="capsula-2026-panel">
                     <span>Entrevista: 2026</span>
@@ -225,9 +214,9 @@
                   </button>
                   <div class="biplano-menu-panel" id="capsula-2026-panel" role="region" aria-labelledby="capsula-2026-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-interview">
-                      <h4>Capsula do Tempo</h4>
-                      <p><strong>Memora:</strong> Este painel replica a estrutura de entrevista e memoria expandida da edicao Toninho.</p>
-                      <p><strong>Artista:</strong> Aqui entram relatos, bastidores, perguntas, respostas e registros do processo criativo desta edicao.</p>
+                      <h4>Cápsula do Tempo</h4>
+                      <p><strong>Memora:</strong> Este painel replica a estrutura de entrevista e memória expandida da edição Toninho.</p>
+                      <p><strong>Artista:</strong> Aqui entram relatos, bastidores, perguntas, respostas e registros do processo criativo desta edição.</p>
                       <p class="biplano-interview-note">Conteudo temporario para manter o padrao estrutural ate a curadoria final.</p>
                     </div>
                   </div>
@@ -240,9 +229,9 @@
                   </button>
                   <div class="biplano-menu-panel" id="capsula-futura-panel" role="region" aria-labelledby="capsula-futura-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-interview">
-                      <h4>Capsula do Tempo</h4>
-                      <p><strong>Memora:</strong> Este painel replica a estrutura de entrevista e memoria expandida da edicao Toninho.</p>
-                      <p><strong>Artista:</strong> Aqui entram relatos, bastidores, perguntas, respostas e registros do processo criativo desta edicao.</p>
+                      <h4>Cápsula do Tempo</h4>
+                      <p><strong>Memora:</strong> Este painel replica a estrutura de entrevista e memória expandida da edição Toninho.</p>
+                      <p><strong>Artista:</strong> Aqui entram relatos, bastidores, perguntas, respostas e registros do processo criativo desta edição.</p>
                       <p class="biplano-interview-note">Conteudo temporario para manter o padrao estrutural ate a curadoria final.</p>
                     </div>
                   </div>
@@ -306,7 +295,7 @@
                   </button>
                   <div class="biplano-menu-panel" id="comunidade-colecionadores-panel" role="region" aria-labelledby="comunidade-colecionadores-toggle" aria-hidden="true">
                     <div class="biplano-menu-content">
-                      <p>Espaco para aproximar colecionadores, realizadores e comunidade da edicao.</p>
+                      <p>Espaço para aproximar colecionadores, realizadores e comunidade da edição.</p>
                     </div>
                   </div>
                 </div>
@@ -318,7 +307,7 @@
                   </button>
                   <div class="biplano-menu-panel" id="comunidade-tbt-panel" role="region" aria-labelledby="comunidade-tbt-toggle" aria-hidden="true">
                     <div class="biplano-menu-content">
-                      <p>Registros afetivos, fotos antigas, memorias de lancamento e chamadas #TBT da edicao.</p>
+                      <p>Registros afetivos, fotos antigas, memórias de lançamento e chamadas #TBT da edição.</p>
                     </div>
                   </div>
                 </div>
@@ -336,7 +325,7 @@
                   </button>
                   <div class="biplano-menu-panel" id="pagamentos-vaquinha-panel" role="region" aria-labelledby="pagamentos-vaquinha-toggle" aria-hidden="true">
                     <div class="biplano-menu-content">
-                      <p>Area para apoio direto ao artista, links de contribuicao e campanhas conectadas a esta edicao.</p>
+                      <p>Área para apoio direto ao artista, links de contribuição e campanhas conectadas a esta edição.</p>
                     </div>
                   </div>
                 </div>
@@ -360,6 +349,22 @@
               <h3>Coaster</h3>
               <p>Número da peça</p>
               <strong>AURA003</strong>
+              <section class="aura-shop" aria-label="Loja da Edição Aura">
+                <article class="aura-shop-item">
+                  <img src="assets/Caneca 03.png" alt="Caneca Memora Aura #1 branca, primeira arte">
+                  <div>
+                    <h4>Caneca Memora Aura #1 - Branca</h4>
+                    <p>R$ 30,00</p>
+                  </div>
+                </article>
+                <article class="aura-shop-item">
+                  <img src="assets/Caneca 04.png" alt="Caneca Memora Aura #1 branca, segunda arte">
+                  <div>
+                    <h4>Caneca Memora Aura #1 - Branca</h4>
+                    <p>R$ 30,00</p>
+                  </div>
+                </article>
+              </section>
             </article>
           </div>
         </div>
@@ -450,6 +455,11 @@
         window.addEventListener("storage", (event) => {
           if (event.key === storageKey || event.key === configuredStorageKey) renderWallpapers();
         });
+        window.addEventListener("focus", renderWallpapers);
+        window.addEventListener("pageshow", renderWallpapers);
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden) renderWallpapers();
+        });
       };
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
@@ -500,6 +510,8 @@
         closeButton?.addEventListener("click", (event) => { event.stopPropagation(); closeDigitalCardTheater(); });
         document.addEventListener("keydown", (event) => { if (event.key === "Escape" && theater.classList.contains("is-open")) closeDigitalCardTheater(); });
       };
+      initDigitalCardTheater();
+
       const initEditionCoverTheater = () => {
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
@@ -553,11 +565,91 @@
           if (event.key === "Escape" && theater.classList.contains("is-open")) closeCoverTheater();
         });
       };
+      const radioPlayer = document.querySelector("[data-radio-player]");
+      const radioMenu = radioPlayer?.closest(".biplano-expandable");
+      const radioToggle = radioMenu?.querySelector(".biplano-menu-toggle");
+      const tokenActions = document.querySelector("#token .biplano-actions");
+      if (radioToggle) radioToggle.querySelector("span").textContent = "Escute o álbum 'Creatively'";
+      if (radioMenu && tokenActions) tokenActions.prepend(radioMenu);
+      if (radioPlayer) {
+        const radioTracks = [
+          { title: "Two Notes (Intro)", src: "assets/aura-radio/assets/music/01%20-%20Two%20Notes%20(Intro).mp3" },
+          { title: "Dreaming Inside Out", src: "assets/aura-radio/assets/music/02%20-%20Dreaming%20Inside%20Out.mp3" },
+          { title: "Serendipity", src: "assets/aura-radio/assets/music/03%20-%20Serendipity.mp3" },
+          { title: "The Little I Know", src: "assets/aura-radio/assets/music/04%20-%20The%20Little%20I%20know.mp3" },
+          { title: "The Song Of A New Tomorrow", src: "assets/aura-radio/assets/music/06%20-%20The%20Song%20Of%20A%20New%20Tomorrow.mp3" },
+          { title: "Follow My Lead", src: "assets/aura-radio/assets/music/07%20-%20Follow%20My%20Lead.mp3" },
+          { title: "Home Sweet Home", src: "assets/aura-radio/assets/music/08%20-%20Home%20Sweet%20Home.mp3" },
+          { title: "Here I Go (Stronger)", src: "assets/aura-radio/assets/music/09%20-%20Here%20I%20go%20(Stronger).mp3" },
+          { title: "Green", src: "assets/aura-radio/assets/music/11%20-%20Green.mp3" },
+        ];
+        const audio = radioPlayer.querySelector("[data-radio-audio]");
+        const title = radioPlayer.querySelector("[data-radio-title]");
+        const status = radioPlayer.querySelector("[data-radio-status]");
+        const seek = radioPlayer.querySelector("[data-radio-seek]");
+        const currentTime = radioPlayer.querySelector("[data-radio-current-time]");
+        const duration = radioPlayer.querySelector("[data-radio-duration]");
+        const panel = radioPlayer.closest(".biplano-menu-panel");
+        let index = 0;
+        let shuffle = false;
+        const formatTime = (value) => Number.isFinite(value) ? `${Math.floor(value / 60)}:${Math.floor(value % 60).toString().padStart(2, "0")}` : "0:00";
+        const fitPanel = () => { if (panel?.classList.contains("is-open") && panel.style.maxHeight !== "none") panel.style.maxHeight = `${panel.scrollHeight}px`; };
+        const update = () => {
+          const playing = !audio.paused;
+          const play = radioPlayer.querySelector("[data-radio-action='play']");
+          const shuffleButton = radioPlayer.querySelector("[data-radio-action='shuffle']");
+          play.classList.toggle("is-playing", playing);
+          play.setAttribute("aria-label", playing ? "Pausar" : "Tocar");
+          shuffleButton.classList.toggle("is-active", shuffle);
+          shuffleButton.setAttribute("aria-pressed", String(shuffle));
+          radioPlayer.querySelectorAll("[data-radio-track]").forEach((button) => {
+            const active = Number(button.dataset.radioTrack) === index;
+            button.classList.toggle("is-current", active);
+            button.setAttribute("aria-current", String(active));
+          });
+        };
+        const play = () => audio.play().then(() => { status.textContent = "Tocando agora"; update(); }).catch(() => { status.textContent = "Clique em tocar para iniciar"; update(); });
+        const setTrack = (nextIndex, shouldPlay = false) => {
+          index = (nextIndex + radioTracks.length) % radioTracks.length;
+          const track = radioTracks[index];
+          audio.src = track.src;
+          title.textContent = track.title;
+          seek.value = 0;
+          currentTime.textContent = "0:00";
+          duration.textContent = "0:00";
+          status.textContent = shouldPlay ? "Carregando..." : "Pronto para tocar";
+          update();
+          fitPanel();
+          if (shouldPlay) play();
+        };
+        const nextTrack = (direction) => {
+          let next = index + direction;
+          if (shuffle && radioTracks.length > 1) while (next === index) next = Math.floor(Math.random() * radioTracks.length);
+          setTrack(next, true);
+        };
+        radioPlayer.querySelectorAll("[data-radio-action]").forEach((button) => button.addEventListener("click", () => {
+          const action = button.dataset.radioAction;
+          if (action === "play") { if (audio.paused) play(); else { audio.pause(); status.textContent = "Pausado"; update(); } }
+          if (action === "prev") nextTrack(-1);
+          if (action === "next") nextTrack(1);
+          if (action === "shuffle") { shuffle = !shuffle; status.textContent = shuffle ? "Aleatorio ativado" : "Aleatorio desativado"; update(); }
+        }));
+        radioPlayer.querySelectorAll("[data-radio-track]").forEach((button) => button.addEventListener("click", () => setTrack(Number(button.dataset.radioTrack), true)));
+        audio.addEventListener("loadedmetadata", () => { duration.textContent = formatTime(audio.duration); fitPanel(); });
+        audio.addEventListener("timeupdate", () => { currentTime.textContent = formatTime(audio.currentTime); if (audio.duration) seek.value = audio.currentTime / audio.duration * 100; });
+        audio.addEventListener("ended", () => nextTrack(1));
+        audio.addEventListener("error", () => { status.textContent = "Nao foi possivel tocar esta faixa"; update(); });
+        seek.addEventListener("input", () => { if (audio.duration) audio.currentTime = Number(seek.value) / 100 * audio.duration; });
+        setTrack(0);
+      }
+
+      initWallpaperGallery();
       initEditionCoverTheater();
       window.addEventListener("resize", () => {
         document.querySelectorAll(".biplano-menu-panel.is-open").forEach((panel) => { panel.style.maxHeight = "none"; });
       });
     </script>
+    <script src="assets/memora-capsule.js"></script>
     <script src="assets/memora-id.js"></script>
     <script src="assets/memora-difusora.js"></script>
     <script src="assets/memora-theme.js"></script>

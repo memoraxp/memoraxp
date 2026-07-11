@@ -10,6 +10,7 @@
   --blue: #ff0000;
   --line: rgba(23, 20, 25, 0.14);
   --shadow: 0 24px 70px rgba(23, 20, 25, 0.2);
+  --font-main: "Manrope", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -24,7 +25,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Quicksand", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-main);
   line-height: 1.5;
 }
 html.enhanced-navigation {
@@ -105,6 +106,25 @@ html.has-nav-scrolled .site-header {
 
 .brand img {
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.2));
+}
+/* Símbolo Memora aplicado à navegação principal. */
+.site-header .brand {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.site-header .brand img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: none;
 }
 
 .nav-links {
@@ -479,6 +499,76 @@ html.has-nav-scrolled .site-header {
   min-width: 0;
 }
 
+.hero-mark {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: clamp(7vw, 13vw, 18vw);
+  display: grid;
+  width: min(29vw, 420px);
+  aspect-ratio: 1;
+  place-items: center;
+  transform: translateY(-42%);
+}
+
+.hero-mark-card {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 72%;
+  aspect-ratio: 1;
+  place-items: center;
+  padding: 12%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: #ffffff;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.34);
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+.hero-mark-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-mark-orbit {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+.hero-mark-orbit-one {
+  width: 100%;
+  height: 100%;
+  background: rgba(228, 28, 62, 0.16);
+  transform: rotate(11deg);
+}
+
+.hero-mark-orbit-two {
+  width: 84%;
+  height: 84%;
+  border-color: rgba(255, 177, 27, 0.65);
+  transform: rotate(-18deg);
+}
+
+.hero-mark-label {
+  position: absolute;
+  z-index: 3;
+  right: -8%;
+  bottom: 5%;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: 999px;
+  background: rgba(23, 20, 25, 0.7);
+  color: #ffffff;
+  font-size: clamp(0.57rem, 0.8vw, 0.72rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
 .eyebrow {
   margin: 0 0 14px;
   color: var(--brand);
@@ -529,7 +619,7 @@ h1 {
 .hero-text {
   max-width: 600px;
   margin: 24px 0 0;
-  color: rgba(23, 2, 51, 0.82);
+  color: rgba(255, 255, 255, 0.8);
   font-size: clamp(1rem, 1.5vw, 1.25rem);
 }
 
@@ -5180,4 +5270,594 @@ html[data-manager-theme="light"] .biplano-page .digital-card-face::before {
     text-align: center;
     text-overflow: ellipsis;
   }
+}
+
+/* Mockup isolado da Capsula do Tempo da edicao Toninho Borbo | Biplano. */
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  max-width: 720px;
+  margin: 28px auto 36px;
+  padding: 6px 0 6px 46px;
+}
+
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock::before {
+  position: absolute;
+  top: 18px;
+  bottom: 18px;
+  left: 15px;
+  width: 2px;
+  content: "";
+  background: linear-gradient(#e41c3e, #ffb11b);
+}
+
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-item { position: relative; min-width: 0; }
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-item::before {
+  position: absolute;
+  top: 17px;
+  right: calc(100% + 15px);
+  width: 16px;
+  height: 2px;
+  content: "";
+  background: #ffb11b;
+}
+
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-marker {
+  position: absolute;
+  top: 10px;
+  right: calc(100% + 25px);
+  width: 12px;
+  height: 14px;
+  background: #ffb11b;
+  box-shadow: 0 0 0 4px rgba(228, 28, 62, 0.16);
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-content {
+  display: grid;
+  justify-items: start;
+  gap: 9px;
+  padding: 18px 20px;
+  color: #fffaf2;
+  background: rgba(22, 16, 22, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 15px 32px rgba(0, 0, 0, 0.18);
+}
+
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-content img {
+  width: 92px;
+  height: 104px;
+  object-fit: cover;
+  object-position: center;
+  background: #171419;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3));
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-content p { max-width: 52ch; margin: 0; font-weight: 700; line-height: 1.45; }
+:is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-content time { color: #ffcf6d; font-size: 0.82rem; font-weight: 800; }
+
+@media (max-width: 560px) {
+  :is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock { gap: 20px; margin-bottom: 28px; padding-left: 34px; }
+  :is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock::before { left: 11px; }
+  :is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-item::before { right: calc(100% + 11px); width: 12px; }
+  :is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-marker { right: calc(100% + 18px); width: 10px; height: 12px; }
+  :is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-content { padding: 16px; }
+  :is(.toninho-page, .fourkaos-page, .aura-page, .distance-page, [data-manager-edition="fourkaos"], [data-manager-edition="aura"], [data-manager-edition="distance"]) .toninho-timeline-mock-content img { width: 76px; height: 86px; }
+}
+
+/* Alternating timeline mockup, scoped to the Toninho public page and manager only. */
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock {
+  --timeline-axis: #ffad43;
+  position: relative;
+  display: grid;
+  gap: 34px;
+  max-width: 900px;
+  margin: 32px auto 42px;
+  padding: 10px 0;
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock::before {
+  top: 8px;
+  bottom: 8px;
+  left: 50%;
+  width: 6px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(to bottom, #ffad43 0 25%, #f15a24 25% 52%, #ba3a30 52% 76%, #9dbd43 76% 100%);
+  opacity: 1;
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr);
+  align-items: center;
+  min-height: 126px;
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item::before {
+  top: 50%;
+  right: 50%;
+  width: min(140px, 18vw);
+  height: 2px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:nth-child(even)::before {
+  right: auto;
+  left: 50%;
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-marker {
+  position: relative;
+  z-index: 2;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  width: 23px;
+  height: 26px;
+  top: auto;
+  right: auto;
+  box-shadow: 0 0 0 5px rgba(255, 250, 242, 0.9), 0 0 0 8px rgba(228, 28, 62, 0.12);
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:nth-child(2) .toninho-timeline-mock-marker { background: #f15a24; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:nth-child(3) .toninho-timeline-mock-marker { background: #9dbd43; }
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
+  width: min(100%, 330px);
+  min-height: 112px;
+  padding: 17px 19px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(80, 54, 46, 0.15);
+  box-shadow: 0 12px 26px rgba(23, 20, 25, 0.13);
+  color: #3d3538;
+}
+
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:nth-child(even) .toninho-timeline-mock-content { grid-column: 3; justify-self: start; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content img { width: 72px; height: 82px; background: #fff; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content p { color: #3d3538; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content time { color: #a9462e; }
+
+@media (max-width: 620px) {
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock { gap: 22px; padding-left: 38px; }
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock::before { left: 12px; transform: none; }
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item { grid-template-columns: 28px minmax(0, 1fr); min-height: 0; }
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item::before,
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:nth-child(even)::before { left: -26px; right: auto; width: 24px; }
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-marker { grid-column: 1; width: 18px; height: 21px; }
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content,
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:nth-child(even) .toninho-timeline-mock-content { grid-column: 2; justify-self: stretch; width: 100%; }
+}
+
+/* Keep each event grouped without a card container. */
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content {
+  gap: 8px;
+  min-height: 0;
+  padding: 0 18px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+@media (max-width: 620px) {
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-content { padding: 0 0 0 12px; }
+}
+
+/* Show the three newest timeline entries first; older entries remain scrollable. */
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll] {
+  max-height: 450px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #f15a24 rgba(255, 255, 255, 0.22);
+}
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll]::-webkit-scrollbar { width: 7px; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll]::-webkit-scrollbar-thumb { background: #f15a24; border-radius: 999px; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll] .toninho-timeline-mock-item { scroll-snap-align: end; }
+@media (max-width: 620px) {
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll] { max-height: 430px; padding-right: 8px; }
+}
+
+/* Keep the timeline axis and its markers on one shared center line. */
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll] {
+  padding-right: 0;
+  scrollbar-gutter: stable;
+}
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock::before { left: 50%; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-marker {
+  justify-self: center;
+  transform: none;
+}
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item::before {
+  width: clamp(30px, 4vw, 42px);
+  background: rgba(77, 68, 66, 0.28);
+}
+@media (max-width: 620px) {
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock[data-timeline-scroll] { padding-right: 0; }
+}
+
+/* Each event owns the segment that connects it to the next event. */
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock::before { display: none; }
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item::after {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: calc(50% - 3px);
+  display: block;
+  width: 6px;
+  height: calc(100% + 34px);
+  content: "";
+  background: linear-gradient(to bottom, #ffad43, #f15a24 38%, #ba3a30 68%, #9dbd43);
+}
+:is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item:last-child::after { display: none; }
+@media (max-width: 620px) {
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item::before { display: none; }
+  :is(.toninho-page, .edition-modern-page, .memora-manager-page) .toninho-timeline-mock-item::after { left: 11px; height: calc(100% + 22px); }
+}
+
+/* Mantém os cards intactos e define a sequência editorial das edições. */
+.biplano-resource-grid #token { order: 1; }
+.biplano-resource-grid #arte { order: 2; }
+.biplano-resource-grid #comunidade { order: 3; }
+.biplano-resource-grid #capsula { order: 4; }
+.biplano-resource-grid #pagamentos { order: 5; }
+.biplano-resource-grid #coaster { order: 6; }
+/* A marca ocupa o hero em telas amplas e vira detalhe de fundo no celular. */
+@media (max-width: 860px) {
+  .hero-mark {
+    top: 112px;
+    right: 7vw;
+    width: min(35vw, 230px);
+    opacity: 0.68;
+    transform: none;
+  }
+
+  .hero-copy {
+    z-index: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header .brand {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+  }
+
+  .hero-mark {
+    top: 88px;
+    right: -4vw;
+    width: min(47vw, 210px);
+    opacity: 0.34;
+  }
+
+  .hero-mark-label {
+    display: none;
+  }
+}
+/* A marca atua como uma assinatura discreta no plano de fundo do hero. */
+.hero-mark {
+  display: none;
+}
+
+.site-header .brand {
+  width: clamp(128px, 15vw, 190px);
+  height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-header .brand img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.2));
+}
+
+.hero-watermark {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: clamp(-6vw, 4vw, 10vw);
+  width: min(54vw, 780px);
+  aspect-ratio: 1;
+  opacity: 0.1;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.hero-watermark::before {
+  position: absolute;
+  inset: 8%;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  content: "";
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%);
+}
+
+.hero-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) brightness(4) contrast(0.8);
+}
+
+@media (max-width: 860px) {
+  .hero-watermark {
+    top: 38%;
+    right: -16vw;
+    width: min(78vw, 520px);
+    opacity: 0.08;
+  }
+}
+/* Centraliza a marca no hero como elemento translúcido de fundo. */
+.hero .hero-mark,
+.hero .hero-watermark {
+  top: 50%;
+  right: auto;
+  left: 50%;
+  opacity: 0.16;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+/* Ajuste final da marca: menor e na cor original. */
+.hero .hero-mark,
+.hero .hero-watermark {
+  width: min(27vw, 370px);
+  opacity: 0.2;
+}
+
+.hero .hero-mark-card img,
+.hero .hero-watermark img {
+  filter: none;
+}
+/* Agrupamento contínuo de sete hexágonos, como uma colmeia. */
+.hive-visual {
+  --hive-cell: clamp(74px, 9vw, 96px);
+  display: block;
+  width: calc(var(--hive-cell) * 2.75);
+  height: calc(var(--hive-cell) * 2.1);
+  margin: 0 auto;
+  padding: 0;
+}
+
+.hive-visual span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--hive-cell);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+}
+
+.hive-visual span:nth-child(1) { transform: translate(calc(var(--hive-cell) * .875), calc(var(--hive-cell) * .75)); }
+.hive-visual span:nth-child(2) { transform: translate(calc(var(--hive-cell) * .125), calc(var(--hive-cell) * .75)); }
+.hive-visual span:nth-child(3) { transform: translate(calc(var(--hive-cell) * 1.625), calc(var(--hive-cell) * .75)); }
+.hive-visual span:nth-child(4) { transform: translate(calc(var(--hive-cell) * .5), calc(var(--hive-cell) * .317)); }
+.hive-visual span:nth-child(5) { transform: translate(calc(var(--hive-cell) * 1.25), calc(var(--hive-cell) * .317)); }
+.hive-visual span:nth-child(6) { transform: translate(calc(var(--hive-cell) * .5), calc(var(--hive-cell) * 1.183)); }
+.hive-visual span:nth-child(7) { transform: translate(calc(var(--hive-cell) * 1.25), calc(var(--hive-cell) * 1.183)); }
+/* Loja da edição Fourkaos. */
+.fourkaos-shop {
+  display: grid;
+  width: min(100%, 620px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(24px, 4vw, 34px);
+}
+
+.fourkaos-shop-item {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.045);
+  text-align: left;
+}
+
+.fourkaos-shop-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.fourkaos-shop-item div { padding: 14px; }
+
+.fourkaos-shop-item h4 {
+  margin: 0;
+  color: var(--white);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.biplano-coaster .fourkaos-shop-item p {
+  margin-top: 8px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (max-width: 520px) {
+  .fourkaos-shop { grid-template-columns: 1fr; }
+}
+
+/* Player oficial da Edição Fourkaos. */
+.fourkaos-page #token-disco-panel .biplano-menu-content {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.fourkaos-page .biplano-spotify-embed {
+  min-height: 352px;
+  border-radius: 12px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 520px) {
+  .fourkaos-page #token-disco-panel .biplano-menu-content { padding: 6px; }
+}
+/* Loja da edição Aura. */
+.aura-shop {
+  display: grid;
+  width: min(100%, 620px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(24px, 4vw, 34px);
+}
+
+.aura-shop-item {
+  overflow: hidden;
+  border: 1px solid rgba(225, 141, 53, 0.36);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #18264a;
+  text-align: left;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.aura-shop-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.aura-shop-item div { padding: 14px; }
+
+.aura-shop-item h4,
+.biplano-coaster .aura-shop-item p {
+  margin: 0;
+  color: #18264a;
+}
+
+.aura-shop-item h4 {
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.biplano-coaster .aura-shop-item p {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (max-width: 520px) {
+  .aura-shop { grid-template-columns: 1fr; }
+}
+/* Loja da edição Toninho Borbo. */
+.toninho-shop {
+  display: grid;
+  width: min(100%, 620px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(24px, 4vw, 34px);
+}
+
+.toninho-shop-item {
+  overflow: hidden;
+  border: 1px solid rgba(151, 103, 143, 0.36);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #42233f;
+  text-align: left;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.toninho-shop-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.toninho-shop-item div { padding: 14px; }
+
+.toninho-shop-item h4,
+.biplano-coaster .toninho-shop-item p {
+  margin: 0;
+  color: #42233f;
+}
+
+.toninho-shop-item h4 {
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.biplano-coaster .toninho-shop-item p {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (max-width: 520px) {
+  .toninho-shop { grid-template-columns: 1fr; }
+}
+/* Loja da edição Distance And Belief. */
+.distance-shop {
+  display: grid;
+  width: min(100%, 620px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: clamp(24px, 4vw, 34px);
+}
+
+.distance-shop-item {
+  overflow: hidden;
+  border: 1px solid rgba(190, 145, 60, 0.38);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #393325;
+  text-align: left;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.distance-shop-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.distance-shop-item div { padding: 14px; }
+
+.distance-shop-item h4,
+.biplano-coaster .distance-shop-item p {
+  margin: 0;
+  color: #393325;
+}
+
+.distance-shop-item h4 {
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.biplano-coaster .distance-shop-item p {
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+@media (max-width: 520px) {
+  .distance-shop { grid-template-columns: 1fr; }
 }

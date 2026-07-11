@@ -1054,7 +1054,7 @@
   border-color: rgba(255, 255, 255, 0.86);
   background: rgba(13, 17, 28, 0.96);
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-main);
   font-size: 0.95rem;
   line-height: 1;
   text-transform: uppercase;
@@ -2217,3 +2217,155 @@ html[data-manager-theme="light"] .memora-manager-page .memora-id-stats div {
     align-items: flex-start;
   }
 }
+
+/* Toninho Manager: force the same timeline composition as the public edition. */
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock {
+  position: relative !important;
+  display: grid !important;
+  gap: 34px !important;
+  max-width: 900px !important;
+  margin: 32px auto 42px !important;
+  padding: 10px 0 !important;
+}
+
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock::before {
+  position: absolute !important;
+  z-index: 0 !important;
+  top: 8px !important;
+  bottom: 8px !important;
+  left: 50% !important;
+  display: block !important;
+  width: 6px !important;
+  height: auto !important;
+  transform: translateX(-50%) !important;
+  border-radius: 999px !important;
+  content: "" !important;
+  background: linear-gradient(to bottom, #ffad43 0 25%, #f15a24 25% 52%, #ba3a30 52% 76%, #9dbd43 76% 100%) !important;
+  opacity: 1 !important;
+}
+
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item {
+  position: relative !important;
+  z-index: 1 !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 62px minmax(0, 1fr) !important;
+  align-items: center !important;
+  min-height: 126px !important;
+}
+
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-marker {
+  position: relative !important;
+  z-index: 2 !important;
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  justify-self: center !important;
+  width: 23px !important;
+  height: 26px !important;
+  top: auto !important;
+  right: auto !important;
+  background: #ffb11b !important;
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%) !important;
+}
+
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:nth-child(2) .toninho-timeline-mock-marker { background: #f15a24 !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:nth-child(3) .toninho-timeline-mock-marker { background: #9dbd43 !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-content { grid-column: 1 !important; grid-row: 1 !important; justify-self: end !important; width: min(100%, 330px) !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:nth-child(even) .toninho-timeline-mock-content { grid-column: 3 !important; justify-self: start !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-content img {
+  display: block !important;
+  width: 72px !important;
+  height: 82px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0 50%) !important;
+}
+
+@media (max-width: 620px) {
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock { gap: 22px !important; padding-left: 38px !important; }
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock::before { left: 12px !important; transform: none !important; }
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item { grid-template-columns: 28px minmax(0, 1fr) !important; min-height: 0 !important; }
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-marker { grid-column: 1 !important; width: 18px !important; height: 21px !important; }
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-content,
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:nth-child(even) .toninho-timeline-mock-content { grid-column: 2 !important; justify-self: stretch !important; width: 100% !important; }
+}
+
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item::before {
+  position: absolute !important;
+  top: 50% !important;
+  right: 50% !important;
+  left: auto !important;
+  display: block !important;
+  width: min(140px, 18vw) !important;
+  height: 2px !important;
+  transform: translateY(-50%) !important;
+  content: "" !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+}
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:nth-child(even)::before { right: auto !important; left: 50% !important; }
+@media (max-width: 620px) {
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item::before,
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:nth-child(even)::before { left: -26px !important; right: auto !important; width: 24px !important; }
+}
+
+/* Manager override: same center and non-overlapping connectors as the public timeline. */
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock[data-timeline-scroll] { padding-right: 0 !important; scrollbar-gutter: stable; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock::before { left: 50% !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-marker { justify-self: center !important; transform: none !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item::before {
+  width: clamp(30px, 4vw, 42px) !important;
+  background: rgba(77, 68, 66, 0.28) !important;
+}
+@media (max-width: 620px) {
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock[data-timeline-scroll] { padding-right: 0 !important; }
+}
+
+/* Manager uses per-event segments so the scrollable axis is continuous. */
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock::before { display: none !important; }
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item::after {
+  position: absolute !important;
+  z-index: 0 !important;
+  top: 50% !important;
+  left: calc(50% - 3px) !important;
+  display: block !important;
+  width: 6px !important;
+  height: calc(100% + 34px) !important;
+  content: "" !important;
+  background: linear-gradient(to bottom, #ffad43, #f15a24 38%, #ba3a30 68%, #9dbd43) !important;
+}
+.memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item:last-child::after { display: none !important; }
+@media (max-width: 620px) {
+  .memora-manager-page[data-manager-edition="toninho-borbo-biplano"] .toninho-timeline-mock-item::after { left: 9px !important; height: calc(100% + 22px) !important; }
+}
+.manager-capsule-form { display: grid; gap: 14px; margin-top: 22px; padding-top: 20px; border-top: 1px solid rgba(132, 160, 255, .2); }
+.manager-capsule-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.manager-capsule-form input { width: 100%; border: 1px solid rgba(132, 160, 255, .26); border-radius: 8px; padding: 12px; background: var(--manager-field-bg); color: var(--white); font: inherit; font-size: .95rem; text-transform: none; }
+.manager-capsule-status { margin: 0; color: rgba(230, 236, 255, .72); font-size: .82rem; font-weight: 750; }
+@media (max-width: 620px) { .manager-capsule-fields { grid-template-columns: 1fr; } }
+
+.manager-sales-by-point {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(132, 160, 255, 0.25);
+  border-radius: 10px;
+  background: rgba(8, 14, 38, 0.3);
+}
+.manager-sales-by-point-heading { display: flex; gap: 12px; align-items: end; justify-content: space-between; }
+.manager-sales-by-point-heading .eyebrow { margin: 0 0 4px; }
+.manager-sales-by-point-heading h4 { margin: 0; color: var(--white); font-size: 1.1rem; }
+.manager-sales-by-point-heading > span { color: rgba(230, 236, 255, .72); font-size: .82rem; font-weight: 800; }
+.manager-sales-by-point-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.manager-sales-point-card { display: grid; gap: 12px; padding: 14px; border: 1px solid rgba(132, 160, 255, .18); border-radius: 8px; background: var(--manager-card-bg); }
+.manager-sales-point-card strong { color: var(--white); font-size: 1rem; }
+.manager-sales-point-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; }
+.manager-sales-point-card dl div { display: grid; gap: 3px; }
+.manager-sales-point-card dt { color: rgba(230, 236, 255, .64); font-size: .72rem; font-weight: 750; }
+.manager-sales-point-card dd { margin: 0; color: var(--white); font-size: .9rem; font-weight: 850; }
+html[data-manager-theme="light"] .memora-manager-page .manager-sales-by-point,
+html[data-manager-theme="light"] .memora-manager-page .manager-sales-point-card { border-color: rgba(42, 55, 89, .16); background: rgba(255, 255, 255, .5); }
+html[data-manager-theme="light"] .memora-manager-page .manager-sales-point-card strong,
+html[data-manager-theme="light"] .memora-manager-page .manager-sales-point-card dd,
+html[data-manager-theme="light"] .memora-manager-page .manager-sales-by-point-heading h4 { color: var(--manager-text-strong); }
+@media (max-width: 760px) { .manager-sales-by-point-list { grid-template-columns: 1fr; } }
+@media (max-width: 430px) { .manager-sales-by-point { padding: 13px; } .manager-sales-by-point-heading { align-items: start; flex-direction: column; } .manager-sales-point-card dl { grid-template-columns: 1fr; } }

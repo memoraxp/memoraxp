@@ -8,7 +8,7 @@
 <meta name="description" content="Painel Memora Manager da edição Toninho Borbo Biplano.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="assets/memora-id.css">
     <link rel="stylesheet" href="assets/memora-manager.css">
@@ -30,7 +30,6 @@
         <a href="#panel-pagamentos" data-manager-panel-link>Pagamentos</a>
         <a href="#panel-capsula" data-manager-panel-link>Capsula</a>
         <a href="#difusora">Difusora</a>
-        <a href="#updates">Updates</a>
         <a href="#configuracoes">Configurações</a>
       </nav>
       <div class="header-actions">
@@ -91,7 +90,6 @@
             <h2 id="hive-manager-title">Colmeia</h2>
             <p>Cada favo representa uma edição sob sua responsabilidade. A selecao atual alimenta todo o painel abaixo.</p>
           </div>
-
           <div class="memora-id-hive-layout manager-hive-layout">
             <div class="memora-id-hive-stage" aria-label="Favos das edições gerenciadas">
               <div class="memora-id-hive-viewport" data-hive-viewport>
@@ -184,43 +182,41 @@
           <div class="memora-id-section-heading">
             <p class="eyebrow">sinal ativo</p>
             <h2 id="difusora-manager-title">Difusora</h2>
-            <p>Uma central de comunicação para falar com a comunidade da edição ativa sem disparo real neste protótipo.</p>
+            <p>Uma central de comunica&ccedil;&atilde;o para falar com a comunidade da edi&ccedil;&atilde;o ativa sem disparo real neste prot&oacute;tipo.</p>
           </div>
-
           <div class="manager-accordion-list manager-comm-list">
             <section class="manager-accordion manager-comm-card">
               <h3><button type="button" data-accordion-toggle aria-expanded="true" aria-controls="push-panel">Push <span aria-hidden="true"></span></button></h3>
               <div class="manager-accordion-panel is-open" id="push-panel">
                 <div class="manager-form-grid">
-                  <label>Edição ativa
-                    <select data-push-edition aria-label="Selecionar edição para push"></select>
+                  <label>Edi&ccedil;&atilde;o ativa
+                    <select data-push-edition aria-label="Selecionar edi&ccedil;&atilde;o para push"></select>
                   </label>
                   <label>Mensagem
-                    <textarea data-push-message maxlength="180" rows="5" aria-describedby="push-counter">Nova memória liberada para quem carrega este token. Entre na sua capsula e revisite a experiência.</textarea>
+                    <textarea data-push-message maxlength="180" rows="5" aria-describedby="push-counter">Nova mem&oacute;ria liberada para quem carrega este token. Entre na sua capsula e revisite a experi&ecirc;ncia.</textarea>
                   </label>
                   <div class="manager-form-row">
                     <span id="push-counter" data-push-counter>0 / 180</span>
                     <button class="memora-id-action-button" type="button" data-push-send>Enviar push</button>
                     <button class="memora-id-action-button" type="button" data-difusora-clear>Limpar hist&oacute;rico</button>
                   </div>
-                  <div class="manager-preview-card" aria-label="Preview da notificação push">
+                  <div class="manager-preview-card" aria-label="Preview da notifica&ccedil;&atilde;o push">
                     <small>Preview</small>
-                    <strong data-push-preview-title>Edição Aura</strong>
+                    <strong data-push-preview-title>Edi&ccedil;&atilde;o Aura</strong>
                     <p data-push-preview-text></p>
                     <span>emoji, link curto e imagem mockada ficam apenas em preview.</span>
                   </div>
                 </div>
               </div>
             </section>
-
             <section class="manager-accordion manager-comm-card">
               <h3><button type="button" data-accordion-toggle aria-expanded="false" aria-controls="whatsapp-panel">WhatsApp <span aria-hidden="true"></span></button></h3>
               <div class="manager-accordion-panel" id="whatsapp-panel" hidden>
                 <div class="manager-form-grid">
-                  <label>Edição
-                    <select data-whatsapp-edition aria-label="Selecionar edição para WhatsApp"></select>
+                  <label>Edi&ccedil;&atilde;o
+                    <select data-whatsapp-edition aria-label="Selecionar edi&ccedil;&atilde;o para WhatsApp"></select>
                   </label>
-                  <div class="manager-contact-picker" data-whatsapp-contacts aria-label="Colecionadores da edição"></div>
+                  <div class="manager-contact-picker" data-whatsapp-contacts aria-label="Colecionadores da edi&ccedil;&atilde;o"></div>
                   <button class="memora-id-action-button" type="button" data-whatsapp-open>Abrir conversa no WhatsApp</button>
                   <p class="manager-sensitive-note">Prototipo: nenhum envio real sera executado. O link wa.me e apenas demonstrativo.</p>
                 </div>
@@ -229,18 +225,6 @@
           </div>
         </div>
       </section>
-
-      <section class="memora-id-shell manager-shell" id="updates" aria-labelledby="updates-manager-title">
-        <div class="section-inner memora-id-two-column memora-id-updates-layout">
-          <div class="memora-id-section-heading">
-            <p class="eyebrow">radar do app</p>
-            <h2 id="updates-manager-title">Updates</h2>
-            <p>Novidades, dicas e alertas operacionais que podem levar direto para uma edição ou area do painel.</p>
-          </div>
-          <ol class="memora-id-timeline manager-update-feed" data-updates-list></ol>
-        </div>
-      </section>
-
       <section class="memora-id-shell manager-shell manager-settings" id="configuracoes" aria-labelledby="settings-title">
         <div class="section-inner">
           <div class="memora-id-section-heading">
@@ -273,6 +257,7 @@
     </div>
 
     <script src="assets/memora-manager.js"></script>
+    <script src="assets/memora-capsule-manager.js"></script>
     <script src="assets/snap-scroll.js"></script>
   </body>
 </html>

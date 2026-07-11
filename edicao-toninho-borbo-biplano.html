@@ -11,7 +11,7 @@
     >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="assets/memora-id.css">
   </head>
@@ -27,13 +27,13 @@
       </label>
       <nav class="nav-links" aria-label="Recursos da edição">
         <a href="#token">Token</a>
-        <a href="#capsula">Cápsula</a>
         <a href="#arte">Arte</a>
         <a href="#comunidade">Comunidade</a>
-        <a href="#difusora">Difusora</a>
+        <a href="#capsula">Cápsula</a>
         <a href="#pagamentos">Pagamentos</a>
         <a href="#coaster">Coaster</a>
-      </nav>
+      <a href="#difusora">Difusora</a>
+        </nav>
       <div class="header-actions">
         <a class="header-cta login-cta" href="index.html#login">Login</a>
         <a class="header-cta back-cta" href="index.html#edicoes">Voltar</a>
@@ -504,6 +504,52 @@
             <article class="biplano-resource" id="capsula">
               <span class="resource-number">02</span>
               <h3>Cápsula do Tempo</h3>
+              <div class="toninho-timeline-mock" data-timeline-scroll aria-label="Linha do tempo de acontecimentos">
+                <article class="toninho-timeline-mock-item">
+                  <span class="toninho-timeline-mock-marker" aria-hidden="true"></span>
+                  <div class="toninho-timeline-mock-content">
+                    <img src="assets/Capatoninho.jpg" alt="Capa do album Biplano">
+                    <p>Início das gravações de Biplano.</p>
+                    <time datetime="2016-03-14">14 de marco de 2016</time>
+                  </div>
+                </article>
+                <article class="toninho-timeline-mock-item">
+                  <span class="toninho-timeline-mock-marker" aria-hidden="true"></span>
+                  <div class="toninho-timeline-mock-content">
+                    <p>Entrevista e registro da história do álbum para a Cápsula do Tempo.</p>
+                    <time datetime="2016-09-12">12 de setembro de 2016</time>
+                  </div>
+                </article>
+                <article class="toninho-timeline-mock-item">
+                  <span class="toninho-timeline-mock-marker" aria-hidden="true"></span>
+                  <div class="toninho-timeline-mock-content">
+                    <img src="assets/toninho-biplano-logo.png" alt="Identidade visual Biplano">
+                    <p>Lançamento da edição Memora dedicada a Toninho Borbo e Biplano.</p>
+                    <time datetime="2026-08-15">15 de agosto de 2026</time>
+                  </div>
+                </article>
+                <article class="toninho-timeline-mock-item">
+                  <span class="toninho-timeline-mock-marker" aria-hidden="true"></span>
+                  <div class="toninho-timeline-mock-content">
+                    <p>Memória do processo criativo adicionada à Cápsula do Tempo.</p>
+                    <time datetime="2026-09-06">6 de setembro de 2026</time>
+                  </div>
+                </article>
+                <article class="toninho-timeline-mock-item">
+                  <span class="toninho-timeline-mock-marker" aria-hidden="true"></span>
+                  <div class="toninho-timeline-mock-content">
+                    <p>Identidade visual e materiais da edição incorporados ao arquivo.</p>
+                    <time datetime="2026-09-22">22 de setembro de 2026</time>
+                  </div>
+                </article>
+                <article class="toninho-timeline-mock-item">
+                  <span class="toninho-timeline-mock-marker" aria-hidden="true"></span>
+                  <div class="toninho-timeline-mock-content">
+                    <p>Nova memória adicionada à linha do tempo da edição.</p>
+                    <time datetime="2026-10-03">3 de outubro de 2026</time>
+                  </div>
+                </article>
+              </div>
               <div class="biplano-actions" aria-label="Ações da Cápsula do Tempo">
                 <div class="biplano-expandable">
                   <button class="biplano-menu-toggle" type="button" id="capsula-2016-toggle" aria-expanded="false" aria-controls="capsula-2016-panel">
@@ -716,6 +762,22 @@
               <h3>Coaster</h3>
               <p>Número da peça</p>
               <strong>TBRB001</strong>
+              <section class="toninho-shop" aria-label="Loja da Edição Toninho Borbo">
+                <article class="toninho-shop-item">
+                  <img src="assets/Caneca 05.png" alt="Caneca Memora Toninho Borbo #1 branca, primeira arte">
+                  <div>
+                    <h4>Caneca Memora Toninho Borbo #1 - Branca</h4>
+                    <p>R$ 30,00</p>
+                  </div>
+                </article>
+                <article class="toninho-shop-item">
+                  <img src="assets/Caneca 06.png" alt="Caneca Memora Toninho Borbo #1 branca, segunda arte">
+                  <div>
+                    <h4>Caneca Memora Toninho Borbo #1 - Branca</h4>
+                    <p>R$ 30,00</p>
+                  </div>
+                </article>
+              </section>
             </article>
           </div>
         </div>
@@ -865,6 +927,11 @@
         renderWallpapers();
         window.addEventListener("storage", (event) => {
           if (event.key === storageKey || event.key === configuredStorageKey) renderWallpapers();
+        });
+        window.addEventListener("focus", renderWallpapers);
+        window.addEventListener("pageshow", renderWallpapers);
+        document.addEventListener("visibilitychange", () => {
+          if (!document.hidden) renderWallpapers();
         });
       };
       const initDigitalCardTheater = () => {
@@ -1242,7 +1309,13 @@
         });
       });
     </script>
+    <script>
+      window.addEventListener("load", () => {
+        document.querySelectorAll("[data-timeline-scroll]").forEach((timeline) => { timeline.scrollTop = 0; });
+      });
+    </script>
     <script src="assets/memora-id.js"></script>
+    <script src="assets/memora-capsule.js"></script>
     <script src="assets/memora-difusora.js"></script>
     <script src="assets/memora-theme.js"></script>
     <script src="assets/snap-scroll.js"></script>
