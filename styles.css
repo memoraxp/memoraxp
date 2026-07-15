@@ -1475,7 +1475,7 @@ h3 {
   box-shadow: none;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 860px), (orientation: portrait) {
   .site-header {
     padding: 16px 18px;
   }
@@ -1627,7 +1627,9 @@ h3 {
   }
 
   .edition-slide .xp-copy {
-    display: contents;
+    display: grid;
+    gap: 12px;
+    order: 1;
   }
 
   .edition-slide .xp-copy > .eyebrow {
@@ -4290,7 +4292,7 @@ h3 {
 }
 
 /* Requested mobile alignment for edition profile and home carousel */
-@media (max-width: 768px) {
+@media (max-width: 860px), (orientation: portrait) {
   .edition-profile-dock,
   .memora-manager-page .memora-id-profile-dock {
     top: calc(60px + env(safe-area-inset-top, 0px));
@@ -4317,12 +4319,18 @@ h3 {
   }
 
   .edition-carousel {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    padding-inline: 0;
+    padding-bottom: 0;
     gap: 12px;
   }
 
   .edition-mobile-nav {
     position: relative;
     top: auto;
+    order: 1;
     display: flex;
     grid-template-columns: none;
     gap: 7px;
@@ -4355,6 +4363,7 @@ h3 {
   }
 
   .edition-track {
+    order: 2;
     display: block;
     overflow: visible;
   }
@@ -4396,7 +4405,9 @@ h3 {
    * the edition grid and explicitly set the reading order instead.
    */
   .edition-slide .xp-copy {
-    display: contents;
+    display: grid;
+    gap: 12px;
+    order: 1;
   }
 
   .editions-band .xp-copy .eyebrow,
@@ -4514,6 +4525,7 @@ h3 {
   }
 
   .edition-carousel-controls {
+    order: 3;
     width: min(100%, 166px);
     margin-top: 12px;
     padding: 4px;
@@ -5938,4 +5950,86 @@ html[data-manager-theme="light"] .biplano-page .digital-card-face::before {
 
 @media (max-width: 520px) {
   .distance-shop { grid-template-columns: 1fr; }
+}
+/* Portrait layout for the home-editions carousel: selector, content, then controls. */
+@media screen and (orientation: portrait) {
+  .editions-band .edition-carousel {
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
+  .editions-band .edition-mobile-nav {
+    display: flex !important;
+    order: 0 !important;
+    width: 100% !important;
+  }
+
+  .editions-band .edition-track {
+    display: block !important;
+    order: 1 !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
+  .editions-band .edition-slide {
+    display: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .editions-band .edition-slide.is-active {
+    display: block !important;
+  }
+
+  .editions-band .edition-slide.is-active .xp-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .editions-band .edition-slide.is-active .xp-copy,
+  .editions-band .edition-slide.is-active .xp-media {
+    grid-column: 1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .editions-band .edition-slide.is-active .xp-copy {
+    display: grid !important;
+    order: 1 !important;
+  }
+
+  .editions-band .edition-slide.is-active .xp-media {
+    display: grid !important;
+    order: 2 !important;
+    justify-items: center !important;
+    margin: 0 auto !important;
+  }
+
+  .editions-band .edition-carousel-controls {
+    position: static !important;
+    display: flex !important;
+    order: 2 !important;
+  }
+}
+/* Keep the edition cards horizontally reachable on narrow and portrait viewports. */
+@media (max-width: 860px), screen and (orientation: portrait) {
+  .editions-band .xp-objectives {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    touch-action: pan-x;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .editions-band .xp-objectives.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none;
+  }
 }
