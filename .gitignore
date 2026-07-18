@@ -2,3 +2,10 @@ tmp/
 .DS_Store
 Thumbs.db
 toninho/
+.env
+var/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+.venv/

@@ -46,9 +46,9 @@
             <div class="memora-id-avatar-wrap"><img data-profile-avatar src="assets/avatar.png" alt="Avatar do colecionador"></div>
             <div>
               <p class="eyebrow">Memora ID</p>
-              <h2 data-profile-name>Arthur</h2>
-              <p class="memora-id-handle" data-profile-handle>@arthur.memora</p>
-              <p class="memora-id-contact" data-profile-contact><span>Instagram @arthurmina</span><span>WhatsApp: (83) 999139300</span></p>
+              <h2 data-profile-name>Perfil Memora</h2>
+              <p class="memora-id-handle" data-profile-handle></p>
+              <p class="memora-id-contact" data-profile-contact></p>
               <p class="memora-id-role" data-profile-role>Colecionador de experiências Memora.</p>
               <label class="memora-id-contact-share">
                 <span>Tornar minhas informações de contato visíveis para outros colecionadores</span>
@@ -408,6 +408,7 @@
       <button class="digital-card-close" type="button" data-edition-cover-close aria-label="Fechar capa da edicao">&times;</button>
       <img src="assets/Capatoninho.jpg" alt="Capa da edicao" data-edition-cover-image>
     </div>
+    <script src="assets/memora-api.js"></script>
     <script>
       const editionId = document.body.dataset.editionId || "toninho-borbo-biplano";
       const editionName = document.body.dataset.editionName || "Edicao Memora";
@@ -447,22 +448,22 @@
       const initWallpaperGallery = () => {
         const gallery = document.querySelector("[data-wallpaper-gallery]");
         if (!gallery) return;
-        const storageKey = `memora:${editionId}:wallpapers`;
-        const configuredStorageKey = `memora:${editionId}:wallpapersConfigured`;
+        const storageKey = "";
+        const configuredStorageKey = "";
         const defaultWallpapers = [
           { name: "WP07", src: "assets/WP07.png" },
           { name: "WP08", src: "assets/WP08.png" },
         ];
         const readStoredWallpapers = () => {
           try {
-            const parsed = JSON.parse(window.localStorage.getItem(storageKey) || "[]");
+            const parsed = JSON.parse(null || "[]");
             return Array.isArray(parsed) ? parsed.filter((item) => item?.src) : [];
           } catch (error) {
             return [];
           }
         };
         const isWallpaperConfigured = () => {
-          try { return window.localStorage.getItem(configuredStorageKey) === "true"; } catch (error) { return false; }
+          try { return null === "true"; } catch (error) { return false; }
         };
         const escapeHtml = (value) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
         const renderWallpapers = () => {
@@ -487,7 +488,7 @@
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
         if (!theater) return;
-        const storageKeys = { front: `memora:${editionId}:cardFront`, back: `memora:${editionId}:cardBack` };
+        const storageKeys = { front: "", back: "" };
         const frontFallback = "assets/WP07.png";
         const backFallbackSrc = "assets/WP08.png";
         const frontImage = theater.querySelector("[data-digital-card-front]");
@@ -498,7 +499,7 @@
         const closeButton = theater.querySelector("[data-digital-card-close]");
         let previousBodyOverflow = "";
         const readStoredCardImage = (storageKey) => {
-          try { return window.localStorage.getItem(storageKey) || ""; } catch (error) { return ""; }
+          try { return null || ""; } catch (error) { return ""; }
         };
         const loadDigitalCardImages = () => {
           const storedFront = readStoredCardImage(storageKeys.front);
@@ -538,18 +539,18 @@
       const initEditionCoverTheater = () => {
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
-        const storageKey = `memora:${editionId}:editionCover`;
-        const configuredStorageKey = `memora:${editionId}:editionCoverConfigured`;
+        const storageKey = "";
+        const configuredStorageKey = "";
         const fallbackCover = "assets/Capatoninho.jpg";
         const coverImage = theater.querySelector("[data-edition-cover-image]");
         const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
         const closeButton = theater.querySelector("[data-edition-cover-close]");
         let previousBodyOverflow = "";
         const readStoredCover = () => {
-          try { return window.localStorage.getItem(storageKey) || ""; } catch (error) { return ""; }
+          try { return null || ""; } catch (error) { return ""; }
         };
         const isCoverConfigured = () => {
-          try { return window.localStorage.getItem(configuredStorageKey) === "true"; } catch (error) { return false; }
+          try { return null === "true"; } catch (error) { return false; }
         };
         const currentCover = () => {
           const storedCover = readStoredCover();
@@ -593,6 +594,7 @@
         document.querySelectorAll(".biplano-menu-panel.is-open").forEach((panel) => { panel.style.maxHeight = "none"; });
       });
     </script>
+    <script src="assets/memora-edition-assets.js"></script>
     <script src="assets/memora-capsule.js"></script>
     <script src="assets/memora-id.js"></script>
     <script src="assets/memora-difusora.js"></script>

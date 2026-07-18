@@ -46,9 +46,9 @@
             <div class="memora-id-avatar-wrap"><img data-profile-avatar src="assets/avatar.png" alt="Avatar do colecionador"></div>
             <div>
               <p class="eyebrow">Memora ID</p>
-              <h2 data-profile-name>Arthur</h2>
-              <p class="memora-id-handle" data-profile-handle>@arthur.memora</p>
-              <p class="memora-id-contact" data-profile-contact><span>Instagram @arthurmina</span><span>WhatsApp: (83) 999139300</span></p>
+              <h2 data-profile-name>Perfil Memora</h2>
+              <p class="memora-id-handle" data-profile-handle></p>
+              <p class="memora-id-contact" data-profile-contact></p>
               <p class="memora-id-role" data-profile-role>Colecionador de experiências Memora.</p>
               <label class="memora-id-contact-share">
                 <span>Tornar minhas informações de contato visíveis para outros colecionadores</span>
@@ -812,6 +812,7 @@
     </div>
 
 
+    <script src="assets/memora-api.js"></script>
     <script>
       const openBiplanoPanel = (panel) => {
         panel.classList.add("is-open");
@@ -878,8 +879,8 @@
         const gallery = document.querySelector("[data-wallpaper-gallery]");
         if (!gallery) return;
 
-        const storageKey = "memora:toninho-borbo-biplano:wallpapers";
-        const configuredStorageKey = "memora:toninho-borbo-biplano:wallpapersConfigured";
+        const storageKey = "";
+        const configuredStorageKey = "";
         const defaultWallpapers = [
           { name: "WP01", src: "assets/WP01.png" },
           { name: "WP02", src: "assets/WP02.png" },
@@ -887,7 +888,7 @@
 
         const readStoredWallpapers = () => {
           try {
-            const parsed = JSON.parse(window.localStorage.getItem(storageKey) || "[]");
+            const parsed = JSON.parse(null || "[]");
             return Array.isArray(parsed) ? parsed.filter((item) => item?.src) : [];
           } catch (error) {
             return [];
@@ -896,7 +897,7 @@
 
         const isWallpaperConfigured = () => {
           try {
-            return window.localStorage.getItem(configuredStorageKey) === "true";
+            return null === "true";
           } catch (error) {
             return false;
           }
@@ -939,8 +940,8 @@
         if (!theater) return;
 
         const storageKeys = {
-          front: "memora:toninho-borbo-biplano:cardFront",
-          back: "memora:toninho-borbo-biplano:cardBack",
+          front: "",
+          back: "",
         };
         const frontFallback = "assets/Capatoninho.jpg";
         const frontImage = theater.querySelector("[data-digital-card-front]");
@@ -953,7 +954,7 @@
 
         const readStoredCardImage = (storageKey) => {
           try {
-            return window.localStorage.getItem(storageKey) || "";
+            return null || "";
           } catch (error) {
             return "";
           }
@@ -1019,8 +1020,8 @@
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
 
-        const storageKey = "memora:toninho-borbo-biplano:editionCover";
-        const configuredStorageKey = "memora:toninho-borbo-biplano:editionCoverConfigured";
+        const storageKey = "";
+        const configuredStorageKey = "";
         const fallbackCover = "assets/Capatoninho.jpg";
         const coverImage = theater.querySelector("[data-edition-cover-image]");
         const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
@@ -1029,7 +1030,7 @@
 
         const readStoredCover = () => {
           try {
-            return window.localStorage.getItem(storageKey) || "";
+            return null || "";
           } catch (error) {
             return "";
           }
@@ -1037,7 +1038,7 @@
 
         const isCoverConfigured = () => {
           try {
-            return window.localStorage.getItem(configuredStorageKey) === "true";
+            return null === "true";
           } catch (error) {
             return false;
           }
@@ -1314,6 +1315,7 @@
         document.querySelectorAll("[data-timeline-scroll]").forEach((timeline) => { timeline.scrollTop = 0; });
       });
     </script>
+    <script src="assets/memora-edition-assets.js"></script>
     <script src="assets/memora-id.js"></script>
     <script src="assets/memora-capsule.js"></script>
     <script src="assets/memora-difusora.js"></script>
