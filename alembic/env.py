@@ -1,17 +1,16 @@
 from logging.config import fileConfig
-from pathlib import Path
-
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
-from backend.config import get_settings
+from backend.config import get_settings, normalize_database_url, sqlite_database_path
 from backend.database import Base
 import backend.models  # noqa: F401
 
 config = context.config
-database_url = get_settings().database_url
-if database_url.startswith("sqlite:///./"):
-    Path(database_url.removeprefix("sqlite:///./")).parent.mkdir(parents=True, exist_ok=True)
+database_url = normalize_database_url(get_settings().database_url)
+database_path = sqlite_database_path(database_url)
+if database_path:
+    database_path.parent.mkdir(parents=True, exist_ok=True)
 config.set_main_option("sqlalchemy.url", database_url.replace("%", "%%"))
 if config.config_file_name:
     fileConfig(config.config_file_name)

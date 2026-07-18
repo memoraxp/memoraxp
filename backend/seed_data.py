@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+from datetime import date
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from backend.models import Edition, Token
+from backend.models import CapsuleEntry, Edition, Token, User
+from backend.services import validate_source_image_url
 
 
 # Analytics, collectors, contacts and sales below are explicitly demo/seed UI data
@@ -31,9 +34,57 @@ EDITIONS = [
     },
 ]
 
+CAPSULE_DATES = ["2026-03-14", "2026-06-12", "2026-08-15", "2026-09-06", "2026-09-22", "2026-10-03"]
+CAPSULE_SEED = {
+    "aura": {
+        "opening_image": "/assets/Capa.jpg",
+        "memories": [
+            "Foto da montagem da exposicao",
+            "Relato da artista sobre a primeira tiragem",
+            "Prints dos primeiros colecionadores",
+        ],
+    },
+    "distance": {
+        "opening_image": "/assets/Capa.jpg",
+        "memories": ["Video de ensaio", "Making of da capa", "Playlist comentada faixa a faixa"],
+    },
+    "fourkaos": {
+        "opening_image": "/assets/fourkaos-background.jpg",
+        "memories": ["Check-ins da noite", "Setlist fotografado", "Relatos da comunidade no pós-show"],
+    },
+    "toninho-borbo-biplano": {
+        "opening_image": "/assets/Capatoninho.jpg",
+        "memories": ["Entrevista de 2016 sobre Biplano", "Faixas favoritas do Toninho", "Registros da criação do album"],
+    },
+}
+
+
+def capsule_seed_rows(edition: Edition) -> list[dict]:
+    values = CAPSULE_SEED[edition.slug]
+    texts = [
+        f"Início do arquivo da {edition.name}.",
+        *values["memories"],
+        "Novas memórias da comunidade entram neste arquivo após curadoria.",
+        "Linha do tempo da edição atualizada.",
+    ]
+    return [
+        {
+            "legacy_id": f"seed-demo:{edition.slug}:capsule:{index:02d}",
+            "event_date": date.fromisoformat(event_date),
+            "text": text,
+            "source_image_url": validate_source_image_url(values["opening_image"]) if index == 1 else None,
+        }
+        for index, (event_date, text) in enumerate(zip(CAPSULE_DATES, texts, strict=True), start=1)
+    ]
+
 
 def seed(db: Session) -> dict[str, int]:
-    edition_count = token_count = 0
+    edition_count = token_count = capsule_count = 0
+    seed_user = db.scalar(select(User).where(User.email == "seed@memora.local"))
+    if not seed_user:
+        seed_user = User(email="seed@memora.local", display_name="Memora")
+        db.add(seed_user)
+        db.flush()
     existing_serials = set(db.scalars(select(Token.serial)).all())
     for values in EDITIONS:
         edition = db.scalar(select(Edition).where(Edition.slug == values["slug"]))
@@ -45,5 +96,18 @@ def seed(db: Session) -> dict[str, int]:
             if serial not in existing_serials:
                 db.add(Token(edition_id=edition.id, serial=serial)); token_count += 1
                 existing_serials.add(serial)
+        existing_legacy_ids = set(
+            db.scalars(
+                select(CapsuleEntry.legacy_id).where(
+                    CapsuleEntry.edition_id == edition.id,
+                    CapsuleEntry.legacy_id.like(f"seed-demo:{edition.slug}:capsule:%"),
+                )
+            ).all()
+        )
+        for capsule_values in capsule_seed_rows(edition):
+            if capsule_values["legacy_id"] in existing_legacy_ids:
+                continue
+            db.add(CapsuleEntry(edition_id=edition.id, author_user_id=seed_user.id, **capsule_values))
+            capsule_count += 1
     db.commit()
-    return {"editions_created": edition_count, "tokens_created": token_count}
+    return {"editions_created": edition_count, "tokens_created": token_count, "capsule_entries_created": capsule_count}

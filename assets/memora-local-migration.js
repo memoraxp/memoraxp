@@ -34,13 +34,6 @@
         editionResult.accepted += 1;
         complete = (await attempt(result, `${edition}/difusora`, () => window.MemoraAPI.post(`/api/manager/editions/${encodeURIComponent(edition)}/difusora`, { text: String(post.text).slice(0, 180), tag: post.tag || "comunicado", legacy_id: String(post.id || `difusora-${post.createdAt || post.text}`) }))) && complete;
       }
-      const entries = readJson(`memora:${edition}:capsule-records`, []);
-      for (const entry of entries.filter((item) => item?.text && (item.date || item.event_date))) {
-        editionResult.accepted += 1;
-        const body = new FormData(); body.set("text", String(entry.text).slice(0, 1000)); body.set("event_date", entry.date || entry.event_date); body.set("legacy_id", String(entry.id || `capsule-${entry.date}-${entry.text}`));
-        if (entry.image) { try { body.set("image", dataUrlFile(entry.image, "capsule.png")); } catch (error) { result.skipped += 1; result.errors.push(`${edition}/capsule: ${error.message}`); complete = false; continue; } }
-        complete = (await attempt(result, `${edition}/capsule`, () => window.MemoraAPI.post(`/api/manager/editions/${encodeURIComponent(edition)}/capsule`, body))) && complete;
-      }
       const singles = [["cardFront", "card_front"], ["cardBack", "card_back"], ["editionCover", "edition_cover"]];
       for (const [key, slot] of singles) {
         const value = localStorage.getItem(`memora:${edition}:${key}`);

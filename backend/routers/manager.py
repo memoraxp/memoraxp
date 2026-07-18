@@ -3,17 +3,17 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Response, UploadFile
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from backend.config import Settings, settings_dependency
 from backend.database import get_db
 from backend.models import CapsuleEntry, DifusoraPost, EditionMembership, MediaAsset, Token, User
-from backend.routers.public import asset_out, capsule_out, post_out
+from backend.routers.public import asset_out, post_out
 from backend.schemas import DifusoraCreate
 from backend.security import require_edition_membership, require_user
-from backend.services import ALLOWED_SLOTS, persist_image
+from backend.services import ALLOWED_SLOTS, capsule_out, get_capsule_entries, persist_image
 
 router = APIRouter(prefix="/api/manager", tags=["manager"])
 
@@ -29,7 +29,7 @@ async def edition_dashboard(edition_slug: str, user: User = Depends(require_user
     edition, membership = require_edition_membership(edition_slug, user, db)
     counts = dict(db.execute(select(Token.status, func.count(Token.id)).where(Token.edition_id == edition.id).group_by(Token.status)).all())
     posts = db.scalars(select(DifusoraPost).where(DifusoraPost.edition_id == edition.id, DifusoraPost.deleted_at.is_(None)).order_by(DifusoraPost.created_at.desc())).all()
-    entries = db.scalars(select(CapsuleEntry).where(CapsuleEntry.edition_id == edition.id, CapsuleEntry.deleted_at.is_(None)).order_by(CapsuleEntry.event_date.desc())).all()
+    entries = get_capsule_entries(db, edition.id)
     assets = db.scalars(select(MediaAsset).where(MediaAsset.edition_id == edition.id, MediaAsset.deleted_at.is_(None), MediaAsset.slot != "capsule_image").order_by(MediaAsset.slot, MediaAsset.sort_order)).all()
     return {
         "edition": {"slug": edition.slug, "name": edition.name, "module": edition.module, "status": edition.status, "token_code": edition.token_code, "token_total": edition.token_total, "unit_price": edition.unit_price, "public_page": edition.public_page, "manager_page": edition.manager_page, "configuration": edition.configuration},
@@ -68,6 +68,7 @@ async def delete_post(edition_slug: str, post_id: str, user: User = Depends(requ
 @router.post("/editions/{edition_slug}/capsule", status_code=201)
 async def create_capsule(
     edition_slug: str,
+    response: Response,
     text: str = Form(min_length=1, max_length=1000),
     event_date: date = Form(),
     legacy_id: str | None = Form(default=None, max_length=255),
@@ -80,6 +81,9 @@ async def create_capsule(
     if legacy_id:
         existing = db.scalar(select(CapsuleEntry).where(CapsuleEntry.edition_id == edition.id, CapsuleEntry.legacy_id == legacy_id))
         if existing:
+            if existing.deleted_at is not None:
+                raise HTTPException(status_code=409, detail={"code": "capsule_legacy_deleted", "message": "A deleted timeline entry already uses this legacy ID"})
+            response.status_code = 200
             return capsule_out(existing, duplicate=True)
     asset = await persist_image(image, edition, user, "capsule_image", db, settings, legacy_id=f"{legacy_id}:image" if legacy_id else None) if image and image.filename else None
     row = CapsuleEntry(edition_id=edition.id, author_user_id=user.id, text=text.strip(), event_date=event_date, image_asset_id=asset.id if asset else None, legacy_id=legacy_id)

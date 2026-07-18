@@ -5,7 +5,7 @@ from collections.abc import AsyncGenerator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-from .config import get_settings
+from .config import get_settings, normalize_database_url
 
 
 class Base(DeclarativeBase):
@@ -13,9 +13,13 @@ class Base(DeclarativeBase):
 
 
 def make_engine(url: str | None = None):
-    database_url = url or get_settings().database_url
+    database_url = normalize_database_url(url or get_settings().database_url)
     kwargs = {"connect_args": {"check_same_thread": False}} if database_url.startswith("sqlite") else {}
     return create_engine(database_url, pool_pre_ping=True, **kwargs)
+
+
+def make_session_factory(url: str | None = None):
+    return sessionmaker(bind=make_engine(url), class_=Session, expire_on_commit=False)
 
 
 engine = make_engine()

@@ -5,9 +5,9 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.database import get_db
-from backend.models import CapsuleEntry, DifusoraPost, Edition, MediaAsset
+from backend.models import DifusoraPost, Edition, MediaAsset
 from backend.schemas import AssetOut, CapsuleOut, EditionOut, PostOut
-from backend.services import asset_url
+from backend.services import asset_url, capsule_out, get_capsule_entries
 
 router = APIRouter(prefix="/api/editions", tags=["editions"])
 
@@ -21,10 +21,6 @@ def edition_or_404(db: Session, slug: str) -> Edition:
 
 def post_out(row: DifusoraPost, *, duplicate: bool = False) -> PostOut:
     return PostOut(id=row.id, text=row.text, tag=row.tag, author=row.author.display_name, created_at=row.created_at, legacy_id=row.legacy_id, duplicate=duplicate)
-
-
-def capsule_out(row: CapsuleEntry, *, duplicate: bool = False) -> CapsuleOut:
-    return CapsuleOut(id=row.id, text=row.text, event_date=row.event_date, author=row.author.display_name, image_url=asset_url(row.image_asset), created_at=row.created_at, legacy_id=row.legacy_id, duplicate=duplicate)
 
 
 def asset_out(row: MediaAsset, *, duplicate: bool = False) -> AssetOut:
@@ -51,8 +47,7 @@ async def get_difusora(edition_slug: str, db: Session = Depends(get_db)):
 @router.get("/{edition_slug}/capsule", response_model=list[CapsuleOut])
 async def get_capsule(edition_slug: str, db: Session = Depends(get_db)):
     edition = edition_or_404(db, edition_slug)
-    rows = db.scalars(select(CapsuleEntry).where(CapsuleEntry.edition_id == edition.id, CapsuleEntry.deleted_at.is_(None)).order_by(CapsuleEntry.event_date.desc(), CapsuleEntry.created_at.desc())).all()
-    return [capsule_out(row) for row in rows]
+    return [capsule_out(row) for row in get_capsule_entries(db, edition.id)]
 
 
 @router.get("/{edition_slug}/assets", response_model=list[AssetOut])
@@ -60,4 +55,3 @@ async def get_assets(edition_slug: str, db: Session = Depends(get_db)):
     edition = edition_or_404(db, edition_slug)
     rows = db.scalars(select(MediaAsset).where(MediaAsset.edition_id == edition.id, MediaAsset.deleted_at.is_(None), MediaAsset.slot != "capsule_image").order_by(MediaAsset.slot, MediaAsset.sort_order, MediaAsset.created_at)).all()
     return [asset_out(row) for row in rows]
-

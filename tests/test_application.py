@@ -61,7 +61,7 @@ def test_manager_is_scoped_to_assigned_edition(env):
 
 def test_public_reads_and_authorized_difusora(env):
     assert env["client"].get("/api/editions/aura/difusora").json() == []
-    assert env["client"].get("/api/editions/aura/capsule").json() == []
+    assert len(env["client"].get("/api/editions/aura/capsule").json()) == 6
     env["login"]()
     created = env["client"].post("/api/manager/editions/aura/difusora", json={"text": "Hello", "tag": "news"}, headers=env["headers"]())
     assert created.status_code == 201
@@ -83,6 +83,11 @@ def test_capsule_with_and_without_image(env, png_bytes):
     assert plain.status_code == 201 and plain.json()["image_url"] is None
     photo = client.post("/api/manager/editions/aura/capsule", data={"text": "Photo", "event_date": "2026-07-18"}, files={"image": ("photo.png", png_bytes, "image/png")}, headers=env["headers"]())
     assert photo.status_code == 201 and photo.json()["image_url"].startswith("/uploads/aura/capsule_image/")
+    with env["db"]() as fresh_db:
+        plain_row = fresh_db.get(CapsuleEntry, plain.json()["id"])
+        photo_row = fresh_db.get(CapsuleEntry, photo.json()["id"])
+        assert plain_row is not None and plain_row.image_asset_id is None
+        assert photo_row is not None and photo_row.image_asset_id is not None
 
 
 def test_invalid_oversized_and_non_image_uploads(env, png_bytes):
@@ -100,6 +105,39 @@ def test_asset_slot_validation(env, png_bytes):
     env["login"]()
     response = env["client"].put("/api/manager/editions/aura/assets/unknown", files={"file": ("x.png", png_bytes, "image/png")}, headers=env["headers"]())
     assert response.status_code == 422
+
+
+def test_manager_card_and_multiple_wallpaper_assets_refetch_from_api(env, png_bytes):
+    env["login"](); client = env["client"]
+    created = []
+    for slot, filename in (("card_front", "front.png"), ("card_back", "back.png")):
+        response = client.put(
+            f"/api/manager/editions/aura/assets/{slot}",
+            files={"file": (filename, png_bytes, "image/png")},
+            headers=env["headers"](),
+        )
+        assert response.status_code == 201
+        created.append(response.json())
+    for order, filename in enumerate(("wallpaper-one.png", "wallpaper-two.png")):
+        response = client.put(
+            "/api/manager/editions/aura/assets/wallpaper",
+            data={"sort_order": order},
+            files={"file": (filename, png_bytes, "image/png")},
+            headers=env["headers"](),
+        )
+        assert response.status_code == 201
+        created.append(response.json())
+
+    dashboard_assets = client.get("/api/manager/editions/aura/dashboard").json()["assets"]
+    public_assets = client.get("/api/editions/aura/assets").json()
+    for slot in ("card_front", "card_back"):
+        assert len([asset for asset in dashboard_assets if asset["slot"] == slot]) == 1
+    assert [asset["original_filename"] for asset in dashboard_assets if asset["slot"] == "wallpaper"] == ["wallpaper-one.png", "wallpaper-two.png"]
+    assert {asset["id"] for asset in dashboard_assets} == {asset["id"] for asset in public_assets}
+
+    removed = client.delete(f"/api/manager/editions/aura/assets/{created[0]['id']}", headers=env["headers"]())
+    assert removed.status_code == 200
+    assert not [asset for asset in client.get("/api/manager/editions/aura/dashboard").json()["assets"] if asset["slot"] == "card_front"]
 
 
 def test_safe_return_url():

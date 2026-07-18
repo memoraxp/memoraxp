@@ -10,15 +10,15 @@ from sqlalchemy import create_engine, select
 from sqlalchemy.orm import sessionmaker
 
 import backend.main as main_module
-from backend.config import Settings, settings_dependency
-from backend.database import Base, get_db
+from backend.config import Settings
+from backend.database import Base
 from backend.models import EditionMembership, PasswordCredential, User
 from backend.security import hash_password
 from backend.seed_data import seed
 
 
 @pytest.fixture
-def env(tmp_path, monkeypatch):
+def env(tmp_path):
     engine = create_engine(f"sqlite:///{tmp_path / 'test.db'}", connect_args={"check_same_thread": False})
     factory = sessionmaker(bind=engine, expire_on_commit=False)
     Base.metadata.create_all(engine)
@@ -39,23 +39,15 @@ def env(tmp_path, monkeypatch):
         db.commit()
     settings = Settings(database_url=f"sqlite:///{tmp_path / 'test.db'}", upload_root=tmp_path / "uploads", app_base_url="http://testserver", max_upload_bytes=2048)
 
-    async def override_db():
-        with factory() as db:
-            yield db
-
-    monkeypatch.setattr(main_module, "SessionLocal", factory)
     app = main_module.create_app(settings)
-    app.dependency_overrides[get_db] = override_db
-    async def override_settings():
-        return settings
-    app.dependency_overrides[settings_dependency] = override_settings
     class Client:
-        def __init__(self):
+        def __init__(self, target_app=app):
+            self.app = target_app
             self.cookies = httpx.Cookies()
 
         def request(self, method, path, **kwargs):
             async def send():
-                async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://testserver", cookies=self.cookies) as session:
+                async with httpx.AsyncClient(transport=httpx.ASGITransport(app=self.app), base_url="http://testserver", cookies=self.cookies) as session:
                     response = await session.request(method, path, **kwargs)
                     self.cookies.update(session.cookies)
                     return response
@@ -78,7 +70,7 @@ def env(tmp_path, monkeypatch):
     def login(email="aura@example.com", password="correct-horse-battery"):
         return client.post("/api/auth/manager/login", json={"email": email, "password": password}, headers=headers())
 
-    yield {"client": client, "db": factory, "headers": headers, "login": login, "settings": settings}
+    yield {"client": client, "client_class": Client, "db": factory, "headers": headers, "login": login, "settings": settings, "app": app}
 
 
 @pytest.fixture

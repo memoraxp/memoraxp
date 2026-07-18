@@ -39,10 +39,9 @@
   window.MemoraAPI = {
     Error: MemoraApiError,
     request,
-    get: (path) => request(path),
+    get: (path) => request(path, { cache: "no-store" }),
     post: (path, body) => request(path, { method: "POST", body }),
     put: (path, body) => request(path, { method: "PUT", body }),
     delete: (path) => request(path, { method: "DELETE" }),
   };
 })();
-

@@ -180,6 +180,7 @@ class CapsuleEntry(Base):
     text: Mapped[str] = mapped_column(String(1000))
     event_date: Mapped[date] = mapped_column(Date)
     image_asset_id: Mapped[str | None] = mapped_column(ForeignKey("media_assets.id", ondelete="SET NULL"))
+    source_image_url: Mapped[str | None] = mapped_column(String(2048))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)

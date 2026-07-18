@@ -217,12 +217,7 @@
             <article class="biplano-resource" id="capsula">
               <span class="resource-number">02</span>
               <h3>Cápsula do Tempo</h3>
-                            <div class="toninho-timeline-mock" data-timeline-scroll aria-label="Linha do tempo de acontecimentos">
-                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><img src="assets/capadistance.png" alt="Capa da Edicao Distance And Belief"><p>O arquivo de Distance And Belief e iniciado.</p><time datetime="2026-03-14">2026-03-14</time></div></article>
-                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><p>Vídeo de ensaio adicionado à cápsula.</p><time datetime="2026-06-12">2026-06-12</time></div></article>
-                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><p>Making of da capa preservado no arquivo.</p><time datetime="2026-08-15">2026-08-15</time></div></article>
-                <article class="toninho-timeline-mock-item"><span class="toninho-timeline-mock-marker" aria-hidden="true"></span><div class="toninho-timeline-mock-content"><p>Playlist comentada faixa a faixa entra na linha do tempo.</p><time datetime="2026-09-06">2026-09-06</time></div></article>
-              </div>
+              <div class="toninho-timeline-mock" data-timeline-scroll aria-label="Linha do tempo de acontecimentos"></div>
 <div class="biplano-actions" aria-label="Ações da Cápsula do Tempo">
                 <div class="biplano-expandable">
                   <button class="biplano-menu-toggle" type="button" id="capsula-bastidores-toggle" aria-expanded="false" aria-controls="capsula-bastidores-panel">
@@ -451,24 +446,11 @@
       const initWallpaperGallery = () => {
         const gallery = document.querySelector("[data-wallpaper-gallery]");
         if (!gallery) return;
-        const storageKey = "";
-        const configuredStorageKey = "";
         const defaultWallpapers = [{ name: "WP01", src: "assets/WP01.png" }, { name: "WP02", src: "assets/WP02.png" }];
-        const readStoredWallpapers = () => {
-          try {
-            const parsed = JSON.parse(null || "[]");
-            return Array.isArray(parsed) ? parsed.filter((item) => item?.src) : [];
-          } catch (error) {
-            return [];
-          }
-        };
-        const isWallpaperConfigured = () => {
-          try { return null === "true"; } catch (error) { return false; }
-        };
         const escapeHtml = (value) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
         const renderWallpapers = () => {
-          const stored = readStoredWallpapers();
-          const wallpapers = stored.length || isWallpaperConfigured() ? stored : defaultWallpapers;
+          if (gallery.dataset.apiAssetsApplied === "true") return;
+          const wallpapers = defaultWallpapers;
           gallery.innerHTML = wallpapers.map((wallpaper) => {
             const name = escapeHtml(wallpaper.name || "Wallpaper");
             const src = escapeHtml(wallpaper.src);
@@ -476,19 +458,10 @@
           }).join("");
         };
         renderWallpapers();
-        window.addEventListener("storage", (event) => {
-          if (event.key === storageKey || event.key === configuredStorageKey) renderWallpapers();
-        });
-        window.addEventListener("focus", renderWallpapers);
-        window.addEventListener("pageshow", renderWallpapers);
-        document.addEventListener("visibilitychange", () => {
-          if (!document.hidden) renderWallpapers();
-        });
       };
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
         if (!theater) return;
-        const storageKeys = { front: "", back: "" };
         const frontFallback = "assets/distance-card-front.png";
         const backFallbackSrc = "assets/distance-card-back.png";
         const frontImage = theater.querySelector("[data-digital-card-front]");
@@ -498,12 +471,9 @@
         const stage = theater.querySelector("[data-digital-card-stage]");
         const closeButton = theater.querySelector("[data-digital-card-close]");
         let previousBodyOverflow = "";
-        const readStoredCardImage = (storageKey) => {
-          try { return null || ""; } catch (error) { return ""; }
-        };
         const loadDigitalCardImages = () => {
-          const storedFront = readStoredCardImage(storageKeys.front);
-          const storedBack = readStoredCardImage(storageKeys.back);
+          const storedFront = frontImage?.dataset.apiAssetUrl || "";
+          const storedBack = backImage?.dataset.apiAssetUrl || "";
           if (frontImage) frontImage.src = storedFront || frontFallback;
           if (backImage && backFallback) {
             const backSrc = storedBack || backFallbackSrc;
@@ -539,24 +509,12 @@
       const initEditionCoverTheater = () => {
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
-        const storageKey = "";
-        const configuredStorageKey = "";
         const fallbackCover = "assets/capadistance.png";
         const coverImage = theater.querySelector("[data-edition-cover-image]");
         const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
         const closeButton = theater.querySelector("[data-edition-cover-close]");
         let previousBodyOverflow = "";
-        const readStoredCover = () => {
-          try { return null || ""; } catch (error) { return ""; }
-        };
-        const isCoverConfigured = () => {
-          try { return null === "true"; } catch (error) { return false; }
-        };
-        const currentCover = () => {
-          const storedCover = readStoredCover();
-          if (storedCover || isCoverConfigured()) return storedCover;
-          return fallbackCover;
-        };
+        const currentCover = () => coverImage?.dataset.apiAssetUrl || fallbackCover;
         const syncCover = () => {
           const src = currentCover();
           openButtons.forEach((button) => { button.hidden = !src; });
@@ -580,9 +538,6 @@
         };
         syncCover();
         openButtons.forEach((button) => button.addEventListener("click", openCoverTheater));
-        window.addEventListener("storage", (event) => {
-          if (event.key === storageKey || event.key === configuredStorageKey) syncCover();
-        });
         theater.addEventListener("click", (event) => { if (event.target === theater) closeCoverTheater(); });
         closeButton?.addEventListener("click", (event) => { event.stopPropagation(); closeCoverTheater(); });
         document.addEventListener("keydown", (event) => {
