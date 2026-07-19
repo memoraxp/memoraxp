@@ -13,12 +13,12 @@
   const record = (result, response) => { if (response?.duplicate) result.duplicate += 1; else result.imported += 1; };
   const attempt = async (result, label, operation) => { try { record(result, await operation()); return true; } catch (error) { result.failed += 1; result.errors.push(`${label}: ${error.message}`); return false; } };
 
-  const importAsset = async (result, edition, slot, dataUrl, legacyId, order = 0) => {
+  const importAsset = async (result, edition, role, dataUrl, legacyId, order = 0) => {
     if (!dataUrl) { result.skipped += 1; return true; }
     let file;
-    try { file = dataUrlFile(dataUrl, `${slot}-${order}.png`); } catch (error) { result.skipped += 1; result.errors.push(`${edition}/${slot}: ${error.message}`); return false; }
+    try { file = dataUrlFile(dataUrl, `${role}-${order}.png`); } catch (error) { result.skipped += 1; result.errors.push(`${edition}/${role}: ${error.message}`); return false; }
     const body = new FormData(); body.set("file", file); body.set("legacy_id", legacyId); body.set("sort_order", String(order));
-    return attempt(result, `${edition}/${slot}`, () => window.MemoraAPI.put(`/api/manager/editions/${encodeURIComponent(edition)}/assets/${slot}`, body));
+    return attempt(result, `${edition}/${role}`, () => window.MemoraAPI.put(`/api/manager/editions/${encodeURIComponent(edition)}/assets/${role}`, body));
   };
 
   const run = async () => {
@@ -35,9 +35,9 @@
         complete = (await attempt(result, `${edition}/difusora`, () => window.MemoraAPI.post(`/api/manager/editions/${encodeURIComponent(edition)}/difusora`, { text: String(post.text).slice(0, 180), tag: post.tag || "comunicado", legacy_id: String(post.id || `difusora-${post.createdAt || post.text}`) }))) && complete;
       }
       const singles = [["cardFront", "card_front"], ["cardBack", "card_back"], ["editionCover", "edition_cover"]];
-      for (const [key, slot] of singles) {
+      for (const [key, role] of singles) {
         const value = localStorage.getItem(`memora:${edition}:${key}`);
-        if (value) { editionResult.accepted += 1; complete = (await importAsset(result, edition, slot, value, `local-${key}`)) && complete; }
+        if (value) { editionResult.accepted += 1; complete = (await importAsset(result, edition, role, value, `local-${key}`)) && complete; }
       }
       const wallpapers = readJson(`memora:${edition}:wallpapers`, []);
       for (let index = 0; index < wallpapers.length; index += 1) {

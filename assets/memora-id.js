@@ -227,7 +227,13 @@
     const grid = document.querySelector("[data-token-grid]");
     if (grid && dashboard) {
       grid.innerHTML = dashboard.tokens.length
-        ? dashboard.tokens.map((token, index) => `<a class="memora-id-honeycomb-cell" href="/${escapeHtml(token.edition.public_page)}" data-token-index="${index}" aria-label="Abrir ${escapeHtml(token.edition.name)}"><img src="${escapeHtml(token.edition.image || "assets/mlogo.png")}" alt="${escapeHtml(token.serial)}"></a>`).join("")
+        ? dashboard.tokens.map((token, index) => {
+          const imageUrl = token.edition.image_asset?.url || null;
+          const image = imageUrl
+            ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(token.serial)}">`
+            : `<span class="memora-token-placeholder" aria-hidden="true">${escapeHtml(token.edition.name.replace(/^Edição\s+/i, "").slice(0, 2).toUpperCase())}</span>`;
+          return `<a class="memora-id-honeycomb-cell" href="/${escapeHtml(token.edition.public_page)}" data-token-index="${index}" aria-label="Abrir ${escapeHtml(token.edition.name)}">${image}</a>`;
+        }).join("")
         : '<p class="memora-id-empty-state">Você ainda não ativou nenhum token.</p>';
     }
     getHiveCells().forEach((cell) => {

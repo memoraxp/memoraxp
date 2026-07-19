@@ -1,11 +1,25 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from io import BytesIO
+from pathlib import Path
+import subprocess
+import sys
 
 from sqlalchemy import select
+from PIL import Image
 
 from backend.models import CapsuleEntry, DifusoraPost, Edition, MediaAsset, PasswordCredential, Session, Token, User
 from backend.security import new_session, safe_return_url, verify_password
+
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def image_bytes(color: str, image_format: str = "PNG") -> bytes:
+    stream = BytesIO()
+    Image.new("RGB", (4, 4), color).save(stream, format=image_format)
+    return stream.getvalue()
 
 
 def test_manager_login_success_failure_and_password_hash(env):
@@ -82,7 +96,7 @@ def test_capsule_with_and_without_image(env, png_bytes):
     plain = client.post("/api/manager/editions/aura/capsule", data={"text": "Memory", "event_date": "2026-07-18"}, headers=env["headers"]())
     assert plain.status_code == 201 and plain.json()["image_url"] is None
     photo = client.post("/api/manager/editions/aura/capsule", data={"text": "Photo", "event_date": "2026-07-18"}, files={"image": ("photo.png", png_bytes, "image/png")}, headers=env["headers"]())
-    assert photo.status_code == 201 and photo.json()["image_url"].startswith("/uploads/aura/capsule_image/")
+    assert photo.status_code == 201 and photo.json()["image_url"].startswith("/assets/aura/")
     with env["db"]() as fresh_db:
         plain_row = fresh_db.get(CapsuleEntry, plain.json()["id"])
         photo_row = fresh_db.get(CapsuleEntry, photo.json()["id"])
@@ -110,9 +124,9 @@ def test_asset_slot_validation(env, png_bytes):
 def test_manager_card_and_multiple_wallpaper_assets_refetch_from_api(env, png_bytes):
     env["login"](); client = env["client"]
     created = []
-    for slot, filename in (("card_front", "front.png"), ("card_back", "back.png")):
+    for role, filename in (("card_front", "front.png"), ("card_back", "back.png")):
         response = client.put(
-            f"/api/manager/editions/aura/assets/{slot}",
+            f"/api/manager/editions/aura/assets/{role}",
             files={"file": (filename, png_bytes, "image/png")},
             headers=env["headers"](),
         )
@@ -130,14 +144,170 @@ def test_manager_card_and_multiple_wallpaper_assets_refetch_from_api(env, png_by
 
     dashboard_assets = client.get("/api/manager/editions/aura/dashboard").json()["assets"]
     public_assets = client.get("/api/editions/aura/assets").json()
-    for slot in ("card_front", "card_back"):
-        assert len([asset for asset in dashboard_assets if asset["slot"] == slot]) == 1
-    assert [asset["original_filename"] for asset in dashboard_assets if asset["slot"] == "wallpaper"] == ["wallpaper-one.png", "wallpaper-two.png"]
+    for role in ("card_front", "card_back"):
+        assert len([asset for asset in dashboard_assets if asset["role"] == role]) == 1
+    assert [asset["public_filename"] for asset in dashboard_assets if asset["role"] == "wallpaper"] == ["wallpaper-one.png", "wallpaper-two.png"]
     assert {asset["id"] for asset in dashboard_assets} == {asset["id"] for asset in public_assets}
 
     removed = client.delete(f"/api/manager/editions/aura/assets/{created[0]['id']}", headers=env["headers"]())
     assert removed.status_code == 200
-    assert not [asset for asset in client.get("/api/manager/editions/aura/dashboard").json()["assets"] if asset["slot"] == "card_front"]
+    assert not [asset for asset in client.get("/api/manager/editions/aura/dashboard").json()["assets"] if asset["role"] == "card_front"]
+
+
+def test_scoped_asset_route_is_database_backed_versioned_and_cacheable(env, png_bytes):
+    env["login"]()
+    created = env["client"].put(
+        "/api/manager/editions/aura/assets/edition_cover",
+        files={"file": ("Cover image.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    )
+    assert created.status_code == 201
+    asset = created.json()
+    assert asset["edition_slug"] == "aura"
+    assert asset["role"] == "edition_cover"
+    assert asset["public_filename"] == "Cover image.png"
+    assert asset["url"].startswith("/assets/aura/Cover%20image.png?v=")
+    assert asset["mime_type"] == "image/png"
+    assert asset["width"] == 4 and asset["height"] == 4
+    response = env["client"].get(asset["url"])
+    assert response.status_code == 200 and response.content == png_bytes
+    assert response.headers["content-type"] == "image/png"
+    assert int(response.headers["content-length"]) == len(png_bytes)
+    assert response.headers["etag"]
+    assert response.headers["cache-control"] == "public, max-age=31536000, immutable"
+    cached = env["client"].get(asset["url"], headers={"If-None-Match": response.headers["etag"]})
+    assert cached.status_code == 304 and not cached.content
+
+
+def test_same_public_filename_is_isolated_by_edition(env):
+    env["login"]()
+    aura_data = image_bytes("red", "JPEG")
+    aura = env["client"].put(
+        "/api/manager/editions/aura/assets/edition_cover",
+        files={"file": ("Capa.jpg", aura_data, "image/jpeg")},
+        headers=env["headers"](),
+    ).json()
+    env["login"]("distance@example.com", "distance-manager-password")
+    blue = image_bytes("blue", "JPEG")
+    distance = env["client"].put(
+        "/api/manager/editions/distance/assets/edition_cover",
+        files={"file": ("Capa.jpg", blue, "image/jpeg")},
+        headers=env["headers"](),
+    ).json()
+    assert aura["url"].startswith("/assets/aura/Capa.jpg?v=")
+    assert distance["url"].startswith("/assets/distance/Capa.jpg?v=")
+    assert env["client"].get(aura["url"]).content == aura_data
+    assert env["client"].get(distance["url"]).content == blue
+
+
+def test_asset_route_rejects_unknown_deleted_and_traversal_paths(env, png_bytes):
+    assert env["client"].get("/assets/" + "Capa" + ".jpg").status_code == 404
+    assert env["client"].get("/assets/not-an-edition/missing.png").status_code == 404
+    assert env["client"].get("/assets/aura/missing.png").status_code == 404
+    for path in (
+        "/assets/aura/%2e%2e/secret.png",
+        "/assets/aura/%252e%252e",
+        "/assets/aura/http%3Aevil.png",
+        "/assets/aura/name%5Cevil.png",
+    ):
+        assert env["client"].get(path).status_code in {400, 404}
+    env["login"]()
+    asset = env["client"].put(
+        "/api/manager/editions/aura/assets/edition_cover",
+        files={"file": ("deleted.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    ).json()
+    assert env["client"].delete(f"/api/manager/editions/aura/assets/{asset['id']}", headers=env["headers"]()).status_code == 200
+    assert env["client"].get(asset["url"]).status_code == 404
+
+
+def test_replacing_single_asset_preserves_public_filename_and_changes_version(env, png_bytes):
+    env["login"]()
+    first = env["client"].put(
+        "/api/manager/editions/aura/assets/edition_cover",
+        files={"file": ("stable.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    ).json()
+    second_data = image_bytes("green")
+    second = env["client"].put(
+        "/api/manager/editions/aura/assets/edition_cover",
+        files={"file": ("replacement.png", second_data, "image/png")},
+        headers=env["headers"](),
+    ).json()
+    assert second["public_filename"] == "stable.png"
+    assert first["url"] != second["url"]
+    assert env["client"].get("/assets/aura/stable.png").content == second_data
+    with env["db"]() as db:
+        old = db.get(MediaAsset, first["id"])
+        assert old.deleted_at is not None
+
+
+def test_duplicate_active_public_filename_within_edition_is_rejected(env, png_bytes):
+    env["login"]()
+    first = env["client"].put(
+        "/api/manager/editions/aura/assets/wallpaper",
+        files={"file": ("unique-wallpaper.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    )
+    duplicate = env["client"].put(
+        "/api/manager/editions/aura/assets/product_image",
+        files={"file": ("unique-wallpaper.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    )
+    assert first.status_code == 201
+    assert duplicate.status_code == 409
+    assert duplicate.json()["error"]["code"] == "public_filename_conflict"
+
+
+def test_asset_apis_and_configuration_never_expose_unscoped_edition_paths(env, png_bytes):
+    env["login"]()
+    env["client"].put(
+        "/api/manager/editions/aura/assets/edition_tile",
+        files={"file": ("tile.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    )
+    dashboard = env["client"].get("/api/manager/editions/aura/dashboard").json()
+    public = env["client"].get("/api/editions/aura/assets").json()
+    assert all(asset["url"].startswith("/assets/aura/") for asset in dashboard["assets"] + public)
+    assert not {"image", "cover", "tile", "titleLogo", "title_logo", "digitalCard", "wallpapers"}.intersection(dashboard["edition"]["configuration"])
+
+
+def test_collector_dashboard_uses_authoritative_edition_tile(env, png_bytes):
+    env["login"]()
+    tile = env["client"].put(
+        "/api/manager/editions/aura/assets/edition_tile",
+        files={"file": ("collector-tile.png", png_bytes, "image/png")},
+        headers=env["headers"](),
+    ).json()
+    with env["db"]() as db:
+        collector = db.scalar(select(User).where(User.email == "collector@example.com"))
+        token = db.scalar(select(Token).where(Token.edition.has(slug="aura"), Token.status == "available"))
+        token.owner_user_id = collector.id
+        token.status = "active"
+        from starlette.requests import Request
+        scope = {"type": "http", "headers": [], "client": ("test", 1), "method": "GET", "path": "/", "scheme": "http", "server": ("testserver", 80), "query_string": b""}
+        _, raw = new_session(db, collector, Request(scope), env["settings"])
+        db.commit()
+    env["client"].cookies.clear()
+    env["client"].cookies.set("memora_session", raw)
+    token_data = env["client"].get("/api/me/dashboard").json()["tokens"][0]
+    assert token_data["edition"]["image_asset"]["id"] == tile["id"]
+    assert token_data["edition"]["image_asset"]["url"].startswith("/assets/aura/")
+
+
+def test_frontend_has_intentional_missing_states_and_legacy_validator_passes():
+    manager = (ROOT / "assets/memora-manager.js").read_text()
+    public_assets = (ROOT / "assets/memora-edition-assets.js").read_text()
+    assert "Nenhuma capa cadastrada" in manager
+    assert "Nenhum wallpaper cadastrado." in manager and "Nenhum wallpaper cadastrado." in public_assets
+    assert "apiAsset?.url ||" not in manager
+    for page in ROOT.glob("edicao-*.html"):
+        source = page.read_text()
+        assert "data-edition-cover-image hidden" in source
+        assert "data-card-front-missing" in source
+    result = subprocess.run([sys.executable, "scripts/check_legacy_asset_paths.py"], cwd=ROOT, capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "0 forbidden references" in result.stdout
 
 
 def test_safe_return_url():

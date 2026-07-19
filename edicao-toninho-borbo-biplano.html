@@ -70,7 +70,7 @@
           <div class="toninho-hero-copy">
             <p class="eyebrow">Memora Music #1</p>
             <h1 id="edition-title" class="biplano-title-image-wrap">
-              <img class="biplano-title-image" src="assets/Memora TB.png" alt="#1 - Toninho Borbo | Biplano">
+              <img class="biplano-title-image" data-edition-hero-image alt="#1 - Toninho Borbo | Biplano" hidden>
             </h1>
             <div class="biplano-album-copy">
               <p>
@@ -90,7 +90,8 @@
           </div>
           <div class="toninho-hero-visual" aria-label="Identidade visual da edição Toninho Borbo Biplano">
             <span class="toninho-hero-kicker">TBRB001</span>
-            <img class="biplano-logo" src="assets/toninho-biplano-logo.png" alt="Toninho Borbo Biplano">
+            <img class="biplano-logo" data-title-logo alt="Toninho Borbo Biplano" hidden>
+            <strong data-title-logo-fallback>Edição Toninho Borbo | Biplano</strong>
           </div>
         </div>
       </section>
@@ -286,7 +287,7 @@
                   </button>
                   <div class="biplano-menu-panel" id="token-greg-panel" role="region" aria-labelledby="token-greg-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-profile">
-                      <img class="biplano-profile-photo" src="assets/gregg-mervine.jpg" alt="Retrato de Gregg Mervine">
+                      <img class="biplano-profile-photo" data-profile-image alt="Retrato de Gregg Mervine" hidden>
 
                       <h4>Gregg Mervine: um norte-americano que fez da Paraíba sua segunda casa musical</h4>
                       <p>
@@ -633,7 +634,7 @@
                   <div class="biplano-menu-panel" id="arte-eldon-panel" role="region" aria-labelledby="arte-eldon-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-illustrator-card">
                       <div class="biplano-illustrator-avatar">
-                        <img src="assets/avatareldon.png" alt="Retrato do ilustrador Eldon Oliveira">
+                        <img data-illustrator-avatar alt="Retrato do ilustrador Eldon Oliveira" hidden>
                       </div>
                       <div class="biplano-illustrator-info">
                         <div class="biplano-illustrator-heading">
@@ -719,14 +720,14 @@
               <strong>TBRB001</strong>
               <section class="toninho-shop" aria-label="Loja da Edição Toninho Borbo">
                 <article class="toninho-shop-item">
-                  <img src="assets/Caneca 05.png" alt="Caneca Memora Toninho Borbo #1 branca, primeira arte">
+                  <img data-product-image-index="0" alt="Caneca Memora Toninho Borbo #1 branca, primeira arte" hidden>
                   <div>
                     <h4>Caneca Memora Toninho Borbo #1 - Branca</h4>
                     <p>R$ 30,00</p>
                   </div>
                 </article>
                 <article class="toninho-shop-item">
-                  <img src="assets/Caneca 06.png" alt="Caneca Memora Toninho Borbo #1 branca, segunda arte">
+                  <img data-product-image-index="1" alt="Caneca Memora Toninho Borbo #1 branca, segunda arte" hidden>
                   <div>
                     <h4>Caneca Memora Toninho Borbo #1 - Branca</h4>
                     <p>R$ 30,00</p>
@@ -744,7 +745,8 @@
       <div class="digital-card-stage" data-digital-card-stage>
         <div class="digital-card-flip" data-digital-card-flip>
           <div class="digital-card-face digital-card-face--front">
-            <img data-digital-card-front alt="Frente do Card Digital Memora">
+            <img data-digital-card-front alt="Frente do Card Digital Memora" hidden>
+            <p data-card-front-missing>Frente não cadastrada.</p>
           </div>
 
           <div class="digital-card-face digital-card-face--back">
@@ -763,7 +765,7 @@
 
     <div class="edition-cover-theater" data-edition-cover-theater hidden role="dialog" aria-modal="true" aria-label="Capa da edição Toninho Borbo Biplano">
       <button class="digital-card-close" type="button" data-edition-cover-close aria-label="Fechar capa da edição">&times;</button>
-      <img src="assets/Capatoninho.jpg" alt="Capa da edição Toninho Borbo Biplano" data-edition-cover-image>
+      <img alt="Capa da edição Toninho Borbo Biplano" data-edition-cover-image hidden>
     </div>
 
 
@@ -833,42 +835,12 @@
       const initWallpaperGallery = () => {
         const gallery = document.querySelector("[data-wallpaper-gallery]");
         if (!gallery) return;
-
-        const defaultWallpapers = [
-          { name: "WP01", src: "assets/WP01.png" },
-          { name: "WP02", src: "assets/WP02.png" },
-        ];
-
-        const escapeHtml = (value) => String(value ?? "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#39;");
-
-        const renderWallpapers = () => {
-          if (gallery.dataset.apiAssetsApplied === "true") return;
-          const wallpapers = defaultWallpapers;
-          gallery.innerHTML = wallpapers.map((wallpaper) => {
-            const name = escapeHtml(wallpaper.name || "Wallpaper");
-            const src = escapeHtml(wallpaper.src);
-            return `
-              <a class="biplano-wallpaper-thumb" href="${src}" download aria-label="Baixar ${name}">
-                <img src="${src}" alt="${name}">
-                <span>${name}</span>
-              </a>
-            `;
-          }).join("");
-        };
-
-        renderWallpapers();
+        if (gallery.dataset.apiAssetsApplied !== "true") gallery.innerHTML = '<p class="biplano-empty-state">Nenhum wallpaper cadastrado.</p>';
       };
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
         if (!theater) return;
 
-        const frontFallback = "assets/Capatoninho.jpg";
-        const backFallbackSrc = "assets/WP02.png";
         const frontImage = theater.querySelector("[data-digital-card-front]");
         const backImage = theater.querySelector("[data-digital-card-back]");
         const backFallback = theater.querySelector("[data-digital-card-back-fallback]");
@@ -879,9 +851,13 @@
 
         const loadDigitalCardImages = () => {
           const storedFront = frontImage?.dataset.apiAssetUrl || "";
-          const storedBack = backImage?.dataset.apiAssetUrl || backFallbackSrc;
+          const storedBack = backImage?.dataset.apiAssetUrl || "";
 
-          if (frontImage) frontImage.src = storedFront || frontFallback;
+          if (frontImage) {
+            frontImage.hidden = !storedFront;
+            if (storedFront) frontImage.src = storedFront;
+            else frontImage.removeAttribute("src");
+          }
 
           if (backImage && backFallback) {
             backImage.hidden = !storedBack;
@@ -931,19 +907,16 @@
         });
       };
 
-      initDigitalCardTheater();
-
       const initEditionCoverTheater = () => {
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
 
-        const fallbackCover = "assets/Capatoninho.jpg";
         const coverImage = theater.querySelector("[data-edition-cover-image]");
         const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
         const closeButton = theater.querySelector("[data-edition-cover-close]");
         let previousBodyOverflow = "";
 
-        const currentCover = () => coverImage?.dataset.apiAssetUrl || fallbackCover;
+        const currentCover = () => coverImage?.dataset.apiAssetUrl || "";
 
         const syncCover = () => {
           const src = currentCover();
@@ -989,7 +962,6 @@
         });
       };
 
-      initEditionCoverTheater();
       const radioPlayer = document.querySelector("[data-radio-player]");
 
       if (radioPlayer) {
@@ -1194,7 +1166,11 @@
         setRadioTrack(0);
       }
 
-      initWallpaperGallery();
+      document.addEventListener("memora:edition-assets-ready", () => {
+        initWallpaperGallery();
+        initDigitalCardTheater();
+        initEditionCoverTheater();
+      }, { once: true });
 
       window.addEventListener("resize", () => {
         document.querySelectorAll(".biplano-menu-panel.is-open").forEach((panel) => {

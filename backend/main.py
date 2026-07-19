@@ -14,7 +14,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from backend.config import Settings, get_settings, settings_dependency
 from backend.database import get_db, make_session_factory
-from backend.routers import auth, collector, manager, public
+from backend.routers import assets, auth, collector, manager, public
 from backend.security import csrf_matches, require_edition_membership, session_from_request
 
 LOGGER = logging.getLogger("memora")
@@ -36,6 +36,12 @@ MANAGER_HTML = {
     "/manager-toninho-borbo-biplano.html": ("manager-toninho-borbo-biplano.html", "toninho-borbo-biplano"),
 }
 SAFE_CONTENT_TYPES = {"application/json", "multipart/form-data", "application/x-www-form-urlencoded"}
+GLOBAL_STATIC_IMAGES = {
+    "avatar.png", "colmeia.png", "memora-xp-coasters.png", "memora-xp-crew.png",
+    "mlogo.png", "pdf-img-000.png", "pdf-img-005.png", "pdf-img-007.png",
+    "pdf-img-012.png", "pdf-img-013.png", "plane.png",
+}
+IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}
 
 
 def error_body(detail, status_code: int) -> dict:
@@ -107,6 +113,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(collector.router)
     app.include_router(manager.router)
     app.include_router(public.router)
+    # This database-backed route must precede the broad global static mount.
+    app.include_router(assets.router)
+
+    @app.get("/assets/{filename}", include_in_schema=False)
+    async def global_asset(filename: str):
+        candidate = Path(filename)
+        if candidate.name != filename or candidate.suffix.lower() in IMAGE_SUFFIXES and filename not in GLOBAL_STATIC_IMAGES:
+            LOGGER.info("Rejected unscoped non-global image request: %s", filename)
+            raise HTTPException(status_code=404, detail={"code": "asset_not_found", "message": "Global asset not found"})
+        path = ROOT / "assets" / filename
+        if not path.is_file():
+            raise HTTPException(status_code=404, detail={"code": "asset_not_found", "message": "Global asset not found"})
+        return FileResponse(path)
 
     app.mount("/assets", StaticFiles(directory=ROOT / "assets"), name="assets")
     settings.upload_root.mkdir(parents=True, exist_ok=True)

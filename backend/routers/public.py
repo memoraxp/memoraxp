@@ -24,7 +24,20 @@ def post_out(row: DifusoraPost, *, duplicate: bool = False) -> PostOut:
 
 
 def asset_out(row: MediaAsset, *, duplicate: bool = False) -> AssetOut:
-    return AssetOut(id=row.id, slot=row.slot, url=asset_url(row) or "", original_filename=row.original_filename, mime_type=row.mime_type, size_bytes=row.size_bytes, sort_order=row.sort_order, legacy_id=row.legacy_id, duplicate=duplicate)
+    return AssetOut(
+        id=row.id,
+        edition_slug=row.edition.slug,
+        role=row.role,
+        public_filename=row.public_filename,
+        url=asset_url(row) or "",
+        mime_type=row.mime_type,
+        width=row.width,
+        height=row.height,
+        size_bytes=row.size_bytes,
+        sort_order=row.sort_order,
+        legacy_id=row.legacy_id,
+        duplicate=duplicate,
+    )
 
 
 @router.get("", response_model=list[EditionOut])
@@ -53,5 +66,5 @@ async def get_capsule(edition_slug: str, db: Session = Depends(get_db)):
 @router.get("/{edition_slug}/assets", response_model=list[AssetOut])
 async def get_assets(edition_slug: str, db: Session = Depends(get_db)):
     edition = edition_or_404(db, edition_slug)
-    rows = db.scalars(select(MediaAsset).where(MediaAsset.edition_id == edition.id, MediaAsset.deleted_at.is_(None), MediaAsset.slot != "capsule_image").order_by(MediaAsset.slot, MediaAsset.sort_order, MediaAsset.created_at)).all()
+    rows = db.scalars(select(MediaAsset).where(MediaAsset.edition_id == edition.id, MediaAsset.deleted_at.is_(None), MediaAsset.role != "capsule_image").order_by(MediaAsset.role, MediaAsset.sort_order, MediaAsset.created_at)).all()
     return [asset_out(row) for row in rows]

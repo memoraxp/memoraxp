@@ -70,7 +70,7 @@
           <div class="edition-hero-copy">
             <p class="eyebrow">Memora Music #3</p>
             <h1 id="edition-title" class="aura-title-logo">
-              <img src="assets/aura-memora.png" alt="Token visual da edição Aura">
+              <img data-edition-hero-image alt="Token visual da edição Aura" hidden>
             </h1>
             <div class="biplano-album-copy">
               <p>
@@ -89,7 +89,8 @@
           </div>
           <div class="edition-hero-visual" aria-label="Logo da edição Aura">
             <span class="edition-hero-kicker">AURA003</span>
-            <img class="biplano-logo aura-logo" src="assets/Aura logo.png" alt="Aura">
+            <img class="biplano-logo aura-logo" data-title-logo alt="Aura" hidden>
+            <strong data-title-logo-fallback>Edição Aura</strong>
           </div>
         </div>
       </section>
@@ -143,7 +144,7 @@
                   </button>
                   <div class="biplano-menu-panel" id="token-producao-panel" role="region" aria-labelledby="token-producao-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-profile">
-                      <img class="biplano-profile-photo" src="assets/gregg-mervine.jpg" alt="Retrato de Gregg Mervine">
+                      <img class="biplano-profile-photo" data-profile-image alt="Retrato de Gregg Mervine" hidden>
                       <h4>Gregg Mervine: produção e pesquisa musical</h4>
                       <p>
                         Painel de producao replicado como base temporaria. Ele pode receber produtor, diretor musical, equipe tecnica,
@@ -246,7 +247,7 @@
                   <div class="biplano-menu-panel" id="arte-edicao-panel" role="region" aria-labelledby="arte-edicao-toggle" aria-hidden="true">
                     <div class="biplano-menu-content biplano-illustrator-card">
                       <div class="biplano-illustrator-avatar">
-                        <img src="assets/avatareldon.png" alt="Retrato do ilustrador Eldon Oliveira">
+                        <img data-illustrator-avatar alt="Retrato do ilustrador Eldon Oliveira" hidden>
                       </div>
                       <div class="biplano-illustrator-info">
                         <div class="biplano-illustrator-heading"><strong>eldon.art</strong><span aria-hidden="true">...</span></div>
@@ -346,14 +347,14 @@
               <strong>AURA003</strong>
               <section class="aura-shop" aria-label="Loja da Edição Aura">
                 <article class="aura-shop-item">
-                  <img src="assets/Caneca 03.png" alt="Caneca Memora Aura #1 branca, primeira arte">
+                  <img data-product-image-index="0" alt="Caneca Memora Aura #1 branca, primeira arte" hidden>
                   <div>
                     <h4>Caneca Memora Aura #1 - Branca</h4>
                     <p>R$ 30,00</p>
                   </div>
                 </article>
                 <article class="aura-shop-item">
-                  <img src="assets/Caneca 04.png" alt="Caneca Memora Aura #1 branca, segunda arte">
+                  <img data-product-image-index="1" alt="Caneca Memora Aura #1 branca, segunda arte" hidden>
                   <div>
                     <h4>Caneca Memora Aura #1 - Branca</h4>
                     <p>R$ 30,00</p>
@@ -370,7 +371,7 @@
       <button class="digital-card-close" type="button" data-digital-card-close aria-label="Fechar Card Digital">&times;</button>
       <div class="digital-card-stage" data-digital-card-stage>
         <div class="digital-card-flip" data-digital-card-flip>
-          <div class="digital-card-face digital-card-face--front"><img data-digital-card-front alt="Frente do Card Digital Memora"></div>
+          <div class="digital-card-face digital-card-face--front"><img data-digital-card-front alt="Frente do Card Digital Memora" hidden><p data-card-front-missing>Frente não cadastrada.</p></div>
           <div class="digital-card-face digital-card-face--back">
             <img data-digital-card-back alt="Verso do Card Digital Memora" hidden>
             <div class="digital-card-back-fallback" data-digital-card-back-fallback><span>Memora</span><strong>Card Digital Memora</strong><p data-card-edition-name>Edição Aura</p></div>
@@ -381,7 +382,7 @@
     </div>
     <div class="edition-cover-theater" data-edition-cover-theater hidden role="dialog" aria-modal="true" aria-label="Capa da edicao">
       <button class="digital-card-close" type="button" data-edition-cover-close aria-label="Fechar capa da edicao">&times;</button>
-      <img src="assets/Capa.jpg" alt="Capa da edicao Aura" data-edition-cover-image>
+      <img alt="Capa da edicao Aura" data-edition-cover-image hidden>
     </div>
     <script src="assets/memora-api.js"></script>
     <script>
@@ -423,24 +424,11 @@
       const initWallpaperGallery = () => {
         const gallery = document.querySelector("[data-wallpaper-gallery]");
         if (!gallery) return;
-        const defaultWallpapers = [{ name: "WP03", src: "assets/WP03.png" }, { name: "WP04", src: "assets/WP04.png" }];
-        const escapeHtml = (value) => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
-        const renderWallpapers = () => {
-          if (gallery.dataset.apiAssetsApplied === "true") return;
-          const wallpapers = defaultWallpapers;
-          gallery.innerHTML = wallpapers.map((wallpaper) => {
-            const name = escapeHtml(wallpaper.name || "Wallpaper");
-            const src = escapeHtml(wallpaper.src);
-            return `<a class="biplano-wallpaper-thumb" href="${src}" download aria-label="Baixar ${name}"><img src="${src}" alt="${name}"><span>${name}</span></a>`;
-          }).join("");
-        };
-        renderWallpapers();
+        if (gallery.dataset.apiAssetsApplied !== "true") gallery.innerHTML = '<p class="biplano-empty-state">Nenhum wallpaper cadastrado.</p>';
       };
       const initDigitalCardTheater = () => {
         const theater = document.querySelector("[data-digital-card-theater]");
         if (!theater) return;
-        const frontFallback = editionId === "aura" ? "assets/WP04.png" : "assets/Capa.jpg";
-        const backFallbackSrc = editionId === "aura" ? "assets/WP03.png" : "";
         const frontImage = theater.querySelector("[data-digital-card-front]");
         const backImage = theater.querySelector("[data-digital-card-back]");
         const backFallbackElement = theater.querySelector("[data-digital-card-back-fallback]");
@@ -451,12 +439,15 @@
         const loadDigitalCardImages = () => {
           const storedFront = frontImage?.dataset.apiAssetUrl || "";
           const storedBack = backImage?.dataset.apiAssetUrl || "";
-          if (frontImage) frontImage.src = storedFront || frontFallback;
+          if (frontImage) {
+            frontImage.hidden = !storedFront;
+            if (storedFront) frontImage.src = storedFront;
+            else frontImage.removeAttribute("src");
+          }
           if (backImage && backFallbackElement) {
-            const backSrc = storedBack || backFallbackSrc;
-            backImage.hidden = !backSrc;
-            backFallbackElement.hidden = Boolean(backSrc);
-            if (backSrc) backImage.src = backSrc;
+            backImage.hidden = !storedBack;
+            backFallbackElement.hidden = Boolean(storedBack);
+            if (storedBack) backImage.src = storedBack;
             else backImage.removeAttribute("src");
           }
         };
@@ -481,17 +472,14 @@
         closeButton?.addEventListener("click", (event) => { event.stopPropagation(); closeDigitalCardTheater(); });
         document.addEventListener("keydown", (event) => { if (event.key === "Escape" && theater.classList.contains("is-open")) closeDigitalCardTheater(); });
       };
-      initDigitalCardTheater();
-
       const initEditionCoverTheater = () => {
         const theater = document.querySelector("[data-edition-cover-theater]");
         if (!theater) return;
-        const fallbackCover = "assets/Capa.jpg";
         const coverImage = theater.querySelector("[data-edition-cover-image]");
         const openButtons = Array.from(document.querySelectorAll("[data-edition-cover-open]"));
         const closeButton = theater.querySelector("[data-edition-cover-close]");
         let previousBodyOverflow = "";
-        const currentCover = () => coverImage?.dataset.apiAssetUrl || fallbackCover;
+        const currentCover = () => coverImage?.dataset.apiAssetUrl || "";
         const syncCover = () => {
           const src = currentCover();
           openButtons.forEach((button) => { button.hidden = !src; });
@@ -599,8 +587,11 @@
         setTrack(0);
       }
 
-      initWallpaperGallery();
-      initEditionCoverTheater();
+      document.addEventListener("memora:edition-assets-ready", () => {
+        initWallpaperGallery();
+        initDigitalCardTheater();
+        initEditionCoverTheater();
+      }, { once: true });
       window.addEventListener("resize", () => {
         document.querySelectorAll(".biplano-menu-panel.is-open").forEach((panel) => { panel.style.maxHeight = "none"; });
       });

@@ -29,9 +29,8 @@
   };
 
   applyManagerTheme(readSavedTheme());
-  const LEGACY_ILLUSTRATOR_PRESENTATION = {
+  const ILLUSTRATOR_PRESENTATION = {
     title: "Ilustrador",
-    avatar: "assets/avatareldon.png",
     handle: "eldon.art",
     name: "Eldon Oliveira",
     posts: 12,
@@ -53,25 +52,14 @@
     },
   };
 
-  const LEGACY_PRESENTATION_DEFAULTS = [
+  const PRESENTATION_TEXT_DEFAULTS = [
     {
       id: "aura",
       name: "Edição Aura",
       module: "Artist",
       status: "ativa",
-      image: "assets/Capa.jpg",
-      digitalCard: {
-        front: "assets/WP04.png",
-        back: "assets/WP03.png",
-      },
-      wallpapers: [
-        { name: "WP03.png", src: "assets/WP03.png" },
-        { name: "WP04.png", src: "assets/WP04.png" },
-      ],
-      tile: "assets/MC1.png",
       managerPage: "manager-aura.html",
       publicPage: "edicao-aura.html",
-      titleLogo: "assets/Aura logo.png",
       manager: {
         name: "Guilherme",
         type: "Manager da banda Aura",
@@ -106,15 +94,8 @@
       name: "Edição Distance And Belief",
       module: "Music",
       status: "ativa",
-      image: "assets/Capa.jpg",
-      wallpapers: [
-        { name: "WP01.png", src: "assets/WP01.png" },
-        { name: "WP02.png", src: "assets/WP02.png" },
-      ],
-      tile: "assets/MC2.png",
       managerPage: "manager-distance-and-belief.html",
       publicPage: "edicao-distance-and-belief.html",
-      titleLogo: "assets/distance.png",
       manager: {
         name: "Arthur Miná",
         type: "Manager da edição Distance And Belief",
@@ -143,23 +124,14 @@
       logs: ["São Paulo - hoje, 10:09", "João Pessoa - ontem, 18:33", "Curitiba - 22 jun, 23:12"],
       points: [{ name: "Bandcamp", allocated: 35, sold: 21 }, { name: "Loja do artista", allocated: 35, sold: 19 }, { name: "Evento de lançamento", allocated: 30, sold: 17 }],
       memories: ["Video de ensaio", "Making of da capa", "Playlist comentada faixa a faixa"],
-      digitalCard: { front: "assets/distance-card-front.png", back: "assets/distance-card-back.png" },
     },
     {
       id: "fourkaos",
       name: "Edição Fourkaos",
       module: "Stage",
       status: "ativa",
-      image: "assets/fourkaos-background.jpg",
-      digitalCard: { front: "assets/WP07.png", back: "assets/WP08.png" },
-      wallpapers: [
-        { name: "WP07.png", src: "assets/WP07.png" },
-        { name: "WP08.png", src: "assets/WP08.png" },
-      ],
-      tile: "assets/MC3.png",
       managerPage: "manager-fourkaos.html",
       publicPage: "edicao-fourkaos.html",
-      titleLogo: "assets/LOGO FOURKAOS.png",
       manager: {
         name: "Johnny",
         type: "Manager da banda Fourkaos",
@@ -194,15 +166,8 @@
       name: "Edição Toninho Borbo | Biplano",
       module: "Music",
       status: "ativa",
-      image: "assets/Capatoninho.jpg",
-      wallpapers: [
-        { name: "WP01.png", src: "assets/WP01.png" },
-        { name: "WP02.png", src: "assets/WP02.png" },
-      ],
-      tile: "assets/MC4.png",
       managerPage: "manager-toninho-borbo-biplano.html",
       publicPage: "edicao-toninho-borbo-biplano.html",
-      titleLogo: "assets/toninho-biplano-logo.png",
       manager: {
         name: "Toninho Borbo",
         type: "Manager da edição Biplano",
@@ -236,28 +201,28 @@
         { name: "Banca do Orlando", allocated: 25, sold: 22 },
       ],
       memories: ["Entrevista de 2016 sobre Biplano", "Faixas favoritas do Toninho", "Registros da criação do album"],
-      digitalCard: { front: "assets/Capatoninho.jpg", back: "assets/WP02.png" },
     },
   ];
 
   let dashboard = null;
-  let editions = LEGACY_PRESENTATION_DEFAULTS.map((edition) => ({ ...edition }));
+  let editions = PRESENTATION_TEXT_DEFAULTS.map((edition) => ({ ...edition }));
 
-  const groupAssetsBySlot = (assets = []) => assets.reduce((groups, asset) => {
-    if (!groups[asset.slot]) groups[asset.slot] = [];
-    groups[asset.slot].push(asset);
+  const groupAssetsByRole = (assets = []) => assets.reduce((groups, asset) => {
+    if (!groups[asset.role]) groups[asset.role] = [];
+    groups[asset.role].push(asset);
     return groups;
   }, {});
 
   const buildManagerViewModel = (data) => {
     const apiEdition = data.edition;
-    const fallback = LEGACY_PRESENTATION_DEFAULTS.find((edition) => edition.id === apiEdition.slug) || {};
+    const fallback = PRESENTATION_TEXT_DEFAULTS.find((edition) => edition.id === apiEdition.slug) || {};
     const configuration = apiEdition.configuration || {};
-    const assetsBySlot = groupAssetsBySlot(data.assets);
-    const firstAsset = (slot) => assetsBySlot[slot]?.[0] || null;
-    const configuredCard = configuration.digitalCard || fallback.digitalCard || {};
-    const configuredWallpapers = configuration.wallpapers || fallback.wallpapers || [];
-    const apiWallpapers = assetsBySlot.wallpaper || [];
+    const assetsByRole = groupAssetsByRole(data.assets);
+    const firstAsset = (role) => assetsByRole[role]?.[0] || null;
+    ["edition_cover", "edition_tile", "title_logo", "card_front", "card_back", "illustrator_avatar"].forEach((role) => {
+      if (!firstAsset(role)) console.warn(`Memora manager asset '${role}' is not registered for edition '${apiEdition.slug}'.`);
+    });
+    const apiWallpapers = assetsByRole.wallpaper || [];
     const presentation = {
       sold: Number(configuration.sold ?? fallback.sold ?? 0),
       activeTokens: Number(configuration.activeTokens ?? fallback.activeTokens ?? 0),
@@ -280,7 +245,7 @@
       publicPage: apiEdition.public_page,
       managerPage: apiEdition.manager_page,
       configuration,
-      assetsBySlot,
+      assetsByRole,
       realTokenCounts: { available: 0, sold: 0, active: 0, disabled: 0, ...(data.token_counts || {}) },
       presentationMetrics: presentation,
       sold: presentation.sold,
@@ -290,20 +255,18 @@
       revenue: presentation.revenue,
       stock: presentation.stock,
       campaign: presentation.campaign,
-      titleLogo: configuration.titleLogo || fallback.titleLogo || "",
-      tile: configuration.tile || fallback.tile || "assets/mlogo.png",
-      image: firstAsset("edition_cover")?.url || configuration.image || fallback.image || "",
+      titleLogo: firstAsset("title_logo")?.url || null,
+      tile: firstAsset("edition_tile")?.url || null,
+      image: firstAsset("edition_cover")?.url || null,
       coverAsset: firstAsset("edition_cover"),
       digitalCard: {
-        front: firstAsset("card_front")?.url || configuredCard.front || "",
-        back: firstAsset("card_back")?.url || configuredCard.back || "",
+        front: firstAsset("card_front")?.url || null,
+        back: firstAsset("card_back")?.url || null,
       },
       cardAssets: { front: firstAsset("card_front"), back: firstAsset("card_back") },
-      wallpapers: apiWallpapers.length
-        ? apiWallpapers.map((asset) => ({ name: asset.original_filename, src: asset.url, assetId: asset.id, isApi: true }))
-        : configuredWallpapers,
+      wallpapers: apiWallpapers.map((asset) => ({ name: asset.public_filename, src: asset.url, assetId: asset.id, isApi: true })),
       manager: fallback.manager || profile,
-      illustrator: fallback.illustrator || LEGACY_ILLUSTRATOR_PRESENTATION,
+      illustrator: { ...(fallback.illustrator || ILLUSTRATOR_PRESENTATION), avatar: firstAsset("illustrator_avatar")?.url || null },
       collectors: fallback.collectors || [],
       logs: fallback.logs || [],
       links: fallback.links || [],
@@ -402,11 +365,7 @@
   const editionIndexById = (id) => editions.findIndex((edition) => edition.id === id);
   const hasTokenInventory = (edition) => Boolean(edition.tokenCode && edition.tokenTotal);
   const tokenTotalForEdition = (edition) => Number(edition.tokenTotal || edition.sold + edition.stock || 100);
-  const fallbackWallpapers = [
-    { name: "WP01.png", src: "assets/WP01.png" },
-    { name: "WP02.png", src: "assets/WP02.png" },
-  ];
-  const defaultWallpapers = (edition = activeEdition()) => edition.wallpapers || fallbackWallpapers;
+  const defaultWallpapers = (edition = activeEdition()) => edition.wallpapers || [];
   let pendingWallpapers = null;
   let pendingWallpaperDeletes = new Set();
 
@@ -442,13 +401,14 @@
 
   const renderManagerChrome = (edition) => {
     const managerName = edition.manager?.name || profile.name;
+    document.body.style.setProperty("--manager-edition-cover-image", edition.image ? `url("${edition.image}")` : "none");
     document.title = `${managerName} | Memora Manager`;
 
     const managerTitle = document.querySelector("#manager-title");
     if (managerTitle) {
       managerTitle.innerHTML = edition.titleLogo
         ? `<img class="manager-title-logo" src="${escapeHtml(edition.titleLogo)}" alt="${escapeHtml(edition.name)}">`
-        : escapeHtml(managerName);
+        : escapeHtml(edition.name);
     }
 
     const heroEyebrow = document.querySelector(".manager-hero-copy .eyebrow");
@@ -487,7 +447,7 @@
         const index = editionIndexById(edition.id);
         return `
           <button class="memora-id-honeycomb-cell" type="button" data-edition-index="${index}" aria-label="Favo ${index + 1} - Manager de ${escapeHtml(edition.name)}" aria-pressed="false">
-            <img src="${escapeHtml(edition.tile)}" alt="Favo ${index + 1} de ${escapeHtml(edition.name)}">
+            ${edition.tile ? `<img src="${escapeHtml(edition.tile)}" alt="Favo ${index + 1} de ${escapeHtml(edition.name)}">` : `<span class="manager-edition-tile-placeholder" aria-hidden="true">${escapeHtml(edition.name.replace(/^Edição\s+/i, "").slice(0, 2).toUpperCase())}</span>`}
           </button>
         `;
       })
@@ -626,19 +586,6 @@
 
   const renderEditionCoverCard = (edition) => {
     const coverSrc = currentEditionCover(edition);
-    const isEditableCover = true;
-    if (!isEditableCover) {
-      return `
-        <article class="manager-section-card manager-edition-cover-card">
-          <strong>Capa da edição</strong>
-          <a class="manager-edition-cover-link" href="${escapeHtml(edition.publicPage)}#arte-capa" aria-label="Abrir capa de ${escapeHtml(edition.name)} na página da edição">
-            <img src="${escapeHtml(coverSrc || edition.image)}" alt="Capa de ${escapeHtml(edition.name)}">
-          </a>
-          <p>Arquivo principal exibido nos tokens, comunicações e na página pública da edição.</p>
-        </article>
-      `;
-    }
-
     return `
       <article class="manager-section-card manager-edition-cover-card manager-edition-cover-config">
         <strong>Capa da edição</strong>
@@ -646,15 +593,15 @@
           <span>Anexar capa</span>
           <input type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" data-edition-cover-upload>
           <span class="manager-card-preview manager-edition-cover-preview ${coverSrc ? "has-image" : ""}" data-edition-cover-preview-wrap>
-            <img src="${escapeHtml(coverSrc)}" alt="Preview da capa de ${escapeHtml(edition.name)}" data-edition-cover-preview ${coverSrc ? "" : "hidden"}>
-            <small data-edition-cover-placeholder>${coverSrc ? "Trocar capa" : "Anexar capa"}</small>
+            ${coverSrc ? `<img src="${escapeHtml(coverSrc)}" alt="Preview da capa de ${escapeHtml(edition.name)}" data-edition-cover-preview>` : `<img alt="Preview da capa de ${escapeHtml(edition.name)}" data-edition-cover-preview hidden>`}
+            <small data-edition-cover-placeholder>${coverSrc ? "Trocar capa" : "Nenhuma capa cadastrada"}</small>
           </span>
         </label>
         <p>Arquivo principal exibido nos tokens, comunicações e na página pública da edição.</p>
         <div class="manager-card-save-row manager-edition-cover-actions">
           <button class="memora-id-action-button manager-card-save" type="button" data-edition-cover-save>Salvar</button>
           <button class="memora-id-action-button manager-card-remove" type="button" data-edition-cover-remove>Remover</button>
-          <span class="manager-card-save-status" data-edition-cover-status>${coverSrc ? "Capa carregada para esta edição." : "Envie uma imagem para publicar a capa da edição."}</span>
+          <span class="manager-card-save-status" data-edition-cover-status>${coverSrc ? "Capa carregada para esta edição." : "Nenhuma capa cadastrada"}</span>
         </div>
       </article>
     `;
@@ -723,7 +670,7 @@
       if (!edition.coverAsset) {
         if (preview) delete preview.pendingEditionCoverFile;
         setEditionCoverPreview(currentEditionCover(edition));
-        setEditionCoverStatus("A capa de compatibilidade só poderá ser removida após a migração de apresentação.", "error");
+        setEditionCoverStatus("Nenhuma capa cadastrada", "error");
         return;
       }
       button.disabled = true;
@@ -732,7 +679,7 @@
         await window.MemoraAPI.delete(`/api/manager/editions/${encodeURIComponent(edition.id)}/assets/${encodeURIComponent(edition.coverAsset.id)}`);
         await refreshDashboard();
         renderPanel();
-        setEditionCoverStatus("Upload removido. A capa de compatibilidade voltou a ser exibida.", "saved");
+        setEditionCoverStatus("Nenhuma capa cadastrada", "saved");
       } catch (error) {
         setEditionCoverStatus(error.message || "Não foi possível remover a capa.", "error");
       } finally {
@@ -798,7 +745,7 @@
         <button class="memora-id-action-button manager-wallpaper-clear" type="button" data-wallpaper-clear>Remover arquivos anexados</button>
         <div class="manager-card-save-row">
           <button class="memora-id-action-button manager-card-save" type="button" data-wallpaper-save>Salvar</button>
-          <span class="manager-card-save-status" data-wallpaper-save-status>${escapeHtml(defaultWallpapers(edition).map((wallpaper) => wallpaper.name).join(" e "))} estao carregados como exemplo.</span>
+          <span class="manager-card-save-status" data-wallpaper-save-status>${defaultWallpapers(edition).length ? "Wallpapers cadastrados." : "Nenhum wallpaper cadastrado."}</span>
         </div>
       </article>
     `;
@@ -822,7 +769,7 @@
           <figcaption>${escapeHtml(wallpaper.name || "Wallpaper")}</figcaption>
         </figure>
       `)
-      .join("");
+      .join("") || '<p class="manager-empty-state">Nenhum wallpaper cadastrado.</p>';
   };
 
   const initWallpaperUploads = () => {
@@ -846,7 +793,7 @@
       uploaded.forEach((wallpaper) => pendingWallpaperDeletes.add(wallpaper.assetId));
       pendingWallpapers = (pendingWallpapers || []).filter((wallpaper) => !wallpaper.assetId && !wallpaper.file);
       renderWallpaperPreviewList();
-      setWallpaperStatus(uploaded.length ? "Uploads marcados para remoção. Clique em Salvar." : "Os exemplos de compatibilidade permanecem até a migração de apresentação.", uploaded.length ? "pending" : "error");
+      setWallpaperStatus(uploaded.length ? "Uploads marcados para remoção. Clique em Salvar." : "Nenhum wallpaper cadastrado.", uploaded.length ? "pending" : "error");
     });
 
     document.querySelector("[data-wallpaper-upload]")?.addEventListener("change", (event) => {
@@ -938,20 +885,20 @@
   const saveDigitalCardImages = async (event) => {
     const edition = activeEdition();
     const sides = [
-      { side: "front", slot: "card_front", asset: edition.cardAssets?.front },
-      { side: "back", slot: "card_back", asset: edition.cardAssets?.back },
+      { side: "front", role: "card_front", asset: edition.cardAssets?.front },
+      { side: "back", role: "card_back", asset: edition.cardAssets?.back },
     ];
     const button = event?.currentTarget || document.querySelector("[data-card-save]");
     if (button) button.disabled = true;
     setSaveStatus("Salvando Card Digital…", "pending");
     try {
       let changed = false;
-      for (const { side, slot, asset } of sides) {
+      for (const { side, role, asset } of sides) {
         const preview = document.querySelector(`[data-card-preview="${side}"]`);
         if (preview?.pendingCardFile) {
           const form = new FormData();
           form.set("file", preview.pendingCardFile);
-          await window.MemoraAPI.put(`/api/manager/editions/${encodeURIComponent(edition.id)}/assets/${slot}`, form);
+          await window.MemoraAPI.put(`/api/manager/editions/${encodeURIComponent(edition.id)}/assets/${role}`, form);
           changed = true;
         } else if (preview?.removeRequested && asset) {
           await window.MemoraAPI.delete(`/api/manager/editions/${encodeURIComponent(edition.id)}/assets/${encodeURIComponent(asset.id)}`);
@@ -959,7 +906,7 @@
         }
       }
       if (!changed) {
-        setSaveStatus("Selecione uma imagem. Os exemplos de compatibilidade permanecem até a migração de apresentação.", "error");
+        setSaveStatus("Selecione uma imagem para frente ou verso.", "error");
         return;
       }
       await refreshDashboard();
@@ -996,7 +943,7 @@
         <article class="manager-section-card manager-illustrator-card">
           <strong class="manager-illustrator-title">${escapeHtml(illustrator.title)}</strong>
           <div class="manager-illustrator-avatar">
-            <img src="${escapeHtml(illustrator.avatar)}" alt="Retrato do ilustrador ${escapeHtml(illustrator.name)}">
+            ${illustrator.avatar ? `<img src="${escapeHtml(illustrator.avatar)}" alt="Retrato do ilustrador ${escapeHtml(illustrator.name)}">` : `<span class="manager-avatar-placeholder" aria-label="Avatar não cadastrado">${escapeHtml(illustrator.name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase())}</span>`}
           </div>
           <div class="manager-illustrator-info">
             <div class="manager-illustrator-heading">

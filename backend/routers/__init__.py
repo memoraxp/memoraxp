@@ -1,4 +1,3 @@
-from . import auth, collector, manager, public
+from . import assets, auth, collector, manager, public
 
-__all__ = ["auth", "collector", "manager", "public"]
-
+__all__ = ["assets", "auth", "collector", "manager", "public"]

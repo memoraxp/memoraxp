@@ -5,7 +5,7 @@ import uuid
 from datetime import date, datetime, timezone
 from typing import Any
 
-from sqlalchemy import JSON, Boolean, CheckConstraint, Date, DateTime, ForeignKey, Integer, String, Text, UniqueConstraint
+from sqlalchemy import JSON, Boolean, CheckConstraint, Date, DateTime, ForeignKey, Index, Integer, String, Text, UniqueConstraint, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from backend.database import Base
@@ -33,11 +33,18 @@ class TokenStatus(str, enum.Enum):
     disabled = "disabled"
 
 
-class MediaSlot(str, enum.Enum):
+class AssetRole(str, enum.Enum):
     edition_cover = "edition_cover"
+    edition_tile = "edition_tile"
+    title_logo = "title_logo"
     card_front = "card_front"
     card_back = "card_back"
     wallpaper = "wallpaper"
+    illustrator_avatar = "illustrator_avatar"
+    manager_avatar = "manager_avatar"
+    hero_image = "hero_image"
+    profile_image = "profile_image"
+    product_image = "product_image"
     capsule_image = "capsule_image"
 
 
@@ -154,21 +161,47 @@ class DifusoraPost(Base):
 class MediaAsset(Base):
     __tablename__ = "media_assets"
     __table_args__ = (
-        UniqueConstraint("edition_id", "slot", "legacy_id", name="uq_media_legacy"),
-        CheckConstraint("slot IN ('edition_cover','card_front','card_back','wallpaper','capsule_image')", name="ck_media_asset_slot"),
+        UniqueConstraint("edition_id", "role", "legacy_id", name="uq_media_legacy"),
+        CheckConstraint(
+            "role IN ('edition_cover','edition_tile','title_logo','card_front','card_back','wallpaper','illustrator_avatar','manager_avatar','hero_image','profile_image','product_image','capsule_image')",
+            name="ck_media_asset_role",
+        ),
     )
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=uuid4)
     edition_id: Mapped[str] = mapped_column(ForeignKey("editions.id", ondelete="CASCADE"), index=True)
     created_by_user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
-    slot: Mapped[str] = mapped_column(String(30), index=True)
+    role: Mapped[str] = mapped_column(String(40), index=True)
     storage_path: Mapped[str] = mapped_column(String(1024), unique=True)
     original_filename: Mapped[str] = mapped_column(String(255))
+    public_filename: Mapped[str] = mapped_column(String(255))
     mime_type: Mapped[str] = mapped_column(String(100))
+    content_sha256: Mapped[str] = mapped_column(String(64))
+    width: Mapped[int | None] = mapped_column(Integer)
+    height: Mapped[int | None] = mapped_column(Integer)
     size_bytes: Mapped[int] = mapped_column(Integer)
     sort_order: Mapped[int] = mapped_column(Integer, default=0)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
     legacy_id: Mapped[str | None] = mapped_column(String(255))
+    edition: Mapped[Edition] = relationship()
+
+
+Index(
+    "uq_media_active_public_filename",
+    MediaAsset.edition_id,
+    MediaAsset.public_filename,
+    unique=True,
+    sqlite_where=text("deleted_at IS NULL"),
+    postgresql_where=text("deleted_at IS NULL"),
+)
+Index(
+    "uq_media_active_single_role",
+    MediaAsset.edition_id,
+    MediaAsset.role,
+    unique=True,
+    sqlite_where=text("deleted_at IS NULL AND role NOT IN ('wallpaper','product_image','capsule_image')"),
+    postgresql_where=text("deleted_at IS NULL AND role NOT IN ('wallpaper','product_image','capsule_image')"),
+)
 
 
 class CapsuleEntry(Base):
@@ -180,7 +213,6 @@ class CapsuleEntry(Base):
     text: Mapped[str] = mapped_column(String(1000))
     event_date: Mapped[date] = mapped_column(Date)
     image_asset_id: Mapped[str | None] = mapped_column(ForeignKey("media_assets.id", ondelete="SET NULL"))
-    source_image_url: Mapped[str | None] = mapped_column(String(2048))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
     deleted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)

@@ -474,7 +474,7 @@ html.has-nav-scrolled .site-header {
   color: var(--white);
   background:
     linear-gradient(90deg, rgba(23, 20, 25, 0.88) 0%, rgba(23, 20, 25, 0.64) 40%, rgba(23, 20, 25, 0.18) 100%),
-    image-set(url("assets/Memora TB.png") 1x) right 6% center / min(58vw, 760px) auto no-repeat,
+    var(--edition-hero-image, none) right 6% center / min(58vw, 760px) auto no-repeat,
     radial-gradient(circle at 80% 38%, rgba(42, 167, 165, 0.5), transparent 28%),
     linear-gradient(135deg, #281218 0%, #171419 46%, #233f99 100%);
 }
@@ -858,7 +858,7 @@ h3 {
   padding: clamp(64px, 10vw, 132px) 0;
   background:
     linear-gradient(90deg, rgba(23, 20, 25, 0.86), rgba(108, 13, 203, 0.5)),
-    url("assets/fundo.png") center / cover;
+    var(--edition-cover-image, none) center / cover;
   color: var(--white);
 }
 
@@ -975,7 +975,7 @@ h3 {
 .xp-band-fourkaos {
   background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.94), rgba(12, 12, 13, 0.84)),
-    url("assets/fourkaos-background.jpg") center / cover no-repeat;
+    var(--edition-cover-image, none) center / cover no-repeat;
 }
 
 .xp-band-fourkaos .xp-logo {
@@ -1006,28 +1006,28 @@ h3 {
 .editions-band::before {
   background:
     linear-gradient(135deg, rgba(42, 23, 54, 0.9) 0%, rgba(23, 20, 25, 0.7) 48%, rgba(142, 15, 40, 0.84) 100%),
-    url("assets/toninho-biplano-background.png") center top / cover no-repeat;
+    var(--edition-cover-image, none) center top / cover no-repeat;
   opacity: 1;
 }
 
 .editions-band.is-aura::before {
   background:
     linear-gradient(135deg, rgba(3, 9, 27, 0.94) 0%, rgba(7, 31, 58, 0.84) 48%, rgba(95, 54, 19, 0.78) 100%),
-    url("assets/aura-memora.png") center right / contain no-repeat,
+    var(--edition-cover-image, none) center right / contain no-repeat,
     #06101d;
 }
 
 .editions-band.is-fourkaos::before {
   background:
     linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(10, 9, 15, 0.78) 48%, rgba(52, 8, 16, 0.84) 100%),
-    url("assets/fourkaos-background.jpg") center / cover no-repeat;
+    var(--edition-cover-image, none) center / cover no-repeat;
 }
 
 .editions-band.is-distance::before {
   background:
     radial-gradient(circle at 78% 24%, rgba(255, 177, 27, 0.2), transparent 28%),
     linear-gradient(135deg, rgba(5, 6, 13, 0.92) 0%, rgba(26, 27, 31, 0.82) 48%, rgba(88, 68, 31, 0.76) 100%),
-    url("assets/Capa.jpg") center / cover no-repeat,
+    var(--edition-cover-image, none) center / cover no-repeat,
     #121318;
 }
 
@@ -1493,7 +1493,7 @@ h3 {
     align-items: end;
     background:
       linear-gradient(180deg, rgba(23, 20, 25, 0.1) 0%, rgba(23, 20, 25, 0.72) 48%, rgba(23, 20, 25, 0.94) 100%),
-      image-set(url("assets/Memora TB.png") 1x) center 16% / min(92vw, 520px) auto no-repeat,
+      var(--edition-hero-image, none) center 16% / min(92vw, 520px) auto no-repeat,
       linear-gradient(135deg, #281218 0%, #171419 48%, #233f99 100%);
   }
 
@@ -1991,7 +1991,7 @@ h3 {
   color: var(--white);
   background:
     linear-gradient(90deg, rgba(23, 20, 25, 0.9), rgba(142, 15, 40, 0.72)),
-    url("assets/fundo.png") center / cover no-repeat;
+    var(--edition-cover-image, none) center / cover no-repeat;
 }
 
 .edition-flight-band .eyebrow {
@@ -2199,7 +2199,7 @@ h3 {
   min-height: 100svh;
   background:
     linear-gradient(180deg, rgba(10, 9, 15, 0.5), rgba(10, 9, 15, 0.94) 58%, rgba(10, 9, 15, 0.98)),
-    url("assets/toninho-biplano-background.png") center top / cover fixed no-repeat;
+    var(--edition-cover-image, none) center top / cover fixed no-repeat;
   color: var(--white);
 }
 
@@ -2207,8 +2207,8 @@ h3 {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.88) 58%, rgba(0, 0, 0, 0.97)),
     radial-gradient(circle at 20% 44%, rgba(255, 255, 255, 0.12), transparent 28%),
-    url("assets/fourkaos-band.jpg") left 58% / min(46vw, 520px) auto fixed no-repeat,
-    url("assets/fourkaos-background.jpg") center top / cover fixed no-repeat;
+    var(--edition-cover-image, none) left 58% / min(46vw, 520px) auto fixed no-repeat,
+    var(--edition-cover-image, none) center top / cover fixed no-repeat;
 }
 
 .biplano-page .site-header {
@@ -3671,7 +3671,7 @@ h3 {
   .fourkaos-page {
     background:
       linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.9) 58%, rgba(0, 0, 0, 0.98)),
-      url("assets/fourkaos-background.jpg") center top / cover scroll no-repeat;
+      var(--edition-cover-image, none) center top / cover scroll no-repeat;
   }
 
   .biplano-hero {
@@ -3699,8 +3699,8 @@ h3 {
   background:
     linear-gradient(180deg, rgba(2, 8, 20, 0.42), rgba(2, 8, 20, 0.9) 54%, rgba(2, 8, 20, 0.98)),
     radial-gradient(circle at 68% 26%, rgba(205, 121, 38, 0.28), transparent 26%),
-    url("assets/aura-memora.png") right 44% / min(46vw, 560px) auto fixed no-repeat,
-    url("assets/fundo.png") center top / cover fixed no-repeat,
+    var(--edition-cover-image, none) right 44% / min(46vw, 560px) auto fixed no-repeat,
+    var(--edition-cover-image, none) center top / cover fixed no-repeat,
     #06101d;
 }
 
@@ -3745,7 +3745,7 @@ h3 {
   .aura-page {
     background:
       linear-gradient(180deg, rgba(2, 8, 20, 0.56), rgba(2, 8, 20, 0.92) 58%, rgba(2, 8, 20, 0.98)),
-      url("assets/fundo.png") center top / cover scroll no-repeat;
+      var(--edition-cover-image, none) center top / cover scroll no-repeat;
   }
 
   .aura-logo {
@@ -3758,7 +3758,7 @@ h3 {
   background:
     linear-gradient(180deg, rgba(5, 6, 13, 0.36), rgba(5, 6, 13, 0.9) 55%, rgba(5, 6, 13, 0.98)),
     radial-gradient(circle at 74% 22%, rgba(255, 177, 27, 0.2), transparent 26%),
-    url("assets/Capa.jpg") center top / cover fixed no-repeat,
+    var(--edition-cover-image, none) center top / cover fixed no-repeat,
     #090a10;
 }
 
@@ -3804,7 +3804,7 @@ h3 {
   .distance-page {
     background:
       linear-gradient(180deg, rgba(5, 6, 13, 0.52), rgba(5, 6, 13, 0.92) 58%, rgba(5, 6, 13, 0.98)),
-      url("assets/Capa.jpg") center top / cover scroll no-repeat;
+      var(--edition-cover-image, none) center top / cover scroll no-repeat;
   }
 
   .distance-logo {
@@ -4059,7 +4059,7 @@ h3 {
     padding: 124px 18px 48px;
     background:
       linear-gradient(180deg, rgba(23, 20, 25, 0.08) 0%, rgba(23, 20, 25, 0.64) 44%, rgba(23, 20, 25, 0.96) 100%),
-      image-set(url("assets/Memora TB.png") 1x) center 18% / min(92vw, 480px) auto no-repeat,
+      var(--edition-hero-image, none) center 18% / min(92vw, 480px) auto no-repeat,
       linear-gradient(135deg, #281218 0%, #171419 48%, #233f99 100%);
   }
 
@@ -4213,7 +4213,7 @@ h3 {
     padding: 108px 16px 38px;
     background:
       linear-gradient(180deg, rgba(23, 20, 25, 0.04) 0%, rgba(23, 20, 25, 0.68) 42%, rgba(23, 20, 25, 0.98) 100%),
-      image-set(url("assets/Memora TB.png") 1x) center 16% / min(96vw, 390px) auto no-repeat,
+      var(--edition-hero-image, none) center 16% / min(96vw, 390px) auto no-repeat,
       linear-gradient(135deg, #281218 0%, #171419 48%, #233f99 100%);
   }
 
@@ -4881,7 +4881,7 @@ html[data-manager-theme="light"] .biplano-page {
   background:
     linear-gradient(180deg, rgba(255, 252, 244, 0.42), rgba(255, 252, 244, 0.72) 58%, rgba(245, 247, 255, 0.8)),
     linear-gradient(90deg, rgba(62, 31, 41, 0.56), rgba(68, 42, 48, 0.28) 52%, rgba(255, 255, 255, 0.22)),
-    url("assets/toninho-biplano-background.png") center top / cover fixed no-repeat;
+    var(--edition-cover-image, none) center top / cover fixed no-repeat;
   color: var(--edition-text);
 }
 
@@ -4889,16 +4889,16 @@ html[data-manager-theme="light"] .fourkaos-page {
   background:
     linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(245, 247, 255, 0.72) 58%, rgba(239, 245, 248, 0.84)),
     radial-gradient(circle at 20% 44%, rgba(255, 255, 255, 0.34), transparent 28%),
-    url("assets/fourkaos-band.jpg") left 58% / min(46vw, 520px) auto fixed no-repeat,
-    url("assets/fourkaos-background.jpg") center top / cover fixed no-repeat;
+    var(--edition-cover-image, none) left 58% / min(46vw, 520px) auto fixed no-repeat,
+    var(--edition-cover-image, none) center top / cover fixed no-repeat;
 }
 
 html[data-manager-theme="light"] .aura-page {
   background:
     linear-gradient(180deg, rgba(255, 252, 244, 0.36), rgba(238, 248, 247, 0.7) 56%, rgba(245, 247, 255, 0.84)),
     radial-gradient(circle at 68% 26%, rgba(255, 177, 27, 0.22), transparent 26%),
-    url("assets/aura-memora.png") right 44% / min(46vw, 560px) auto fixed no-repeat,
-    url("assets/fundo.png") center top / cover fixed no-repeat,
+    var(--edition-cover-image, none) right 44% / min(46vw, 560px) auto fixed no-repeat,
+    var(--edition-cover-image, none) center top / cover fixed no-repeat,
     #eef6f7;
 }
 
@@ -4906,7 +4906,7 @@ html[data-manager-theme="light"] .distance-page {
   background:
     linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(244, 248, 255, 0.68) 55%, rgba(239, 245, 248, 0.84)),
     radial-gradient(circle at 74% 22%, rgba(255, 177, 27, 0.18), transparent 26%),
-    url("assets/Capa.jpg") center top / cover fixed no-repeat,
+    var(--edition-cover-image, none) center top / cover fixed no-repeat,
     #edf3f7;
 }
 

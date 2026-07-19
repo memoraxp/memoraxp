@@ -7,7 +7,8 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from backend.database import get_db
-from backend.models import DifusoraPost, Token, User
+from backend.models import DifusoraPost, MediaAsset, Token, User
+from backend.routers.public import asset_out
 from backend.schemas import TokenActivate, UserOut
 from backend.security import require_user
 
@@ -24,11 +25,21 @@ async def dashboard(user: User = Depends(require_user), db: Session = Depends(ge
     tokens = db.scalars(select(Token).where(Token.owner_user_id == user.id).order_by(Token.activated_at.desc())).all()
     edition_ids = [token.edition_id for token in tokens]
     edition_slugs = {token.edition_id: token.edition.slug for token in tokens}
+    tile_rows = db.scalars(
+        select(MediaAsset).where(
+            MediaAsset.edition_id.in_(edition_ids),
+            MediaAsset.role == "edition_tile",
+            MediaAsset.deleted_at.is_(None),
+        ).order_by(MediaAsset.created_at.desc())
+    ).all() if edition_ids else []
+    tiles = {}
+    for row in tile_rows:
+        tiles.setdefault(row.edition_id, row)
     posts = db.scalars(select(DifusoraPost).where(DifusoraPost.edition_id.in_(edition_ids), DifusoraPost.deleted_at.is_(None)).order_by(DifusoraPost.created_at.desc()).limit(50)).all() if edition_ids else []
     return {
         "profile": UserOut.model_validate(user),
         "stats": {"tokens": len(tokens), "xp": 0, "memories": 0, "events": 0},
-        "tokens": [{"id": token.id, "serial": token.serial, "status": token.status, "activated_at": token.activated_at, "edition": {"slug": token.edition.slug, "name": token.edition.name, "public_page": token.edition.public_page, "image": token.edition.configuration.get("tile") or token.edition.configuration.get("image")}} for token in tokens],
+        "tokens": [{"id": token.id, "serial": token.serial, "status": token.status, "activated_at": token.activated_at, "edition": {"slug": token.edition.slug, "name": token.edition.name, "public_page": token.edition.public_page, "image_asset": asset_out(tiles[token.edition_id]).model_dump() if token.edition_id in tiles else None}} for token in tokens],
         "difusora": [{"id": post.id, "author": post.author.display_name, "text": post.text, "tag": post.tag, "created_at": post.created_at, "edition_slug": edition_slugs.get(post.edition_id)} for post in posts],
         "updates": [],
     }

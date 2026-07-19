@@ -67,10 +67,13 @@ class CapsuleOut(BaseModel):
 
 class AssetOut(BaseModel):
     id: str
-    slot: str
+    edition_slug: str
+    role: str
+    public_filename: str
     url: str
-    original_filename: str
     mime_type: str
+    width: int | None
+    height: int | None
     size_bytes: int
     sort_order: int
     legacy_id: str | None = None

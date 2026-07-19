@@ -7,7 +7,6 @@ import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-import pytest
 from sqlalchemy import create_engine, func, select
 from sqlalchemy.orm import sessionmaker
 
@@ -16,7 +15,6 @@ from backend.config import APPLICATION_ROOT, Settings, sqlite_database_path
 from backend.database import Base
 from backend.models import CapsuleEntry, Edition, EditionMembership, PasswordCredential, User
 from backend.seed_data import CAPSULE_SEED, seed
-from backend.services import validate_source_image_url
 
 
 def database(tmp_path):
@@ -25,12 +23,8 @@ def database(tmp_path):
     return sessionmaker(bind=engine, expire_on_commit=False)
 
 
-def test_alembic_upgrades_existing_capsule_schema(tmp_path):
-    path = tmp_path / "existing.db"
-    with sqlite3.connect(path) as connection:
-        connection.execute("CREATE TABLE capsule_entries (id VARCHAR(36) NOT NULL PRIMARY KEY)")
-        connection.execute("CREATE TABLE alembic_version (version_num VARCHAR(32) NOT NULL)")
-        connection.execute("INSERT INTO alembic_version(version_num) VALUES ('20260718_0001')")
+def test_alembic_creates_authoritative_asset_schema_without_capsule_url(tmp_path):
+    path = tmp_path / "current.db"
     environment = {**os.environ, "DATABASE_URL": f"sqlite:///{path}"}
     subprocess.run(
         [sys.executable, "-m", "alembic", "upgrade", "head"],
@@ -41,13 +35,16 @@ def test_alembic_upgrades_existing_capsule_schema(tmp_path):
         text=True,
     )
     with sqlite3.connect(path) as connection:
-        columns = {row[1] for row in connection.execute("PRAGMA table_info(capsule_entries)")}
+        capsule_columns = {row[1] for row in connection.execute("PRAGMA table_info(capsule_entries)")}
+        asset_columns = {row[1] for row in connection.execute("PRAGMA table_info(media_assets)")}
         revision = connection.execute("SELECT version_num FROM alembic_version").fetchone()[0]
-    assert "source_image_url" in columns
-    assert revision == "20260718_0002"
+    assert "source_image_url" not in capsule_columns
+    assert {"role", "public_filename", "content_sha256", "width", "height"}.issubset(asset_columns)
+    assert "slot" not in asset_columns
+    assert revision == "20260718_0003"
 
 
-def test_seed_creates_24_capsule_entries_once_with_expected_images(tmp_path):
+def test_seed_creates_24_capsule_entries_without_static_image_urls(tmp_path):
     factory = database(tmp_path)
     with factory() as db:
         first = seed(db)
@@ -55,7 +52,7 @@ def test_seed_creates_24_capsule_entries_once_with_expected_images(tmp_path):
         assert first == {"editions_created": 4, "tokens_created": 400, "capsule_entries_created": 24}
         assert second == {"editions_created": 0, "tokens_created": 0, "capsule_entries_created": 0}
         assert db.scalar(select(func.count(CapsuleEntry.id))) == 24
-        for slug, values in CAPSULE_SEED.items():
+        for slug in CAPSULE_SEED:
             edition = db.scalar(select(Edition).where(Edition.slug == slug))
             rows = db.scalars(
                 select(CapsuleEntry)
@@ -63,8 +60,6 @@ def test_seed_creates_24_capsule_entries_once_with_expected_images(tmp_path):
                 .order_by(CapsuleEntry.event_date)
             ).all()
             assert len(rows) == 6
-            assert rows[0].source_image_url == values["opening_image"]
-            assert all(row.source_image_url is None for row in rows[1:])
             assert all(row.image_asset_id is None for row in rows)
         seed_user = db.scalar(select(User).where(User.email == "seed@memora.local"))
         assert seed_user.display_name == "Memora"
@@ -97,21 +92,12 @@ def test_seed_preserves_manager_created_entry(tmp_path):
         assert persisted.event_date == date(2027, 1, 2)
 
 
-@pytest.mark.parametrize(
-    "value",
-    [
-        "https://example.com/a.jpg",
-        "//example.com/a.jpg",
-        "/assets/../secret.jpg",
-        "/assets/%2e%2e/secret.jpg",
-        "/assets\\secret.jpg",
-        "assets/Capa.jpg",
-    ],
-)
-def test_seed_source_image_url_rejects_unsafe_values(value):
-    with pytest.raises(ValueError):
-        validate_source_image_url(value)
-    assert validate_source_image_url("/assets/Capa.jpg") == "/assets/Capa.jpg"
+def test_seed_configuration_contains_no_edition_image_keys(tmp_path):
+    factory = database(tmp_path)
+    with factory() as db:
+        seed(db)
+        for edition in db.scalars(select(Edition)).all():
+            assert not {"image", "cover", "tile", "titleLogo", "title_logo", "digitalCard", "wallpapers"}.intersection(edition.configuration)
 
 
 def test_relative_sqlite_url_is_resolved_against_repository_root(monkeypatch, tmp_path):
@@ -145,16 +131,10 @@ def test_post_id_persists_in_new_session_public_get_and_manager_dashboard(env, p
     assert set(response.json()) == expected_fields
 
 
-def test_seeded_opening_images_are_serialized_only_on_opening_records(env):
-    for slug, values in CAPSULE_SEED.items():
+def test_seeded_capsule_entries_have_explicit_missing_image_state(env):
+    for slug in CAPSULE_SEED:
         entries = env["client"].get(f"/api/editions/{slug}/capsule").json()
-        opening = next(entry for entry in entries if entry["legacy_id"] == f"seed-demo:{slug}:capsule:01")
-        assert opening["image_url"] == values["opening_image"]
-        assert all(
-            entry["image_url"] is None
-            for entry in entries
-            if entry["legacy_id"] != f"seed-demo:{slug}:capsule:01"
-        )
+        assert all(entry["image_url"] is None for entry in entries)
 
 
 def test_capsule_visible_after_application_and_client_recreation(env):

@@ -103,7 +103,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
   overflow: hidden;
   padding: 82px 0 16px;
   color: var(--white);
-  background: linear-gradient(90deg, rgba(23, 20, 25, 0.95), rgba(23, 20, 25, 0.78) 48%, rgba(23, 20, 25, 0.38)), url("toninho-biplano-background.png") center / cover no-repeat;
+  background: linear-gradient(90deg, rgba(23, 20, 25, 0.95), rgba(23, 20, 25, 0.78) 48%, rgba(23, 20, 25, 0.38)), url("mlogo.png") center / cover no-repeat;
   box-shadow: 0 10px 26px rgba(23, 20, 25, 0.12);
 }
 
@@ -114,7 +114,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
   width: min(28vw, 260px);
   aspect-ratio: 1;
   content: "";
-  background: url("memora fk.png") center / contain no-repeat;
+  background: url("mlogo.png") center / contain no-repeat;
   filter: drop-shadow(0 28px 38px rgba(0, 0, 0, 0.34));
   opacity: 0.34;
 }
@@ -307,12 +307,12 @@ html.has-nav-scrolled .memora-id-profile-dock {
 }
 
 .memora-id-band {
-  background: linear-gradient(135deg, rgba(23, 20, 25, 0.95), rgba(58, 29, 62, 0.92)), url("fundo.png") center / cover no-repeat;
+  background: linear-gradient(135deg, rgba(23, 20, 25, 0.95), rgba(58, 29, 62, 0.92)), url("mlogo.png") center / cover no-repeat;
   color: var(--white);
 }
 
 .memora-id-feed-band {
-  background: linear-gradient(135deg, rgba(23, 20, 25, 0.94), rgba(142, 15, 40, 0.82)), url("fundo.jpg") center / cover no-repeat;
+  background: linear-gradient(135deg, rgba(23, 20, 25, 0.94), rgba(142, 15, 40, 0.82)), url("mlogo.png") center / cover no-repeat;
 }
 
 .memora-id-section-heading {
@@ -1034,7 +1034,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
   background:
     radial-gradient(circle at 82% 8%, rgba(46, 116, 255, 0.26), transparent 34vw),
     linear-gradient(180deg, rgba(2, 4, 15, 0.62), rgba(3, 6, 20, 0.96) 34%, rgba(6, 8, 24, 1)),
-    url("fundo.png") top right / cover fixed no-repeat,
+    url("mlogo.png") top right / cover fixed no-repeat,
     #050817;
   color: #f5f7ff;
 }
@@ -1047,7 +1047,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
 .memora-id-hero {
   background:
     linear-gradient(90deg, rgba(3, 5, 16, 0.96), rgba(21, 8, 42, 0.86) 48%, rgba(2, 13, 46, 0.58)),
-    url("fundo.png") center right / cover no-repeat;
+    url("mlogo.png") center right / cover no-repeat;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
 }
 
@@ -1065,20 +1065,20 @@ html.has-nav-scrolled .memora-id-profile-dock {
 .memora-id-shell {
   background:
     linear-gradient(180deg, rgba(4, 8, 25, 0.96), rgba(7, 9, 29, 0.94)),
-    url("fundo.png") center right / cover no-repeat;
+    url("mlogo.png") center right / cover no-repeat;
 }
 
 .memora-id-shell:nth-of-type(3) {
   background:
     linear-gradient(180deg, rgba(8, 4, 28, 0.96), rgba(3, 8, 27, 0.95)),
-    url("fundo.png") center right / cover no-repeat;
+    url("mlogo.png") center right / cover no-repeat;
 }
 
 .memora-id-band,
 .memora-id-feed-band {
   background:
     linear-gradient(135deg, rgba(5, 5, 22, 0.95), rgba(31, 7, 52, 0.88) 46%, rgba(2, 18, 56, 0.9)),
-    url("fundo.png") center right / cover no-repeat;
+    url("mlogo.png") center right / cover no-repeat;
 }
 
 .memora-id-section-heading h2,
@@ -1173,7 +1173,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
 .memora-id-security {
   background:
     linear-gradient(180deg, rgba(4, 8, 25, 0.96), rgba(6, 10, 30, 0.96)),
-    url("fundo.png") center right / cover no-repeat;
+    url("mlogo.png") center right / cover no-repeat;
 }
 
 .memora-id-modal-backdrop {
