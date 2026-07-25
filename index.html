@@ -220,6 +220,10 @@
                 <span>04</span>
                 Distance
               </button>
+              <button class="edition-mobile-option" type="button" aria-pressed="false" data-edition-jump>
+                <span>05</span>
+                Playoffs NBB
+              </button>
             </div>
             <div class="edition-track" data-edition-track>
               <article class="edition-slide is-active" data-edition-slide="toninho" aria-labelledby="toninho-title" aria-hidden="false">
@@ -350,6 +354,38 @@
                   </ul>
                 </div>
               </article>
+              <article class="edition-slide edition-slide-playoffs" data-edition-slide="playoffs-nbb" aria-labelledby="playoffs-nbb-title" aria-hidden="true">
+                <div class="xp-layout">
+                  <div class="xp-copy">
+                    <p class="eyebrow">memora stage</p>
+                    <h2 id="playoffs-nbb-title" class="edition-logo-title edition-logo-title-playoffs">Playoffs NBB <span>Unifacisa x Corinthians</span></h2>
+                    <p>
+                      Uma edi&ccedil;&atilde;o Memora Stage dedicada ao confronto entre Unifacisa e Corinthians nos Playoffs do NBB.
+                      O token transforma o jogo em uma lembran&ccedil;a f&iacute;sica colecion&aacute;vel, conectada a registros,
+                      informa&ccedil;&otilde;es, comunidade e conte&uacute;dos especiais da partida.
+                    </p>
+                    <p>
+                      Acesse a p&aacute;gina da edi&ccedil;&atilde;o para conferir a credencial digital, a C&aacute;psula do Tempo,
+                      os wallpapers, o Card Digital e os recursos preparados para a experi&ecirc;ncia esportiva.
+                    </p>
+                    <a class="primary-button edition-button" href="edicao-playoffs-nbb.html">Confira esta edi&ccedil;&atilde;o</a>
+                  </div>
+                  <div class="xp-media" aria-label="Token hexagonal da edi&ccedil;&atilde;o Playoffs NBB">
+                    <img class="xp-logo" src="assets/playoffs-nbb-token.png" alt="Token hexagonal Memora do jogo Unifacisa x Corinthians">
+                  </div>
+                </div>
+                <div class="xp-objectives-wrap" id="edicao-playoffs-nbb">
+                  <h3>Nesta Edi&ccedil;&atilde;o:</h3>
+                  <ul class="xp-objectives">
+                    <li>Token: credencial digital e registro da participa&ccedil;&atilde;o no evento.</li>
+                    <li>C&aacute;psula do Tempo: fotos, v&iacute;deos e momentos marcantes da partida.</li>
+                    <li>Arte: wallpapers, capa oficial e Card Digital.</li>
+                    <li>Comunidade: conex&atilde;o entre torcedores e participantes.</li>
+                    <li>Pagamentos: &aacute;rea preparada para cr&eacute;ditos e consumo no evento.</li>
+                    <li>Coaster: pe&ccedil;a f&iacute;sica numerada da edi&ccedil;&atilde;o Memora Stage.</li>
+                  </ul>
+                </div>
+              </article>
             </div>
 
             <div class="edition-carousel-controls" aria-label="Navegar entre edições">
@@ -359,7 +395,7 @@
               <div class="edition-counter" aria-live="polite">
                 <span data-edition-current>1</span>
                 <span>/</span>
-                <span data-edition-total>4</span>
+                <span data-edition-total>5</span>
               </div>
               <button class="edition-arrow edition-arrow-next" type="button" aria-label="Próxima edição" data-edition-next>
                 <span aria-hidden="true">&rsaquo;</span>
@@ -446,6 +482,7 @@
           aura: "manager-aura.html",
           johnny: "manager-fourkaos.html",
           arthur: "manager-distance-and-belief.html",
+          facisa: "manager-playoffs-nbb.html",
         };
 
         const toggle = document.querySelector("[data-manager-login-toggle]");
@@ -519,6 +556,7 @@
             section.classList.toggle("is-fourkaos", activeEdition === "fourkaos");
             section.classList.toggle("is-aura", activeEdition === "aura");
             section.classList.toggle("is-distance", activeEdition === "distance");
+            section.classList.toggle("is-playoffs-nbb", activeEdition === "playoffs-nbb");
             section.classList.toggle("is-direction-next", direction === "next");
             section.classList.toggle("is-direction-previous", direction === "previous");
           }

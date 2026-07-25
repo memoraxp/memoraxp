@@ -6033,3 +6033,653 @@ html[data-manager-theme="light"] .biplano-page .digital-card-face::before {
     scroll-snap-type: none;
   }
 }
+@media (max-width: 767px) {
+  header[aria-label="Navegação principal"] {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  header[aria-label="Navegação principal"] .brand {
+    flex: 0 0 auto;
+  }
+
+  header[aria-label="Navegação principal"] .header-actions {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  header[aria-label="Navegação principal"] .header-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  header[aria-label="Navegação principal"] .header-actions .header-cta {
+    display: inline-flex;
+    flex: 0 0 auto;
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  header[aria-label="Navegação principal"] .nav-links {
+    order: 10;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .memora-id-page .site-header,
+  .memora-manager-page .site-header,
+  .biplano-page .site-header {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    row-gap: 8px;
+    overflow: hidden;
+  }
+
+  .memora-id-page .site-header .brand,
+  .memora-manager-page .site-header .brand,
+  .biplano-page .site-header .brand {
+    flex: 0 0 auto;
+  }
+
+  .memora-manager-page .site-header .manager-theme-switch,
+  .biplano-page .site-header .manager-theme-switch {
+    flex: 0 0 auto;
+    margin-right: 0;
+  }
+
+  .memora-manager-page .memora-id-profile-dock {
+    padding-inline: 12px;
+  }
+
+  .memora-manager-page .memora-id-profile-trigger-wrap {
+    justify-content: flex-end;
+    padding: 6px 12px 0;
+  }
+
+  .memora-manager-page .memora-id-profile-trigger {
+    min-width: 0;
+    max-width: 34vw;
+  }
+
+  .memora-id-page .site-header .header-actions,
+  .memora-manager-page .site-header .header-actions,
+  .biplano-page .site-header .header-actions {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .memora-id-page .site-header .header-actions::-webkit-scrollbar,
+  .memora-manager-page .site-header .header-actions::-webkit-scrollbar,
+  .biplano-page .site-header .header-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .memora-id-page .site-header .header-actions .header-cta,
+  .memora-manager-page .site-header .header-actions .header-cta,
+  .biplano-page .site-header .header-actions .header-cta {
+    display: inline-flex;
+    flex: 0 0 auto;
+    max-width: none;
+    white-space: nowrap;
+  }
+
+  .memora-id-page .site-header .nav-links,
+  .memora-manager-page .site-header .nav-links,
+  .biplano-page .site-header .nav-links {
+    order: 10;
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0 4px;
+    scroll-padding-inline: 2px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .memora-id-page .site-header .nav-links::-webkit-scrollbar,
+  .memora-manager-page .site-header .nav-links::-webkit-scrollbar,
+  .biplano-page .site-header .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .memora-id-page .site-header .nav-links a,
+  .memora-manager-page .site-header .nav-links a,
+  .biplano-page .site-header .nav-links a {
+    flex: 0 0 auto;
+    min-height: 32px;
+    max-width: min(54vw, 210px);
+    padding: 0 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}
+/* Componentes do hero Playoffs NBB, limitados à página pública da edição. */
+.playoffs-nbb-hero .biplano-hero-copy { display: grid; gap: 16px; align-content: center; }
+.playoffs-nbb-hero .biplano-hero-copy > p:not(.eyebrow) { max-width: 64ch; color: rgba(255, 255, 255, 0.8); line-height: 1.62; }
+.playoffs-nbb-hero .biplano-hero-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.playoffs-nbb-hero .biplano-hero-meta span { border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 999px; padding: 8px 10px; background: rgba(255, 255, 255, 0.07); color: rgba(255, 255, 255, 0.76); font-size: 0.8rem; font-weight: 850; }
+.playoffs-nbb-hero .biplano-hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 0; }
+.playoffs-nbb-hero .biplano-hero-actions a { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 999px; padding: 10px 16px; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 0.88rem; font-weight: 850; text-decoration: none; }
+.playoffs-nbb-hero .biplano-hero-actions a:first-child { border-color: rgba(243, 187, 36, 0.5); background: rgba(243, 187, 36, 0.18); }
+.playoffs-nbb-token { position: relative; }
+.playoffs-nbb-token .toninho-hero-kicker { top: clamp(18px, 4vw, 42px); right: clamp(18px, 4vw, 42px); color: rgba(255, 255, 255, 0.38); }
+.playoffs-nbb-score { width: min(100%, 520px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 16px; padding: 14px; background: rgba(3, 10, 24, 0.42); backdrop-filter: blur(12px); }
+.playoffs-nbb-score-status { display: block; color: var(--stage-gold); font-size: 0.75rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+.playoffs-nbb-score-teams { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: clamp(12px, 3vw, 28px); align-items: center; margin-top: 10px; }
+.playoffs-nbb-team { display: grid; min-width: 0; justify-items: center; gap: 8px; color: #fff; font-weight: 850; text-align: center; }
+.playoffs-nbb-team img { width: clamp(72px, 20vw, 104px); height: min(92px, 20vw); object-fit: contain; }
+.playoffs-nbb-score-divider { color: var(--stage-gold); font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; line-height: 1; }
+@media (max-width: 760px) {
+  .playoffs-nbb-hero .biplano-hero-copy { justify-items: center; }
+  .playoffs-nbb-hero .biplano-hero-meta, .playoffs-nbb-hero .biplano-hero-actions { justify-content: center; }
+  .playoffs-nbb-score { width: 100%; text-align: left; }
+}
+/* Playoffs NBB - Memora Stage */
+@font-face {
+  font-family: "Brush King";
+  src: url("assets/Brush King.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.editions-band.is-playoffs-nbb::before {
+  background-image:
+    linear-gradient(100deg, rgba(4, 11, 23, 0.95) 0%, rgba(4, 12, 28, 0.82) 44%, rgba(4, 11, 23, 0.34) 72%, rgba(4, 11, 23, 0.74) 100%),
+    url("assets/capafacisa.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 42%;
+}
+
+.edition-logo-title-playoffs {
+  display: grid;
+  width: min(100%, 620px);
+  color: #fff;
+  font-size: clamp(2rem, 4.4vw, 4.8rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+  line-height: 0.94;
+  text-wrap: balance;
+  text-transform: uppercase;
+}
+
+.edition-logo-title-playoffs span {
+  margin-top: 10px;
+  color: #f3bb24;
+  font-size: 0.38em;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.edition-slide[data-edition-slide="playoffs-nbb"] .xp-logo {
+  justify-self: center;
+  width: min(82%, 560px);
+  max-width: none;
+  filter: drop-shadow(0 28px 42px rgba(0, 0, 0, 0.52));
+}
+
+.edition-slide[data-edition-slide="playoffs-nbb"] .xp-media {
+  min-height: 430px;
+}
+
+@media (max-width: 767px), screen and (orientation: portrait) {
+  .editions-band.is-playoffs-nbb::before {
+    background-position: 58% center;
+  }
+
+  .edition-logo-title-playoffs {
+    width: min(100%, 420px);
+    font-size: clamp(1.8rem, 9vw, 3.2rem);
+  }
+
+  .edition-slide[data-edition-slide="playoffs-nbb"] .xp-media {
+    min-height: 0;
+  }
+
+  .edition-slide[data-edition-slide="playoffs-nbb"] .xp-logo {
+    width: auto;
+    max-width: min(76vw, 300px);
+    max-height: clamp(180px, 56vw, 280px);
+    object-fit: contain;
+  }
+}
+
+.playoffs-nbb-page {
+  --stage-blue: #071d43;
+  --stage-blue-bright: #0d3977;
+  --stage-gold: #f3bb24;
+  background:
+    linear-gradient(180deg, rgba(3, 10, 24, 0.58), rgba(3, 10, 24, 0.92) 58%, rgba(3, 10, 24, 0.97)),
+    url("assets/capafacisa.png") center top / cover fixed no-repeat;
+}
+
+.playoffs-nbb-hero {
+  min-height: min(900px, 92vh);
+  background-image: linear-gradient(90deg, rgba(3, 10, 24, 0.96) 0%, rgba(4, 15, 37, 0.83) 44%, rgba(3, 10, 24, 0.22) 72%, rgba(3, 10, 24, 0.68) 100%), url("assets/capafacisa.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center 40%;
+  color: #fff;
+}
+
+html[data-manager-theme="light"] .playoffs-nbb-page {
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.34), rgba(239, 245, 248, 0.72) 58%, rgba(231, 241, 246, 0.86)),
+    url("assets/capafacisa.png") center top / cover fixed no-repeat;
+}
+
+.playoffs-nbb-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.72fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+  min-height: inherit;
+  padding-block: clamp(120px, 15vw, 190px) 72px;
+}
+
+.playoffs-nbb-hero .biplano-hero-copy { max-width: 780px; }
+.playoffs-nbb-hero h1 { display: grid; color: #fff; font-size: clamp(2.5rem, 6.2vw, 6.3rem); letter-spacing: -0.06em; line-height: 0.9; text-transform: uppercase; text-wrap: balance; }
+.playoffs-nbb-page .playoffs-nbb-title-brand { display: block; max-inline-size: 100%; font-family: "Brush King", sans-serif; font-size: clamp(2.1rem, 5.8vw, 4.8rem); font-weight: 400; letter-spacing: 0; line-height: 0.88; overflow-wrap: anywhere; }
+.playoffs-nbb-page .playoffs-nbb-matchup { display: block; margin-top: clamp(10px, 1.5vw, 14px); color: var(--stage-gold); font-family: "Manrope", sans-serif; font-size: clamp(1rem, 2.1vw, 1.7rem); font-weight: 800; letter-spacing: 0.015em; line-height: 1.18; }
+.playoffs-nbb-page .biplano-hero-copy > .playoffs-nbb-event-info { margin: -6px 0 -4px; color: rgba(255, 255, 255, 0.78); font-family: "Manrope", sans-serif; font-size: clamp(0.82rem, 1.3vw, 1rem); font-weight: 700; letter-spacing: 0.01em; line-height: 1.5; text-align: center; }
+html[data-manager-theme="light"] .playoffs-nbb-page .biplano-hero-copy > .playoffs-nbb-event-info { color: var(--edition-text-muted); }
+.playoffs-nbb-code { width: fit-content; margin: 18px 0; border: 1px solid rgba(255,255,255,.4); border-radius: 999px; padding: 7px 13px; color: var(--stage-gold); font-weight: 900; letter-spacing: .16em; }
+.playoffs-nbb-token { display: grid; place-items: center; margin: 0; }
+.playoffs-nbb-token img { width: min(100%, 520px); max-height: 620px; object-fit: contain; filter: drop-shadow(0 34px 52px rgba(0,0,0,.58)); }
+
+.playoffs-nbb-page .biplano-resource { border-color: rgba(22,76,145,.22); }
+.playoffs-nbb-page .resource-number { color: var(--stage-blue-bright); }
+.playoffs-nbb-page .digital-card-button { justify-content: center; }
+.stage-credential dl, .stage-coaster-card dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 18px 0; }
+.stage-credential dl div, .stage-coaster-card dl div, .stage-credit-summary div { border: 1px solid rgba(11,47,97,.16); border-radius: 12px; padding: 14px; background: rgba(11,47,97,.05); }
+.stage-credential dt, .stage-coaster-card dt { color: var(--muted); font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+.stage-credential dd, .stage-coaster-card dd { margin: 5px 0 0; font-weight: 850; }
+
+.stage-wallpaper-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.stage-wallpaper { margin: 0; border: 1px solid rgba(11,47,97,.16); border-radius: 16px; padding: 10px; background: rgba(255,255,255,.8); }
+.stage-wallpaper img { width: 100%; aspect-ratio: 9 / 16; border-radius: 11px; object-fit: cover; }
+.stage-wallpaper figcaption { padding: 9px 2px; font-weight: 900; }
+.stage-wallpaper div { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.stage-wallpaper button, .stage-wallpaper a { min-height: 42px; border: 1px solid rgba(7,29,67,.25); border-radius: 9px; padding: 9px; background: #fff; color: var(--stage-blue); font: inherit; font-weight: 850; text-align: center; cursor: pointer; }
+
+.stage-supporters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.stage-supporters article { display: grid; gap: 4px; border: 1px solid rgba(7,29,67,.14); border-radius: 12px; padding: 14px; }
+.stage-supporters span { color: var(--muted); font-size: .84rem; }
+.stage-credit-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+.stage-credit-summary div { display: grid; gap: 6px; }
+.stage-credit-summary span { color: var(--muted); font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+.stage-credit-summary strong { font-size: clamp(1.15rem, 2vw, 1.6rem); }
+.stage-coaster-card > strong { display: block; color: var(--stage-blue); font-size: clamp(2.2rem, 5vw, 4.5rem); letter-spacing: -.05em; }
+
+.stage-theater { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: clamp(18px, 4vw, 56px); background: rgba(1,4,12,.94); }
+.stage-theater[hidden] { display: none; }
+.stage-theater > img { max-width: min(100%, 1100px); max-height: calc(100vh - 72px); border-radius: 12px; object-fit: contain; box-shadow: 0 32px 90px rgba(0,0,0,.55); }
+.stage-theater .digital-card-close { position: fixed; z-index: 2; top: 18px; right: 18px; }
+.playoffs-nbb-page .digital-card-stage { cursor: pointer; }
+
+@media (max-width: 760px) {
+  .playoffs-nbb-page {
+    background-attachment: scroll;
+    background-position: 58% center;
+  }
+
+  .playoffs-nbb-hero { min-height: auto; background-position: 58% center; }
+  .playoffs-nbb-hero-inner { grid-template-columns: 1fr; gap: 22px; padding-block: 112px 54px; text-align: center; }
+  .playoffs-nbb-hero h1 { font-size: clamp(2.2rem, 14vw, 4.2rem); }
+  .playoffs-nbb-code, .playoffs-nbb-hero .biplano-hero-actions { margin-inline: auto; }
+  .playoffs-nbb-token { grid-row: 1; padding-top: 8px; }
+  .playoffs-nbb-token img { width: min(72vw, 310px); max-height: 340px; }
+  .stage-credential dl, .stage-coaster-card dl, .stage-credit-summary, .stage-supporters { grid-template-columns: 1fr; }
+  .stage-wallpaper-grid { grid-template-columns: 1fr; }
+  .stage-theater { padding: 64px 12px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playoffs-nbb-page *, .playoffs-nbb-page *::before, .playoffs-nbb-page *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Difusora compacta compartilhada pelas edicoes Memora. */
+.biplano-page .biplano-difusora--compact { width: 100%; margin-top: 8px; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-layout { display: grid; grid-template-columns: minmax(150px, 0.8fr) minmax(0, 2fr) 44px; gap: clamp(28px, 3vw, 42px); align-items: center; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-feed { display: block; width: 100%; margin: 0; grid-column: 2 / -1; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-title { align-self: center; margin: 0; color: var(--stage-gold, #f3bb24); font-family: "Brush King", "Manrope", sans-serif; font-size: clamp(1rem, 1.55vw, 1.625rem); font-weight: 400; letter-spacing: -0.025em; line-height: 1; white-space: nowrap; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-content { display: grid; min-width: 0; gap: 5px; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-content header { display: flex; flex-wrap: wrap; gap: 3px 9px; align-items: baseline; justify-content: flex-start; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-content strong { color: var(--stage-gold, #f3bb24); font-size: clamp(0.82rem, 1.25vw, 0.98rem); font-weight: 900; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-content time { color: rgba(255, 255, 255, 0.74); font-size: clamp(0.78rem, 1.1vw, 0.92rem); font-weight: 800; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-content p { margin: 0; color: rgba(255, 255, 255, 0.88); font-size: clamp(0.9rem, 1.35vw, 1.06rem); line-height: 1.42; overflow-wrap: anywhere; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation { display: grid; gap: 4px; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button { display: grid; width: 44px; min-height: 44px; place-items: center; border: 1px solid transparent; border-radius: 8px; padding: 8px; background: transparent; color: rgba(255, 255, 255, 0.86); cursor: pointer; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button:hover, .biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button:focus-visible { border-color: rgba(243, 187, 36, 0.65); background: rgba(243, 187, 36, 0.12); color: #fff; outline: none; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button:focus-visible { box-shadow: 0 0 0 3px rgba(243, 187, 36, 0.28); }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button:disabled { opacity: 0.42; cursor: default; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-clear { display: block; min-height: auto; margin: 0 0 0 auto; border: 0; border-radius: 0; padding: 4px 0; background: transparent; color: rgba(255, 255, 255, 0.62); font-size: 0.75rem; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-clear:hover, .biplano-page .biplano-difusora--compact .biplano-difusora-compact-clear:focus-visible { border: 0; background: transparent; color: #fff; outline: 2px solid rgba(243, 187, 36, 0.72); outline-offset: 4px; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-feed .biplano-difusora-empty { margin: 0; border: 0; border-radius: 0; padding: 16px 0; background: transparent; text-align: left; }
+.biplano-page .biplano-difusora--compact .biplano-difusora-compact-feed .biplano-difusora-empty header { justify-content: flex-start; }
+.biplano-page .biplano-difusora--compact .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-title, html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-content strong { color: #9a6500; }
+html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-content time, html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-clear { color: var(--edition-text-muted); }
+html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-content p, html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button { color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button:hover, html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-navigation button:focus-visible, html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-clear:hover, html[data-manager-theme="light"] .biplano-page .biplano-difusora--compact .biplano-difusora-compact-clear:focus-visible { color: #4b3100; }
+@media (max-width: 760px) { .biplano-page .biplano-difusora--compact { margin-top: 4px; } .biplano-page .biplano-difusora--compact .biplano-difusora-compact-layout { grid-template-columns: 1fr; gap: 10px; } .biplano-page .biplano-difusora--compact .biplano-difusora-compact-feed { grid-column: auto; } .biplano-page .biplano-difusora--compact .biplano-difusora-compact-feed .biplano-difusora-compact-post { grid-template-columns: minmax(0, 1fr) 44px; gap: 12px 16px; padding: 16px 0; } .biplano-page .biplano-difusora--compact .biplano-difusora-compact-content { align-self: start; } }
+/* Difusora compacta: exclusiva da edi??o Playoffs NBB. */
+.playoffs-nbb-page .playoffs-nbb-difusora { width: 100%; margin-top: 8px; }
+.playoffs-nbb-page .playoffs-nbb-difusora-layout { display: grid; grid-template-columns: minmax(150px, 0.8fr) minmax(0, 2fr) 44px; gap: clamp(28px, 3vw, 42px); align-items: center; }
+.playoffs-nbb-page .playoffs-nbb-difusora-feed { display: block; width: 100%; margin: 0; }
+.playoffs-nbb-page .playoffs-nbb-difusora-feed { grid-column: 2 / -1; }
+.playoffs-nbb-page .playoffs-nbb-difusora-title { align-self: center; margin: 0; color: var(--stage-gold); font-family: "Brush King", "Manrope", sans-serif; font-size: clamp(1rem, 1.55vw, 1.625rem); font-weight: 400; letter-spacing: -0.025em; line-height: 1; white-space: nowrap; }
+.playoffs-nbb-page .biplano-difusora-compact-content { display: grid; min-width: 0; gap: 5px; }
+.playoffs-nbb-page .biplano-difusora-compact-content header { display: flex; flex-wrap: wrap; gap: 3px 9px; align-items: baseline; justify-content: flex-start; }
+.playoffs-nbb-page .biplano-difusora-compact-content strong { color: var(--stage-gold); font-size: clamp(0.82rem, 1.25vw, 0.98rem); font-weight: 900; }
+.playoffs-nbb-page .biplano-difusora-compact-content time { color: rgba(255, 255, 255, 0.74); font-size: clamp(0.78rem, 1.1vw, 0.92rem); font-weight: 800; }
+.playoffs-nbb-page .biplano-difusora-compact-content p { margin: 0; color: rgba(255, 255, 255, 0.88); font-size: clamp(0.9rem, 1.35vw, 1.06rem); line-height: 1.42; overflow-wrap: anywhere; }
+.playoffs-nbb-page .biplano-difusora-compact-navigation { display: grid; gap: 4px; }
+.playoffs-nbb-page .biplano-difusora-compact-navigation button { display: grid; width: 44px; min-height: 44px; place-items: center; border: 1px solid transparent; border-radius: 8px; padding: 8px; background: transparent; color: rgba(255, 255, 255, 0.86); cursor: pointer; }
+.playoffs-nbb-page .biplano-difusora-compact-navigation svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.4; }
+.playoffs-nbb-page .biplano-difusora-compact-navigation button:hover, .playoffs-nbb-page .biplano-difusora-compact-navigation button:focus-visible { border-color: rgba(243, 187, 36, 0.65); background: rgba(243, 187, 36, 0.12); color: #fff; outline: none; }
+.playoffs-nbb-page .biplano-difusora-compact-navigation button:focus-visible { box-shadow: 0 0 0 3px rgba(243, 187, 36, 0.28); }
+.playoffs-nbb-page .biplano-difusora-compact-navigation button:disabled { opacity: 0.42; cursor: default; }
+.playoffs-nbb-page .playoffs-nbb-difusora-clear { display: block; min-height: auto; margin: 0 0 0 auto; border: 0; border-radius: 0; padding: 4px 0; background: transparent; color: rgba(255, 255, 255, 0.62); font-size: 0.75rem; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.playoffs-nbb-page .playoffs-nbb-difusora-clear:hover, .playoffs-nbb-page .playoffs-nbb-difusora-clear:focus-visible { border: 0; background: transparent; color: #fff; outline: 2px solid rgba(243, 187, 36, 0.72); outline-offset: 4px; }
+.playoffs-nbb-page .playoffs-nbb-difusora-feed .biplano-difusora-empty { margin: 0; border: 0; border-radius: 0; padding: 16px 0; background: transparent; text-align: left; }
+.playoffs-nbb-page .playoffs-nbb-difusora-feed .biplano-difusora-empty header { justify-content: flex-start; }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-difusora-title, html[data-manager-theme="light"] .playoffs-nbb-page .biplano-difusora-compact-content strong { color: #9a6500; }
+html[data-manager-theme="light"] .playoffs-nbb-page .biplano-difusora-compact-content time, html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-difusora-clear { color: var(--edition-text-muted); }
+html[data-manager-theme="light"] .playoffs-nbb-page .biplano-difusora-compact-content p, html[data-manager-theme="light"] .playoffs-nbb-page .biplano-difusora-compact-navigation button { color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .playoffs-nbb-page .biplano-difusora-compact-navigation button:hover, html[data-manager-theme="light"] .playoffs-nbb-page .biplano-difusora-compact-navigation button:focus-visible, html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-difusora-clear:hover, html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-difusora-clear:focus-visible { color: #4b3100; }
+@media (max-width: 760px) { .playoffs-nbb-page .playoffs-nbb-difusora { margin-top: 4px; } .playoffs-nbb-page .playoffs-nbb-difusora-layout { grid-template-columns: 1fr; gap: 10px; } .playoffs-nbb-page .playoffs-nbb-difusora-feed { grid-column: auto; } .playoffs-nbb-page .playoffs-nbb-difusora-feed .biplano-difusora-compact-post { grid-template-columns: minmax(0, 1fr) 44px; gap: 12px 16px; padding: 16px 0; } .playoffs-nbb-page .biplano-difusora-compact-content { align-self: start; } }
+
+.playoffs-nbb-page .playoffs-nbb-difusora .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+
+/* Tema claro no topo da edi??o Playoffs NBB. */
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-hero { background-image: linear-gradient(90deg, rgba(255, 253, 247, 0.96) 0%, rgba(247, 250, 252, 0.88) 44%, rgba(255, 253, 247, 0.4) 72%, rgba(255, 253, 247, 0.72) 100%), url("assets/capafacisa.png"); color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .playoffs-nbb-page .memora-id-header { border-bottom: 1px solid rgba(42, 55, 89, 0.12); background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.68)); backdrop-filter: blur(10px); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-hero h1 { color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-hero .biplano-hero-copy > p:not(.eyebrow) { color: var(--edition-text-muted); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-hero .biplano-hero-meta span { border-color: rgba(42, 55, 89, 0.16); background: rgba(255, 255, 255, 0.68); color: var(--edition-text-muted); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-score { border-color: rgba(42, 55, 89, 0.16); background: rgba(255, 255, 255, 0.72); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-team { color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-hero .biplano-hero-actions a { border-color: rgba(42, 55, 89, 0.18); background: rgba(255, 255, 255, 0.72); color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-hero .biplano-hero-actions a:first-child { border-color: rgba(154, 101, 0, 0.36); background: rgba(243, 187, 36, 0.2); color: #513800; }
+html[data-manager-theme="light"] .playoffs-nbb-page .memora-id-header .nav-links a { color: var(--edition-text-strong); }
+html[data-manager-theme="light"] .playoffs-nbb-page .memora-id-header .manager-theme-text { color: var(--edition-text-muted); }
+html[data-manager-theme="light"] .playoffs-nbb-page .playoffs-nbb-token .toninho-hero-kicker { color: rgba(42, 55, 89, 0.48); }
+
+/* Playoffs NBB: interactive media, statistics and accessible lightbox. */
+.playoffs-nbb-page {
+  --nbb-surface: rgba(7, 23, 52, 0.82);
+  --nbb-surface-strong: rgba(8, 30, 67, 0.96);
+  --nbb-border: rgba(154, 196, 255, 0.2);
+  --nbb-text: #f6f8ff;
+  --nbb-muted: #b8c7df;
+  --nbb-line: rgba(177, 207, 247, 0.18);
+}
+
+.playoffs-nbb-page .biplano-menu-panel {
+  overflow: hidden;
+}
+
+.playoffs-nbb-page .biplano-menu-content {
+  min-width: 0;
+}
+
+.playoffs-nbb-page [data-nbb-video-panel] {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--nbb-border);
+  border-radius: 14px;
+  background: #020914;
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.25);
+}
+
+.playoffs-nbb-page [data-nbb-video-panel] iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.playoffs-nbb-page .nbb-match-star {
+  display: block;
+  width: min(100%, 460px);
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid var(--nbb-border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--nbb-surface);
+  cursor: zoom-in;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+}
+
+.playoffs-nbb-page .nbb-match-star:focus-visible {
+  outline: 3px solid var(--stage-gold);
+  outline-offset: 4px;
+}
+
+.playoffs-nbb-page .nbb-match-star img {
+  display: block;
+  width: 100%;
+  max-height: 540px;
+  object-fit: contain;
+}
+
+.playoffs-nbb-page .nbb-statistics {
+  display: grid;
+  gap: 22px;
+  color: var(--nbb-text);
+}
+
+.playoffs-nbb-page .nbb-statistics section {
+  display: grid;
+  gap: 10px;
+}
+
+.playoffs-nbb-page .nbb-statistics h4 {
+  margin: 0;
+  color: var(--stage-gold);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.playoffs-nbb-page .nbb-statistics__score {
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(243, 187, 36, 0.28);
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 24px);
+  background: linear-gradient(145deg, rgba(12, 51, 105, 0.9), rgba(6, 24, 55, 0.94));
+  text-align: center;
+}
+
+.playoffs-nbb-page .nbb-statistics__score > span,
+.playoffs-nbb-page .nbb-statistics__score time {
+  color: var(--nbb-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.playoffs-nbb-page .nbb-statistics__score > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: clamp(8px, 2vw, 18px);
+  flex-wrap: wrap;
+}
+
+.playoffs-nbb-page .nbb-statistics__score strong {
+  font-size: clamp(1rem, 2.6vw, 1.4rem);
+}
+
+.playoffs-nbb-page .nbb-statistics__score strong b {
+  color: var(--stage-gold);
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin-left: 0.15em;
+}
+
+.playoffs-nbb-page .nbb-statistics__score em {
+  color: var(--nbb-muted);
+  font-style: normal;
+  font-weight: 900;
+}
+
+.playoffs-nbb-page .nbb-statistics__score p,
+.playoffs-nbb-page .nbb-statistics__note {
+  margin: 0;
+  color: var(--nbb-muted);
+  font-size: 0.84rem;
+}
+
+.playoffs-nbb-page .nbb-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--nbb-line);
+  border-radius: 12px;
+  background: var(--nbb-surface);
+}
+
+.playoffs-nbb-page .nbb-table-wrap table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.playoffs-nbb-page .nbb-table-wrap th,
+.playoffs-nbb-page .nbb-table-wrap td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--nbb-line);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.playoffs-nbb-page .nbb-table-wrap tr:last-child th,
+.playoffs-nbb-page .nbb-table-wrap tr:last-child td { border-bottom: 0; }
+.playoffs-nbb-page .nbb-table-wrap th:first-child { text-align: left; }
+.playoffs-nbb-page .nbb-table-wrap thead th { color: var(--nbb-muted); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.playoffs-nbb-page .nbb-table-wrap tbody th { color: var(--nbb-text); font-weight: 850; }
+.playoffs-nbb-page .nbb-table-wrap tbody td { color: var(--nbb-text); font-variant-numeric: tabular-nums; }
+.playoffs-nbb-page .nbb-table-wrap tbody tr:first-child td:last-child,
+.playoffs-nbb-page .nbb-table-wrap tbody tr:first-child th { color: var(--stage-gold); }
+
+.playoffs-nbb-page .nbb-player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.playoffs-nbb-page .nbb-player-grid article {
+  border: 1px solid var(--nbb-line);
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--nbb-surface);
+}
+
+.playoffs-nbb-page .nbb-player-grid article > strong {
+  color: var(--stage-gold);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.playoffs-nbb-page .nbb-player-grid ul { display: grid; gap: 7px; margin: 10px 0 0; padding-left: 1.1rem; }
+.playoffs-nbb-page .nbb-player-grid li { color: var(--nbb-muted); font-size: 0.82rem; }
+
+.playoffs-nbb-page .stage-wallpaper {
+  border-color: var(--nbb-border);
+  background: var(--nbb-surface);
+}
+
+.playoffs-nbb-page .stage-wallpaper img {
+  background: rgba(3, 10, 24, 0.62);
+  object-fit: contain;
+}
+
+.playoffs-nbb-page .stage-wallpaper figcaption { color: var(--nbb-text); }
+.playoffs-nbb-page .stage-wallpaper button,
+.playoffs-nbb-page .stage-wallpaper a { border-color: var(--nbb-border); background: var(--nbb-surface-strong); color: var(--nbb-text); }
+.playoffs-nbb-page .stage-wallpaper button:hover,
+.playoffs-nbb-page .stage-wallpaper button:focus-visible,
+.playoffs-nbb-page .stage-wallpaper a:hover,
+.playoffs-nbb-page .stage-wallpaper a:focus-visible { border-color: var(--stage-gold); background: rgba(243, 187, 36, 0.16); outline: none; }
+
+/* NBB timeline contrast: override the generic modern-edition light cards. */
+.playoffs-nbb-page .toninho-timeline-mock-content {
+  color: var(--nbb-text);
+  background: var(--nbb-surface);
+  border: 1px solid var(--nbb-line);
+  border-radius: 12px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+}
+.playoffs-nbb-page .toninho-timeline-mock-content p { color: var(--nbb-text); }
+.playoffs-nbb-page .toninho-timeline-mock-content time { color: var(--stage-gold); }
+.playoffs-nbb-page .toninho-timeline-mock-content img { background: var(--nbb-surface-strong); filter: none; }
+.playoffs-nbb-page .toninho-timeline-mock-item::before { background: rgba(180, 210, 246, 0.38); }
+.playoffs-nbb-page .toninho-timeline-mock-item::after { opacity: 0.9; }
+.playoffs-nbb-page .toninho-timeline-mock[data-timeline-scroll] { scrollbar-color: var(--stage-gold) rgba(255, 255, 255, 0.12); }
+
+/* Keep the enlarged-image modal image-only. */
+.playoffs-nbb-page .stage-theater { background: rgba(1, 4, 12, 0.9); }
+.playoffs-nbb-page .stage-theater > img { max-width: min(100%, 1100px); max-height: calc(100svh - 72px); object-fit: contain; }
+
+.playoffs-nbb-page .digital-card-theater { isolation: isolate; }
+.playoffs-nbb-page .digital-card-stage { transform: translateZ(0); }
+.playoffs-nbb-page .digital-card-flip { transform-origin: center center; will-change: transform; }
+.playoffs-nbb-page .digital-card-face,
+.playoffs-nbb-page .digital-card-face img { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.playoffs-nbb-page .digital-card-face--back { transform: rotateY(180deg); }
+
+html[data-manager-theme="light"] .playoffs-nbb-page {
+  --nbb-surface: rgba(255, 255, 255, 0.82);
+  --nbb-surface-strong: rgba(242, 247, 251, 0.96);
+  --nbb-border: rgba(42, 55, 89, 0.18);
+  --nbb-text: #182033;
+  --nbb-muted: #526079;
+  --nbb-line: rgba(42, 55, 89, 0.14);
+}
+
+html[data-manager-theme="light"] .playoffs-nbb-page .nbb-statistics__score { background: linear-gradient(145deg, rgba(255, 250, 232, 0.96), rgba(231, 241, 246, 0.92)); }
+html[data-manager-theme="light"] .playoffs-nbb-page .stage-wallpaper img { background: rgba(226, 235, 241, 0.7); }
+html[data-manager-theme="light"] .playoffs-nbb-page .toninho-timeline-mock-content { box-shadow: 0 12px 26px rgba(30, 42, 68, 0.12); }
+html[data-manager-theme="light"] .playoffs-nbb-page .toninho-timeline-mock-content p { color: var(--nbb-text); }
+html[data-manager-theme="light"] .playoffs-nbb-page .toninho-timeline-mock-content time { color: #9a6500; }
+html[data-manager-theme="light"] .playoffs-nbb-page .digital-card-hint { color: var(--nbb-muted); }
+
+@media (max-width: 620px) {
+  .playoffs-nbb-page .nbb-player-grid { grid-template-columns: 1fr; }
+  .playoffs-nbb-page .nbb-statistics__score > div { gap: 4px 10px; }
+  .playoffs-nbb-page .nbb-table-wrap table { min-width: 470px; }
+}

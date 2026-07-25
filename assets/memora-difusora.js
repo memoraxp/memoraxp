@@ -35,6 +35,17 @@
     }).format(date);
   };
 
+  const formatCompactDateTime = (createdAt) => {
+    const date = new Date(createdAt);
+    if (Number.isNaN(date.getTime())) return "Agora";
+
+    const formatted = new Intl.DateTimeFormat("pt-BR", {
+      day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
+    }).format(date);
+
+    return formatted.replace(" de ", " ").replace(" de ", " ").replace(", ", " - ");
+  };
+
   const getEditionId = (element) =>
     element.dataset.editionId ||
     element.closest("[data-edition-id]")?.dataset.editionId ||
@@ -53,10 +64,43 @@
     </article>
   `;
 
+  const compactPost = (post, index, count) => {
+    const dateTime = formatCompactDateTime(post.createdAt);
+    const createdAt = new Date(post.createdAt);
+    const dateTimeAttribute = Number.isNaN(createdAt.getTime()) ? "" : ` datetime="${escapeHtml(createdAt.toISOString())}"`;
+
+    return `
+      <article class="biplano-difusora-compact-post">
+        <div class="biplano-difusora-compact-content">
+          <header><strong>${escapeHtml(post.author || "Manager Memora")} publicou:</strong><time${dateTimeAttribute}>${escapeHtml(dateTime)}</time></header>
+          <p>${escapeHtml(post.text)}</p>
+        </div>
+        <div class="biplano-difusora-compact-navigation" aria-label="Navega&ccedil;&atilde;o entre comunicados">
+          <button type="button" data-difusora-navigate="-1" aria-label="Exibir publica&ccedil;&atilde;o anterior" ${count < 2 ? "disabled" : ""}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 15 7-7 7 7"/></svg></button>
+          <button type="button" data-difusora-navigate="1" aria-label="Exibir pr&oacute;xima publica&ccedil;&atilde;o" ${count < 2 ? "disabled" : ""}><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 9 7 7 7-7"/></svg></button>
+        </div>
+        <span class="sr-only">Comunicado ${index + 1} de ${count}</span>
+      </article>
+    `;
+  };
+
+  const renderCompactFeed = (feed, posts) => {
+    if (!posts.length) { feed.dataset.difusoraIndex = "0"; feed.innerHTML = emptyState(feed.dataset.editionName); return; }
+    const currentIndex = Number(feed.dataset.difusoraIndex || 0);
+    const index = Number.isInteger(currentIndex) ? ((currentIndex % posts.length) + posts.length) % posts.length : 0;
+    feed.dataset.difusoraIndex = String(index);
+    feed.innerHTML = compactPost(posts[index], index, posts.length);
+  };
+
   const renderFeed = (feed) => {
     const editionId = getEditionId(feed);
     const editionName = feed.dataset.editionName || document.body?.dataset.editionName || "";
     const posts = getEditionPosts(editionId);
+
+    if (feed.hasAttribute("data-difusora-compact")) {
+      renderCompactFeed(feed, posts);
+      return;
+    }
 
     if (!posts.length) {
       feed.innerHTML = emptyState(editionName);
@@ -102,6 +146,16 @@
   const bindControls = () => {
     document.querySelectorAll("[data-difusora-clear]").forEach((button) => {
       button.addEventListener("click", () => clearHistory(button));
+    });
+
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-difusora-navigate]");
+      if (!button || button.disabled) return;
+      const feed = button.closest("[data-edition-difusora-feed]");
+      if (!feed) return;
+      const direction = Number(button.dataset.difusoraNavigate);
+      feed.dataset.difusoraIndex = String(Number(feed.dataset.difusoraIndex || 0) + direction);
+      renderFeed(feed);
     });
 
     window.addEventListener("focus", renderFeeds);

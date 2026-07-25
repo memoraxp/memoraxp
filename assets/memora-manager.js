@@ -225,6 +225,33 @@
       ],
       memories: ["Entrevista de 2016 sobre Biplano", "Faixas favoritas do Toninho", "Registros da criação do album"],
     },
+    {
+      id: "playoffs-nbb",
+      name: "Playoffs NBB ? Unifacisa x Corinthians",
+      module: "Stage",
+      status: "ativa",
+      image: "assets/CF.jpg",
+      digitalCard: { front: "assets/WPF1.png", back: "assets/MF2.png" },
+      wallpapers: [{ name: "WPF1", src: "assets/WPF1.png" }, { name: "MF2", src: "assets/MF2.png" }],
+      tile: "assets/playoffs-nbb-token.png",
+      managerPage: "manager-playoffs-nbb.html",
+      publicPage: "edicao-playoffs-nbb.html",
+      titleLogo: "assets/logounifacisa.png",
+      titleLogoAlt: "Unifacisa",
+      manager: { name: "Unifacisa", type: "Realizador da edi??o Playoffs NBB", contact: ["Memora Stage", "Opera??o do evento", "facisa@memora.app"], avatar: "assets/playoffs-nbb-token.png", stats: { "Edi??es": 1, "Tokens totais": 300, "Tokens ativados": 225, Comunidade: 225 } },
+      sold: 225, activeTokens: 225, unitPrice: 40, tokenCode: "NBB", tokenTotal: 300,
+      qrReads: 744, checkins: 318, revenue: "R$ 18.600,00", emergency: 19, stock: 75,
+      campaign: "Cr?ditos do evento em modo de prot?tipo",
+      collectors: [
+        { name: "Marina Alves", instagram: "@marina.nbb", phone: "(83) 99911-2026", status: "check-in realizado", consent: true, health: "Alergia informada com consentimento", emergency: "Contato autorizado - (83) 98800-2026" },
+        { name: "Carlos Ribeiro", instagram: "@carlos.facisa", phone: "oculto", status: "token ativo", consent: false },
+        { name: "Joana Lima", instagram: "@joana.torcida", phone: "(83) 98777-5511", status: "check-in realizado", consent: true, health: "Sem observa??es", emergency: "Contato autorizado - (83) 98877-5511" },
+      ],
+      links: ["P?gina p?blica", "Mapa de acesso", "Regulamento", "Difusora", "Suporte"],
+      logs: ["Port?o principal - hoje, 19:24", "Arquibancada - hoje, 19:11", "Loja oficial - hoje, 18:52"],
+      points: [{ name: "Facisa", allocated: 100, sold: 75 }, { name: "Banca do Orlando", allocated: 50, sold: 25 }, { name: "Partage Shopping", allocated: 100, sold: 75 }, { name: "Shopping Luiza Motta", allocated: 50, sold: 50 }],
+      memories: ["Abertura dos port?es", "Aquecimento das equipes", "In?cio da partida", "Intervalo", "Lance decisivo", "Resultado final"],
+    },
   ];
 
 

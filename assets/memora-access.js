@@ -281,6 +281,8 @@
   }
 
   const updateLoginLabels = () => {
+    if (!document.body.classList.contains("memora-id-page")) return;
+
     const user = getActiveUser();
     if (!user) return;
 
