@@ -23,3 +23,201 @@ html[data-manager-theme="light"] .stage-manager-page .manager-band {
   html[data-manager-theme="light"] .stage-manager-page .manager-shell,
   html[data-manager-theme="light"] .stage-manager-page .manager-band { background-attachment: scroll; }
 }
+/* Difusora do Manager NBB: identidade visual da edicao Playoffs NBB. */
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora {
+  --stage-gold: #f3bb24;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.8fr) minmax(0, 2fr);
+  gap: clamp(28px, 4vw, 58px);
+  align-items: start;
+  padding-block: clamp(52px, 7vw, 88px);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading {
+  display: grid;
+  gap: 10px;
+  max-width: 20rem;
+  margin: 0;
+  text-align: left;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading .eyebrow {
+  margin: 0;
+  color: var(--stage-gold);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading h2 {
+  margin: 0;
+  color: var(--stage-gold);
+  font-family: "Brush King", "Manrope", sans-serif;
+  font-size: clamp(1rem, 2vw, 1.825rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading p:not(.eyebrow) {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-comm-list {
+  gap: 0;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-comm-card {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-comm-card:first-child {
+  border-top-color: rgba(243, 187, 36, 0.52);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-accordion h3 button {
+  min-height: 0;
+  padding: clamp(18px, 2.6vw, 28px) 0 15px;
+  color: var(--stage-gold);
+  font-size: clamp(1rem, 1.7vw, 1.26rem);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-accordion h3 span {
+  width: 11px;
+  height: 11px;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-accordion h3 button:focus-visible {
+  outline-color: rgba(243, 187, 36, 0.68);
+  outline-offset: 4px;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-accordion-panel {
+  gap: 12px;
+  padding: 0 0 clamp(22px, 3vw, 32px);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-grid label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-grid select,
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-grid textarea {
+  border-color: rgba(255, 255, 255, 0.26);
+  border-radius: 0;
+  background: rgba(3, 10, 24, 0.42);
+  box-shadow: inset 0 -1px 0 rgba(243, 187, 36, 0.2);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-row > span {
+  margin-right: auto;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .memora-id-action-button {
+  min-height: 38px;
+  border-color: rgba(243, 187, 36, 0.6);
+  border-radius: 0;
+  background: rgba(243, 187, 36, 0.12);
+  color: #fff;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .memora-id-action-button:hover,
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .memora-id-action-button:focus-visible {
+  border-color: var(--stage-gold);
+  background: rgba(243, 187, 36, 0.24);
+  outline: 2px solid rgba(243, 187, 36, 0.45);
+  outline-offset: 3px;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora [data-difusora-clear] {
+  border-color: transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.66);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card {
+  gap: 5px;
+  border: 0;
+  border-left: 2px solid var(--stage-gold);
+  border-radius: 0;
+  padding: 4px 0 4px 14px;
+  background: transparent;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card small,
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card span {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card strong {
+  color: var(--stage-gold);
+  font-size: 0.98rem;
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-contact-picker label {
+  border-color: rgba(255, 255, 255, 0.16);
+  border-radius: 0;
+  background: rgba(3, 10, 24, 0.3);
+}
+
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-sensitive-note {
+  margin: 2px 0 0;
+  border-left-color: var(--stage-gold);
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.82rem;
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading p:not(.eyebrow),
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-grid label,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card p,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-sensitive-note {
+  color: var(--manager-text-muted);
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-accordion h3 span,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .memora-id-action-button {
+  color: var(--manager-text-strong);
+}
+
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card small,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-preview-card span,
+html[data-manager-theme="light"] .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora [data-difusora-clear] {
+  color: var(--manager-text-soft);
+}
+
+@media (max-width: 760px) {
+  .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading {
+    max-width: 34rem;
+  }
+
+  .memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora .manager-form-row > span {
+    width: 100%;
+  }
+}
+.memora-manager-page[data-manager-edition="playoffs-nbb"] .manager-difusora > .memora-id-section-heading h2::after {
+  content: " -";
+}

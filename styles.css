@@ -1127,11 +1127,13 @@ h3 {
 }
 
 .editions-band .xp-objectives {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: 8px;
 }
 
 .editions-band .xp-objectives li {
-  min-height: 0;
+  min-height: 116px;
   padding: 12px 14px;
   font-size: 0.82rem;
   line-height: 1.28;
@@ -6031,6 +6033,27 @@ html[data-manager-theme="light"] .biplano-page .digital-card-face::before {
   .editions-band .xp-objectives.is-dragging {
     cursor: grabbing;
     scroll-snap-type: none;
+  }
+}
+/* Keep all six edition cards visible as a balanced 3 × 2 grid on tablets. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .editions-band .xp-objectives {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 8px;
+    margin-inline: 0;
+    overflow: visible !important;
+    padding: 0;
+    scroll-snap-type: none;
+    touch-action: auto;
+    cursor: default;
+    user-select: auto;
+  }
+
+  .editions-band .xp-objectives li {
+    flex: initial;
+    min-height: 116px;
   }
 }
 @media (max-width: 767px) {

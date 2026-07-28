@@ -248,11 +248,12 @@
                 <div class="xp-objectives-wrap" id="edicao-toninho-borbo">
                   <h3>Nesta Edição:</h3>
                   <ul class="xp-objectives">
-                    <li>Cápsula do Tempo: Entrevistas com o Toninho Borbo em Agosto de 2018 e em Agosto de 2026.</li>
-                    <li>Arte: Conheça o Ilustrador paraibano Eldon Evangelista.</li>
-                    <li>Contribua com o trabalho do artista!.</li>
-                    <li>Como usar o seu Memora: Na parede, ou como porta-copos.</li>
-                    <li>Comunidade: Conecte-se com os colecionadores que adquiriram esta versão.</li>
+                    <li>Cápsula do Tempo: entrevistas com Toninho Borbo em agosto de 2018 e agosto de 2026.</li>
+                    <li>Arte: conheça o ilustrador paraibano Eldon Evangelista.</li>
+                    <li>Contribuição: apoie o trabalho do artista e fortaleça sua produção independente.</li>
+                    <li>Coaster: use o seu Memora na parede ou como porta-copos.</li>
+                    <li>Comunidade: conecte-se com os colecionadores que adquiriram esta versão.</li>
+                    <li>Token: acesso autenticado aos conteúdos e experiências exclusivas desta edição.</li>
                   </ul>
                 </div>
               </article>
@@ -286,6 +287,7 @@
                     <li>Arte: wallpapers e materiais visuais da edição.</li>
                     <li>Comunidade: conexão entre colecionadores desta versão.</li>
                     <li>Coaster: peça física numerada da coleção.</li>
+                    <li>Pagamentos: área preparada para apoiar a banda e adquirir experiências ou conteúdos especiais.</li>
                   </ul>
                 </div>
               </article>
@@ -319,6 +321,7 @@
                     <li>Cápsula do Tempo: espaço preparado para registros, relatos e bastidores.</li>
                     <li>Comunidade: conexão entre colecionadores e fãs da banda.</li>
                     <li>Coaster: peça física numerada para a coleção Memora Music.</li>
+                    <li>Pagamentos: espaço preparado para apoiar a banda e acessar ações especiais da edição.</li>
                   </ul>
                 </div>
               </article>
@@ -351,6 +354,7 @@
                     <li>Direção: clipe dirigido e produzido por Natha.</li>
                     <li>Bastidores: registros do processo criativo e audiovisual.</li>
                     <li>Comunidade: conexão entre colecionadores, realizadores e ouvintes.</li>
+                    <li>Token: acesso autenticado ao clipe, aos conteúdos exclusivos e aos registros desta edição.</li>
                   </ul>
                 </div>
               </article>
@@ -477,6 +481,13 @@
     <script src="assets/memora-access.js"></script>
     <script>
       (() => {
+        const productSection = document.querySelector('.intro-band');
+        const editionsSection = document.querySelector('.editions-band');
+
+        if (productSection && editionsSection) {
+          productSection.insertAdjacentElement('afterend', editionsSection);
+        }
+
         const routes = {
           toninho: "manager-toninho-borbo-biplano.html",
           aura: "manager-aura.html",

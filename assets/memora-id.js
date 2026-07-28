@@ -5,7 +5,7 @@
     contact: ["Instagram @arthurmina", "WhatsApp: (83) 999139300"],
     role: "Colecionador de experiências",
     avatar: "assets/avatar.png",
-    stats: { Tokens: 4, XP: 1280, Memórias: 12, Eventos: 3 },
+    stats: { Tokens: 5, XP: 1280, Memórias: 12, Eventos: 3 },
   };
 
   const mockDifusora = [

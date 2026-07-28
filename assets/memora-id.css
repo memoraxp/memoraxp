@@ -455,6 +455,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
 
 .memora-id-hive-track {
   --hive-cell-size: clamp(210px, 23vw, 286px);
+  --hive-cell-height: calc(var(--hive-cell-size) * 0.8660254);
   --hive-horizontal-lock: calc(var(--hive-cell-size) * -0.25);
   --hive-vertical-lock: 25%;
 
@@ -472,6 +473,7 @@ html.has-nav-scrolled .memora-id-profile-dock {
   z-index: 1;
   display: grid;
   width: var(--hive-cell-size);
+  height: var(--hive-cell-height);
   flex: 0 0 auto;
   place-items: center;
   border: 0;
@@ -491,11 +493,21 @@ html.has-nav-scrolled .memora-id-profile-dock {
 }
 
 .memora-id-honeycomb-cell img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   pointer-events: none;
+  transform: translate(-50%, -50%);
   user-select: none;
+}
+
+.memora-id-honeycomb-cell--nbb img {
+  top: 51.2%;
+  width: 103.3%;
+  height: 153.6%;
 }
 
 .memora-id-honeycomb-cell::before,

@@ -233,7 +233,7 @@
       image: "assets/CF.jpg",
       digitalCard: { front: "assets/WPF1.png", back: "assets/MF2.png" },
       wallpapers: [{ name: "WPF1", src: "assets/WPF1.png" }, { name: "MF2", src: "assets/MF2.png" }],
-      tile: "assets/playoffs-nbb-token.png",
+      tile: "assets/MC5.png",
       managerPage: "manager-playoffs-nbb.html",
       publicPage: "edicao-playoffs-nbb.html",
       titleLogo: "assets/logounifacisa.png",
