@@ -1,0 +1,101 @@
+{
+  "studio-hero.webp": {
+    "role": "Hero principal com logo oficial integrada",
+    "css": "background-size: cover; background-position: center",
+    "dimensions": [
+      2400,
+      1204
+    ],
+    "format": "WEBP"
+  },
+  "studio-hero-clean.webp": {
+    "role": "Hero alternativo sem logo embutida",
+    "css": "sobrepor a logo oficial via HTML/CSS",
+    "dimensions": [
+      2400,
+      1204
+    ],
+    "format": "WEBP"
+  },
+  "studio-cta.webp": {
+    "role": "Imagem da chamada final",
+    "css": "background-size: cover; background-position: center",
+    "dimensions": [
+      2400,
+      907
+    ],
+    "format": "WEBP"
+  },
+  "session-reckless.webp": {
+    "role": "Card da Reckless",
+    "dimensions": [
+      1280,
+      770
+    ],
+    "format": "WEBP"
+  },
+  "session-aura.webp": {
+    "role": "Card da Aura",
+    "dimensions": [
+      1280,
+      766
+    ],
+    "format": "WEBP"
+  },
+  "session-fourkaos.webp": {
+    "role": "Card da Fourkaos",
+    "dimensions": [
+      1280,
+      768
+    ],
+    "format": "WEBP"
+  },
+  "session-distance-and-belief.webp": {
+    "role": "Card da Distance and Belief",
+    "dimensions": [
+      1280,
+      764
+    ],
+    "format": "WEBP"
+  },
+  "sala-01.webp": {
+    "role": "Sala 01",
+    "dimensions": [
+      1280,
+      841
+    ],
+    "format": "WEBP"
+  },
+  "sala-02.webp": {
+    "role": "Sala 02",
+    "dimensions": [
+      1280,
+      834
+    ],
+    "format": "WEBP"
+  },
+  "sala-03.webp": {
+    "role": "Sala 03",
+    "dimensions": [
+      1280,
+      749
+    ],
+    "format": "WEBP"
+  },
+  "memora-studio-logo.png": {
+    "role": "Logo horizontal oficial",
+    "dimensions": [
+      2048,
+      682
+    ],
+    "format": "PNG"
+  },
+  "memora-studio-logo-icon.png": {
+    "role": "Ícone oficial",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "format": "PNG"
+  }
+}
