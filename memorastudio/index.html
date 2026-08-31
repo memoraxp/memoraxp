@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#030303">
+    <meta name="description" content="Memora Studio — estúdio de ensaio, gravação, audiovisual e produção para músicos." data-i18n-content="meta.description">
+    <title data-i18n="meta.title">Memora Studio | Seu tempo. Seu som. Seu espaço.</title>
+    <link rel="icon" type="image/png" href="assets/images/memora-studio-logo-icon.png">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="../memora-ecosystem.css">
+    <script src="assets/js/main.js" defer></script>
+  </head>
+  <body class="ecosystem-page ecosystem-page--studio">
+    <a class="skip-link" href="#conteudo" data-i18n="accessibility.skipContent">Pular para o conteúdo</a>
+
+    <header class="studio-header ecosystem-header" data-header data-ecosystem-header>
+      <div class="header-inner ecosystem-header__inner">
+        <a class="studio-brand ecosystem-brand" href="#inicio" aria-label="Memora Studio — início" data-i18n-aria-label="brand.homeLabel">
+          <img src="assets/images/memora-studio-logo.png" width="2048" height="682" alt="Memora Studio">
+        </a>
+
+        <nav class="desktop-nav ecosystem-primary-nav" aria-label="Navegação principal" data-i18n-aria-label="nav.mainLabel">
+          <a href="#studio" data-nav-link data-i18n="nav.studio">Studio</a>
+          <button class="nav-button" type="button" data-open-rooms data-i18n="nav.rooms">Salas</button>
+          <a href="#servicos" data-nav-link data-i18n="nav.services">Serviços</a>
+          <a href="#sessions" data-nav-link data-i18n="nav.sessions">Sessions</a>
+          <a href="#agendamento" data-nav-link data-i18n="nav.plans">Planos</a>
+          <a href="#connect" data-nav-link data-i18n="nav.connect">Connect</a>
+        </nav>
+
+        <div class="header-actions ecosystem-actions">
+          <div class="ecosystem-switcher" data-ecosystem-switcher>
+            <button class="ecosystem-control ecosystem-switcher__toggle" type="button" aria-expanded="false" aria-controls="studio-ecosystem-panel" data-ecosystem-toggle>Ecossistema</button>
+            <div class="ecosystem-switcher__panel" id="studio-ecosystem-panel" data-ecosystem-panel hidden>
+              <a href="../memora/index.html">Memora</a>
+              <a href="index.html" aria-current="page">Memora Studio</a>
+              <a href="../memoraticket/index.html">Memora Ticket</a>
+            </div>
+          </div>
+          <div class="language-switcher" role="group" aria-label="Selecionar idioma" data-i18n-aria-label="language.selectorLabel">
+            <button type="button" data-language="pt-BR" aria-pressed="true" aria-label="Usar português" data-i18n-aria-label="language.ptLabel">PT</button>
+            <span aria-hidden="true">|</span>
+            <button type="button" data-language="en" aria-pressed="false" aria-label="Use English" data-i18n-aria-label="language.enLabel">EN</button>
+          </div>
+          <a class="button button-primary button-small ecosystem-control--primary" href="#agendamento">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Zm3 8h3v3H8v-3Z"/></svg>
+            <span data-i18n="actions.book">Agendar</span>
+          </a>
+          <button class="user-button ecosystem-control--icon" type="button" aria-label="Acessar área do cliente" data-i18n-aria-label="actions.clientAreaLabel" data-i18n-toast="toast.clientArea">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm7 8a7 7 0 0 0-14 0"/></svg>
+          </button>
+        </div>
+
+        <button class="menu-toggle ecosystem-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu" data-menu-toggle data-i18n-aria-label="menu.open">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="mobile-menu ecosystem-mobile-menu" id="mobile-menu" data-mobile-menu hidden>
+        <div class="mobile-language-row">
+          <span data-i18n="language.label">Idioma</span>
+          <div class="language-switcher" role="group" aria-label="Selecionar idioma" data-i18n-aria-label="language.selectorLabel">
+            <button type="button" data-language="pt-BR" aria-pressed="true" aria-label="Usar português" data-i18n-aria-label="language.ptLabel">PT</button>
+            <span aria-hidden="true">|</span>
+            <button type="button" data-language="en" aria-pressed="false" aria-label="Use English" data-i18n-aria-label="language.enLabel">EN</button>
+          </div>
+        </div>
+        <nav aria-label="Navegação móvel" data-i18n-aria-label="nav.mobileLabel">
+          <a href="#studio" data-i18n="nav.studio">Studio</a>
+          <button type="button" data-open-rooms data-i18n="nav.rooms">Salas</button>
+          <a href="#servicos" data-i18n="nav.services">Serviços</a>
+          <a href="#sessions" data-i18n="nav.sessions">Sessions</a>
+          <a href="#agendamento" data-i18n="nav.plans">Planos</a>
+          <a href="#connect" data-i18n="nav.connect">Connect</a>
+          <button type="button" data-i18n-toast="toast.clientArea" data-i18n="actions.clientAreaLabel">Área do cliente</button>
+          <a class="button button-primary" href="#agendamento" data-i18n="actions.bookTime">Agendar horário</a>
+        </nav>
+        <div class="ecosystem-mobile-brands" aria-label="Ecossistema Memora">
+          <a href="../memora/index.html">Memora</a>
+          <a href="index.html" aria-current="page">Memora Studio</a>
+          <a href="../memoraticket/index.html">Memora Ticket</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <img class="hero-image" src="assets/images/studio-hero-clean.webp" width="2400" height="1204" alt="Sala do Memora Studio com bateria, amplificadores e equipamentos de áudio" data-i18n-alt="hero.imageAlt" fetchpriority="high">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <img class="hero-wall-logo" src="assets/images/memora-studio-logo.png" width="2048" height="682" alt="" aria-hidden="true">
+        <svg class="hero-hex hero-hex-one" viewBox="0 0 180 208" aria-hidden="true" focusable="false"><polygon points="90,3 176,53 176,155 90,205 4,155 4,53"/></svg>
+        <svg class="hero-hex hero-hex-two" viewBox="0 0 180 208" aria-hidden="true" focusable="false"><polygon points="90,3 176,53 176,155 90,205 4,155 4,53"/></svg>
+
+        <div class="shell hero-content">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Memora Studio</p>
+            <h1 id="hero-title" data-i18n-html="hero.title"><span class="hero-line hero-line-light">Seu tempo.</span><span class="hero-line hero-line-light">Seu som.</span><span class="hero-line">Seu espaço.</span></h1>
+            <p class="hero-text" data-i18n-html="hero.text">Um estúdio completo para ensaiar,<br>gravar, criar e se conectar.<br>Tecnologia, conforto e organização<br>para você focar no que importa:<br>a música.</p>
+            <div class="button-row">
+              <a class="button button-primary" href="#agendamento" data-i18n="actions.bookTime">Agendar horário</a>
+              <a class="button button-outline" href="#studio" data-i18n="actions.discoverStudio">Conhecer o Studio</a>
+            </div>
+          </div>
+        </div>
+        <a class="scroll-cue" href="#servicos">
+          <span class="mouse" aria-hidden="true"><i></i></span>
+          <span data-i18n="hero.scroll">Role para explorar</span>
+        </a>
+      </section>
+
+      <section class="services-band" id="servicos" aria-labelledby="services-title">
+        <h2 class="visually-hidden" id="services-title" data-i18n="services.heading">Serviços do Memora Studio</h2>
+        <div class="shell feature-grid feature-grid-services">
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 19h4l3-8 5 14 3-8h5M4 6v20h24"/></svg>
+            <div><h3 data-i18n="services.rehearsal.title">Ensaio</h3><p data-i18n="services.rehearsal.text">Salas equipadas e acusticamente tratadas para você e sua banda.</p></div>
+          </article>
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="11" y="4" width="10" height="17" rx="5"/><path d="M7 16a9 9 0 0 0 18 0M16 25v4m-5 0h10"/></svg>
+            <div><h3 data-i18n="services.recording.title">Gravação</h3><p data-i18n="services.recording.text">Grave seu ensaio ou produção com qualidade profissional.</p></div>
+          </article>
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="8" width="17" height="16" rx="2"/><path d="m21 13 7-4v14l-7-4"/></svg>
+            <div><h3 data-i18n="services.audiovisual.title">Audiovisual</h3><p data-i18n="services.audiovisual.text">Registre seus ensaios e produções com vídeo em alta qualidade.</p></div>
+          </article>
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7h22M5 16h22M5 25h22M11 4v6m10 3v6M14 22v6"/></svg>
+            <div><h3 data-i18n="services.production.title">Produção</h3><p data-i18n="services.production.text">Mixagem, edição e suporte técnico para levar sua música mais longe.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="experience section" id="studio" aria-labelledby="experience-title">
+        <div class="shell experience-grid">
+          <div class="section-copy reveal">
+            <p class="eyebrow" data-i18n="experience.eyebrow">A experiência Memora</p>
+            <h2 id="experience-title" data-i18n-html="experience.title">Mais que um estúdio.<br><span>Uma experiência.</span></h2>
+            <p data-i18n="experience.text">Eliminamos a bagunça para você focar na música. Agendamento fácil, divisão de pagamentos, créditos, organização de arquivos e conexão com músicos e profissionais.</p>
+            <blockquote data-i18n-html="experience.quote">Você cuida da música.<br><strong>O Studio cuida do resto.</strong></blockquote>
+            <a class="button button-outline" href="#agendamento" data-i18n="actions.learnMore">Saiba mais</a>
+          </div>
+
+          <div class="values-hive reveal" aria-label="Valores do Memora Studio" data-i18n-aria-label="values.label">
+            <article class="value-card value-connection">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 12a4 4 0 1 0-4-4m12 4a4 4 0 1 1 4-4M8 16h8M5 21a5 5 0 0 1 5-5m9 5a5 5 0 0 0-5-5"/></svg>
+              <h3 data-i18n="values.connection.title">Conexão</h3><p data-i18n="values.connection.text">Conectamos músicos, serviços e oportunidades.</p>
+            </article>
+            <article class="value-card value-time">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>
+              <h3 data-i18n="values.punctuality.title">Pontualidade</h3><p data-i18n="values.punctuality.text">Respeitamos seu tempo e transformamos isso em benefícios.</p>
+            </article>
+            <article class="value-card value-innovation">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6m-5 3h4m4-12a6 6 0 1 1-12 0c0-4 3-6 6-6s6 2 6 6Zm-8 5h4"/></svg>
+              <h3 data-i18n="values.innovation.title">Inovação</h3><p data-i18n="values.innovation.text">Tecnologia para tornar tudo mais simples e eficiente.</p>
+            </article>
+            <article class="value-card value-access">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M4 8h16m-8 0v13m0-8-5 8m5-8 5 8"/></svg>
+              <h3 data-i18n="values.accessibility.title">Acessibilidade</h3><p data-i18n="values.accessibility.text">Música para todos. Espaço aberto à diversidade.</p>
+            </article>
+            <div class="value-center" aria-hidden="true">
+              <img src="assets/images/memora-studio-logo-icon.png" width="1254" height="1254" alt="">
+            </div>
+            <article class="value-card value-comfort">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11V8a3 3 0 0 1 6 0v3m0 0V8a3 3 0 0 1 6 0v3m-14 0h16v8H4zM7 19v2m10-2v2"/></svg>
+              <h3 data-i18n="values.comfort.title">Conforto</h3><p data-i18n="values.comfort.text">Ambiente preparado para você se sentir bem e criar livremente.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="booking section" id="agendamento" aria-labelledby="booking-title">
+        <div class="shell booking-layout">
+          <div class="section-copy booking-copy reveal">
+            <p class="eyebrow" data-i18n="booking.eyebrow">Agenda online</p>
+            <h2 id="booking-title" data-i18n-html="booking.title">Reserve em<br><span>poucos cliques</span></h2>
+            <p data-i18n="booking.text">Veja horários disponíveis, escolha sua sala, adicione serviços, divida com a banda e pronto. Tudo em um só lugar.</p>
+            <a class="button button-primary" href="#agenda-painel" data-i18n="actions.bookNow">Agendar agora</a>
+            <div class="availability-key" aria-label="Legenda da agenda" data-i18n-aria-label="booking.legendLabel">
+              <span><i class="available"></i><span data-i18n="booking.available">Disponível</span></span>
+              <span><i class="occupied"></i><span data-i18n="booking.occupied">Ocupado</span></span>
+              <span><i class="selected"></i><span data-i18n="booking.selected">Selecionado</span></span>
+            </div>
+          </div>
+
+          <div class="booking-panel reveal" id="agenda-painel">
+            <div class="booking-toolbar">
+              <div>
+                <span class="panel-kicker" data-i18n="booking.chooseDate">Escolha uma data</span>
+                <strong id="visible-date-label">Quinta-feira, 21 de maio</strong>
+              </div>
+              <div class="date-controls">
+                <button type="button" aria-label="Dia anterior" data-date-prev data-i18n-aria-label="booking.previousDay">←</button>
+                <label class="date-picker">
+                  <span class="visually-hidden" data-i18n="booking.selectDate">Selecionar data</span>
+                  <input type="date" min="2026-05-21" max="2026-05-25" value="2026-05-21" data-date-input>
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"/></svg>
+                </label>
+                <button type="button" aria-label="Próximo dia" data-date-next data-i18n-aria-label="booking.nextDay">→</button>
+              </div>
+            </div>
+
+            <div class="schedule-scroll" tabindex="0" aria-label="Tabela de horários; deslize horizontalmente se necessário" data-i18n-aria-label="booking.scheduleLabel">
+              <table class="schedule-table">
+                <caption class="visually-hidden" data-i18n="booking.caption">Horários disponíveis por sala</caption>
+                <thead><tr id="schedule-head"></tr></thead>
+                <tbody id="schedule-body"></tbody>
+              </table>
+            </div>
+
+            <div class="booking-summary" aria-live="polite">
+              <div class="summary-main">
+                <span class="panel-kicker" data-i18n="booking.yourBooking">Sua reserva</span>
+                <strong id="summary-room">Sala 01</strong>
+                <p id="summary-time">21/05 — 20:00 às 22:00</p>
+                <small id="summary-duration">2 horas</small>
+              </div>
+              <ul class="summary-services" id="summary-services"></ul>
+              <div class="summary-total">
+                <span data-i18n="booking.total">Total</span>
+                <strong id="summary-total">R$ 320,00</strong>
+              </div>
+              <button class="button button-primary" type="button" data-confirm-booking data-i18n="actions.continue">Continuar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="benefits-band" aria-labelledby="benefits-title">
+        <h2 class="visually-hidden" id="benefits-title" data-i18n="benefits.heading">Diferenciais do Memora Studio</h2>
+        <div class="shell feature-grid">
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="11" cy="10" r="4"/><circle cx="23" cy="12" r="3"/><path d="M3 27a8 8 0 0 1 16 0m1-7a6 6 0 0 1 9 5"/></svg>
+            <div><h3 data-i18n="benefits.split.title">Divida com a banda</h3><p data-i18n="benefits.split.text">Convide os integrantes e cada um paga sua parte.</p></div>
+          </article>
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3v26M22 8c0-3-3-5-6-5s-6 2-6 5 2 5 6 6 6 3 6 7-3 8-7 8-7-2-7-6"/></svg>
+            <div><h3>Memora Credits</h3><p data-i18n="benefits.credits.text">Ganhe créditos com pontualidade, pacotes e indicações.</p></div>
+          </article>
+          <article class="feature-item reveal">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 8h9l3 3h12v16H4zM4 8V5h9l3 3"/></svg>
+            <div><h3 data-i18n="benefits.files.title">Arquivos organizados</h3><p data-i18n="benefits.files.text">Todas as gravações e mídias da sua banda em um só lugar.</p></div>
+          </article>
+          <article class="feature-item reveal" id="connect">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="14" cy="13" r="7"/><path d="m20 19 7 7M10 13h8m-4-4v8"/></svg>
+            <div><h3 data-i18n="benefits.musicians.title">Encontre músicos</h3><p data-i18n="benefits.musicians.text">Precisa de alguém? Conecte-se com músicos e profissionais.</p></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="sessions section" id="sessions" aria-labelledby="sessions-title">
+        <div class="shell">
+          <header class="section-heading reveal">
+            <div><p class="eyebrow">Memora Sessions</p><h2 id="sessions-title"><span class="sessions-recorded-at" data-i18n="sessions.recordedAt">Gravado no</span><br><span>Memora Studio</span></h2></div>
+            <button class="button button-outline" type="button" data-i18n-toast="toast.sessionsSoon" data-i18n="sessions.viewAll">Ver todas sessions</button>
+          </header>
+          <div class="sessions-grid" id="sessions-grid"></div>
+        </div>
+      </section>
+
+      <section class="final-cta" aria-labelledby="cta-title">
+        <img src="assets/images/studio-cta.webp" width="2400" height="907" alt="Guitarra e pedais no palco do Memora Studio" data-i18n-alt="cta.imageAlt" loading="lazy" decoding="async">
+        <div class="cta-overlay" aria-hidden="true"></div>
+        <div class="shell cta-content reveal">
+          <p class="eyebrow" data-i18n="cta.eyebrow">Sua próxima sessão começa aqui</p>
+          <h2 id="cta-title" data-i18n-html="cta.title">Pronto para levar<br>sua música <span>mais longe?</span></h2>
+          <p data-i18n="cta.text">Agende agora e viva a experiência Memora Studio.</p>
+          <a class="button button-primary" href="#agendamento" data-i18n="actions.bookTime">Agendar horário</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="studio-footer" id="contato">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <a href="#inicio" aria-label="Memora Studio — início" data-i18n-aria-label="brand.homeLabel"><img src="assets/images/memora-studio-logo.png" width="2048" height="682" alt="Memora Studio"></a>
+          <p data-i18n="footer.description">Estúdio de ensaio, gravação e produção pensado para músicos que levam a música a sério.</p>
+          <div class="social-list" aria-label="Redes sociais" data-i18n-aria-label="footer.socialLabel">
+            <button type="button" aria-label="Instagram" data-social="instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></button>
+            <button type="button" aria-label="YouTube" data-social="youtube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8s0-3-3-3H6C3 5 3 8 3 8v8s0 3 3 3h12c3 0 3-3 3-3z"/><path d="m10 9 5 3-5 3z"/></svg></button>
+            <button type="button" aria-label="WhatsApp" data-social="whatsapp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"/><path d="M9 8c.5 4 3 6 7 7"/></svg></button>
+          </div>
+        </div>
+        <div class="footer-column"><h2 data-i18n="footer.navigation">Navegação</h2><a href="#studio" data-i18n="footer.theStudio">O Studio</a><button type="button" data-open-rooms data-i18n="nav.rooms">Salas</button><a href="#servicos" data-i18n="nav.services">Serviços</a><a href="#sessions" data-i18n="nav.sessions">Sessions</a><a href="#agendamento" data-i18n="nav.plans">Planos</a><a href="#connect" data-i18n="nav.connect">Connect</a><a href="#agendamento" data-i18n="actions.book">Agendar</a></div>
+        <div class="footer-column"><h2 data-i18n="nav.services">Serviços</h2><a href="#servicos" data-i18n="services.rehearsal.title">Ensaio</a><a href="#servicos" data-i18n="services.recording.title">Gravação</a><a href="#servicos" data-i18n="services.audiovisual.title">Audiovisual</a><a href="#servicos" data-i18n="services.production.title">Produção</a><a href="#servicos" data-i18n="footer.mixing">Mixagem</a><a href="#sessions" data-i18n="session.type.live">Sessão ao vivo</a></div>
+        <div class="footer-column"><h2 data-i18n="footer.help">Ajuda</h2><button type="button" data-i18n-toast="toast.faqSoon" data-i18n="footer.faq">Perguntas Frequentes</button><a href="#agendamento" data-i18n="footer.howItWorks">Como Funciona</a><button type="button" data-i18n-toast="toast.policiesSoon" data-i18n="footer.policies">Políticas</button><a href="#contato" data-i18n="footer.contact">Contato</a></div>
+        <div class="footer-contact"><h2 data-i18n="footer.contact">Contato</h2><a id="contact-phone" href="#"></a><a id="contact-email" href="#"></a><address id="contact-address"></address><button class="button button-outline button-small" type="button" data-directions data-i18n="footer.directions">Como chegar</button></div>
+      </div>
+      <div class="shell footer-bottom"><span data-i18n="footer.copyright">© 2026 Memora Studio. Todos os direitos reservados.</span><span data-i18n="footer.tagline">Feito para quem leva a música a sério.</span></div>
+    </footer>
+
+    <dialog class="modal rooms-modal" id="rooms-modal" aria-labelledby="rooms-title">
+      <div class="modal-shell">
+        <header class="modal-header"><div><p class="eyebrow" data-i18n="rooms.eyebrow">Estrutura profissional</p><h2 id="rooms-title" data-i18n="rooms.title">Conheça nossas salas</h2></div><button class="modal-close" type="button" aria-label="Fechar modal" data-close-modal data-i18n-aria-label="modal.close">×</button></header>
+        <div class="rooms-grid" id="rooms-grid"></div>
+      </div>
+    </dialog>
+
+    <dialog class="modal video-modal" id="video-modal" aria-labelledby="video-title">
+      <div class="modal-shell modal-shell-small">
+        <button class="modal-close" type="button" aria-label="Fechar modal" data-close-modal data-i18n-aria-label="modal.close">×</button>
+        <div class="video-placeholder"><span class="play-icon" aria-hidden="true">▶</span><p class="eyebrow">Memora Sessions</p><h2 id="video-title" data-i18n="video.title">Vídeo em breve.</h2><p data-i18n="video.text">Estamos preparando este registro para você.</p></div>
+      </div>
+    </dialog>
+
+    <dialog class="modal confirmation-modal" id="confirmation-modal" aria-labelledby="confirmation-title">
+      <div class="modal-shell modal-shell-small">
+        <button class="modal-close" type="button" aria-label="Fechar modal" data-close-modal data-i18n-aria-label="modal.close">×</button>
+        <div class="confirmation-content">
+          <div class="success-mark" aria-hidden="true">✓</div>
+          <p class="eyebrow" data-i18n="confirmation.eyebrow">Reserva selecionada</p>
+          <h2 id="confirmation-title" data-i18n="confirmation.title">Tudo certo para continuar.</h2>
+          <p id="confirmation-copy"></p>
+          <p class="modal-note" data-i18n="confirmation.note">Esta é uma demonstração. A integração de pagamento e confirmação será conectada ao backend futuramente.</p>
+          <button class="button button-primary" type="button" data-close-modal data-i18n="actions.gotIt">Entendi</button>
+        </div>
+      </div>
+    </dialog>
+
+    <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-toast-region></div>
+    <script src="../memora-ecosystem.js"></script>
+  </body>
+</html>

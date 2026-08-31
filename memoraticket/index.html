@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Descubra experiências, garanta seus ingressos e preserve as memórias dos eventos que marcaram sua vida.">
+  <meta property="og:title" content="Memora Ticket — O evento termina. A memória continua.">
+  <meta property="og:description" content="Ingressos para viver agora. Memórias para guardar para sempre.">
+  <title>Memora Ticket — Ingressos que viram memórias</title>
+  <link rel="icon" href="assets/images/memoraticket.png" type="image/png">
+  <link rel="preload" href="assets/images/memoraticket.png" as="image">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="../memora-ecosystem.css">
+  <script src="assets/js/data.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+  <script src="../memora-ecosystem.js" defer></script>
+</head>
+<body class="ecosystem-page ecosystem-page--ticket">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="site-header ecosystem-header" id="inicio" data-ecosystem-header>
+    <div class="container header-inner ecosystem-header__inner">
+      <a class="brand ecosystem-brand" href="index.html" aria-label="Memora Ticket — página inicial">
+        <img src="assets/images/memoraticket.png" alt="Memora Ticket" width="314" height="68">
+      </a>
+
+      <nav class="desktop-nav ecosystem-primary-nav" aria-label="Navegação principal">
+        <a href="#eventos">Eventos</a>
+        <a href="#memorias">Como funciona</a>
+        <a href="#organizadores">Para organizadores</a>
+      </nav>
+
+      <div class="header-actions ecosystem-actions">
+        <div class="ecosystem-switcher" data-ecosystem-switcher>
+          <button class="ecosystem-control ecosystem-switcher__toggle" type="button" aria-expanded="false" aria-controls="ticket-ecosystem-panel" data-ecosystem-toggle>Ecossistema</button>
+          <div class="ecosystem-switcher__panel" id="ticket-ecosystem-panel" data-ecosystem-panel hidden>
+            <a href="../memora/index.html">Memora</a>
+            <a href="../memorastudio/index.html">Memora Studio</a>
+            <a href="index.html" aria-current="page">Memora Ticket</a>
+          </div>
+        </div>
+        <a class="location-pill" href="#eventos" aria-label="Alterar localização">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <span>São Paulo</span>
+          <svg class="chevron" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg>
+        </a>
+        <a class="login-link ecosystem-control" href="em-breve.html">Entrar</a>
+        <a class="button button-small button-primary ecosystem-control--primary" href="em-breve.html">Criar conta</a>
+      </div>
+
+      <button class="menu-toggle ecosystem-menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="ticket-mobile-menu" data-ecosystem-menu-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="mobile-nav ecosystem-mobile-menu" id="ticket-mobile-menu" aria-label="Navegação móvel" data-ecosystem-mobile-menu hidden>
+      <a href="#eventos" aria-label="Alterar localização">Localização: São Paulo</a>
+      <a href="#eventos">Eventos</a>
+      <a href="#memorias">Como funciona</a>
+      <a href="#organizadores">Para organizadores</a>
+      <a href="em-breve.html">Entrar</a>
+      <a class="button button-primary ecosystem-control--primary" href="em-breve.html">Criar conta</a>
+      <span class="ecosystem-mobile-brands" aria-label="Ecossistema Memora">
+        <a href="../memora/index.html">Memora</a>
+        <a href="../memorastudio/index.html">Memora Studio</a>
+        <a href="index.html" aria-current="page">Memora Ticket</a>
+      </span>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="eyebrow-dot"></span> Viva hoje. Guarde para sempre.</span>
+          <h1>Ingressos para viver.<br><span>Memórias para guardar.</span></h1>
+          <p>Encontre os eventos que combinam com você e transforme cada experiência em uma lembrança que continua viva.</p>
+
+          <form class="search-bar" id="search-form" role="search">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <label class="sr-only" for="event-search">Buscar eventos</label>
+            <input id="event-search" type="search" placeholder="Busque por eventos, artistas ou lugares" autocomplete="off">
+            <button type="submit">Buscar</button>
+          </form>
+
+          <div class="hero-trust" aria-label="Benefícios">
+            <span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg> Compra segura</span>
+            <span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v18M7 7.5C7 5.6 8.9 4 11.3 4h1.2C15 4 17 5.5 17 7.5S15.4 11 12 11s-5 1.5-5 3.5S9 18 11.5 18h1.2c2.4 0 4.3-1.6 4.3-3.5"/></svg> Pagamento facilitado</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Destaques Memora Ticket">
+          <div class="hero-orbit hero-orbit-one"></div>
+          <div class="hero-orbit hero-orbit-two"></div>
+          <div class="hero-hex-frame hex-frame">
+            <article class="featured-card hex-primary">
+              <img src="../assets/fourkaos-background.jpg" alt="Show com luzes vermelhas e azuis">
+              <div class="featured-overlay"></div>
+              <div class="featured-top">
+                <button type="button" class="heart-button" aria-label="Favoritar evento">♡</button>
+              </div>
+              <div class="featured-content">
+                <span class="event-kicker">Música • São Paulo</span>
+                <h2>Noites que ficam</h2>
+                <p>Uma experiência ao vivo para sentir, registrar e reviver.</p>
+                <div class="featured-meta"><span>26 SET</span><span>20:00</span></div>
+              </div>
+            </article>
+          </div>
+          <div class="hero-node hero-highlight hex-icon"><span>★</span><strong>Em destaque</strong></div>
+          <div class="hero-node floating-memory hex-icon"><span>♥</span><strong>Sua memória</strong><small>após o evento</small></div>
+          <div class="hero-node floating-ticket hex-icon"><small>a partir de</small><strong>R$ 120</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="categories section-compact" aria-labelledby="categories-title">
+      <div class="container">
+        <div class="section-heading inline-heading">
+          <div><span class="section-kicker">Explore</span><h2 id="categories-title">Encontre seu próximo momento</h2></div>
+          <div class="slider-controls" aria-label="Navegar pelas categorias">
+            <button type="button" data-category-scroll="previous" aria-label="Ver categorias anteriores">←</button>
+            <button type="button" data-category-scroll="next" aria-label="Ver próximas categorias">→</button>
+          </div>
+        </div>
+        <div class="category-row" id="category-row"></div>
+      </div>
+    </section>
+
+    <section class="events-section" id="eventos" aria-labelledby="events-title">
+      <div class="container">
+        <div class="section-heading inline-heading">
+          <div><span class="section-kicker">Perto de você</span><h2 id="events-title">Eventos em destaque</h2></div>
+          <a class="text-link" href="em-breve.html">Ver todos <span>→</span></a>
+        </div>
+        <div class="event-grid" id="event-grid"></div>
+        <p class="empty-state" id="empty-state" hidden>Nenhum evento encontrado. Tente outra busca.</p>
+      </div>
+    </section>
+
+    <section class="memory-band" id="memorias" aria-labelledby="memory-title">
+      <div class="memory-glow memory-glow-one"></div>
+      <div class="memory-glow memory-glow-two"></div>
+      <div class="container memory-grid">
+        <div class="memory-copy">
+          <span class="section-kicker section-kicker-light">Muito além do ingresso</span>
+          <h2 id="memory-title">Seu ingresso<br><span>vira memória.</span></h2>
+          <p>Quando o evento termina, uma nova experiência começa. Fotos, vídeos, setlist, playlist e conteúdos especiais ficam guardados em um só lugar.</p>
+          <a class="button button-light" href="em-breve.html">Conheça as memórias <span>→</span></a>
+        </div>
+
+        <div class="memory-showcase" aria-label="Exemplo de memória digital">
+          <span class="memory-link memory-link-photo" aria-hidden="true"></span>
+          <span class="memory-link memory-link-music" aria-hidden="true"></span>
+          <span class="memory-link memory-link-seal" aria-hidden="true"></span>
+          <div class="memory-phone">
+            <div class="phone-top"><span></span><small>minha memória</small><span>•••</span></div>
+            <div class="phone-cover">
+              <img src="../assets/Capa.jpg" alt="Capa de uma memória digital de evento">
+              <div><span>MEMÓRIA #0182</span><h3>Uma noite inesquecível</h3><p>São Paulo • 26.09.2026</p></div>
+            </div>
+            <div class="phone-stats"><span><strong>24</strong> fotos</span><span><strong>07</strong> vídeos</span><span><strong>12</strong> músicas</span></div>
+          </div>
+          <div class="memory-chip chip-photo hex-icon"><span>▣</span><strong>Fotos</strong><small>Momentos únicos</small></div>
+          <div class="memory-chip chip-music hex-icon"><span>♫</span><strong>Playlist</strong><small>Ouça de novo</small></div>
+          <div class="memory-chip chip-seal hex-icon"><span>✦</span><strong>Certificado</strong><small>Você esteve lá</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="organizers" id="organizadores" aria-labelledby="organizers-title">
+      <div class="container organizers-grid">
+        <div class="organizers-art">
+          <div class="organizers-hex-frame hex-frame"><div class="organizers-photo hex-primary"><img src="../assets/pdf-img-008.jpg" alt="Identidade visual de uma experiência Memora"></div></div>
+          <div class="sales-card hex-icon"><span>Vendas hoje</span><strong>1.284</strong><small><b>↑ 18%</b></small></div>
+          <div class="audience-card hex-icon"><span>Público alcançado</span><strong>12.450</strong><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+        </div>
+        <div class="organizers-copy">
+          <span class="section-kicker">Para quem faz acontecer</span>
+          <h2 id="organizers-title">Seu evento começa muito antes de abrir as portas.</h2>
+          <p>Venda ingressos, acompanhe resultados e mantenha o relacionamento com seu público mesmo depois do último aplauso.</p>
+          <ul class="benefit-list">
+            <li><span>01</span><div><strong>Venda simples e segura</strong><small>Uma jornada fluida do primeiro clique ao ingresso.</small></div></li>
+            <li><span>02</span><div><strong>Dados em tempo real</strong><small>Acompanhe vendas e conheça melhor seu público.</small></div></li>
+            <li><span>03</span><div><strong>Relacionamento que continua</strong><small>Transforme participantes em uma comunidade.</small></div></li>
+          </ul>
+          <a class="button button-primary" href="em-breve.html">Quero organizar um evento <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wallet-section" aria-labelledby="wallet-title">
+      <div class="container wallet-card hex-cluster">
+        <div class="wallet-copy">
+          <span class="section-kicker">Tudo com você</span>
+          <h2 id="wallet-title">Seus ingressos.<br>Suas memórias. <span>Sempre à mão.</span></h2>
+          <p>Guarde ingressos, acesse eventos e reviva suas melhores experiências na carteira digital Memora.</p>
+          <div class="store-buttons">
+            <a href="em-breve.html" aria-label="Baixar na App Store"><span>●</span><div><small>Baixar na</small><strong>App Store</strong></div></a>
+            <a href="em-breve.html" aria-label="Disponível no Google Play"><span>▶</span><div><small>Disponível no</small><strong>Google Play</strong></div></a>
+          </div>
+        </div>
+        <div class="wallet-visual" aria-hidden="true">
+          <div class="wallet-ticket ticket-back"><span>MEMORA</span></div>
+          <div class="wallet-ticket ticket-front">
+            <div class="ticket-brand">memora</div><small>MEU INGRESSO</small><h3>Noites que ficam</h3>
+            <div class="ticket-code">|||| ||| || |||| |||</div><span>26 SET • 20:00</span>
+          </div>
+          <div class="phone-shell"><div class="phone-speaker"></div><div class="phone-screen"><small>Olá, Marina</small><h3>Minha carteira</h3><div class="mini-ticket"><span>PRÓXIMO EVENTO</span><strong>Noites que ficam</strong><small>26 set • São Paulo</small></div><div class="phone-nav"><i></i><i></i><i></i></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" aria-labelledby="testimonials-title">
+      <div class="container">
+        <div class="testimonial-heading"><span class="section-kicker">Histórias que continuam</span><h2 id="testimonials-title">Quem vive, não esquece.</h2><p>Experiências reais de quem escolheu guardar mais do que um ingresso.</p></div>
+        <div class="testimonial-grid" id="testimonial-grid"></div>
+      </div>
+    </section>
+
+    <section class="final-cta" aria-labelledby="cta-title">
+      <div class="container final-cta-inner">
+        <div><span>Seu próximo momento começa aqui.</span><h2 id="cta-title">Encontre uma experiência<br>para chamar de sua.</h2></div>
+        <a class="button button-white" href="#eventos">Explorar eventos <span>→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main">
+      <div class="footer-brand"><img src="assets/images/memoraticket2.png" alt="Memora Ticket" width="190" height="138"><p>O evento termina.<br>A memória continua.</p></div>
+      <div class="footer-column"><h2>Descubra</h2><a href="#eventos">Eventos</a><a href="#memorias">Como funciona</a><a href="em-breve.html">Categorias</a><a href="em-breve.html">Cidades</a></div>
+      <div class="footer-column"><h2>Organizadores</h2><a href="#organizadores">Venda ingressos</a><a href="em-breve.html">Soluções</a><a href="em-breve.html">Central do produtor</a><a href="em-breve.html">Fale com a gente</a></div>
+      <div class="footer-column"><h2>Ajuda</h2><a href="em-breve.html">Central de ajuda</a><a href="em-breve.html">Meus ingressos</a><a href="em-breve.html">Termos de uso</a><a href="em-breve.html">Privacidade</a></div>
+      <div class="footer-news"><h2>Fique por dentro</h2><p>Novos eventos e histórias direto no seu e-mail.</p><form id="newsletter-form"><label class="sr-only" for="newsletter-email">Seu e-mail</label><input type="email" id="newsletter-email" placeholder="Seu melhor e-mail" required><button type="submit" aria-label="Cadastrar e-mail">→</button></form><small id="newsletter-message" aria-live="polite"></small></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Memora Ticket. Todos os direitos reservados.</span><div class="social-links"><a href="em-breve.html" aria-label="Instagram">ig</a><a href="em-breve.html" aria-label="LinkedIn">in</a><a href="em-breve.html" aria-label="TikTok">tk</a></div></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
